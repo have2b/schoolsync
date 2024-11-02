@@ -22,5 +22,28 @@
   "Header": {
     "profile": "Profile",
     "logout": "Logout"
+  },
+  "Error": {
+    "title": {
+      "404": "Page Not Found",
+      "500": "Internal Server Error",
+      "403": "Forbidden",
+      "401": "Unauthorized",
+      "default": "Something went wrong"
+    },
+    "description": {
+      "404": "The resource you are looking for does not exist",
+      "500": "Something went wrong on our end",
+      "403": "You do not have permission to access this resource",
+      "401": "You are not authorized to access this resource",
+      "default": "Please try again later"
+    },
+    "button": "Try Again",
+    "details": {
+      "show": "Show details",
+      "hide": "Hide details",
+      "title": "Error details",
+      "id": "Error ID"
+    }
   }
 }

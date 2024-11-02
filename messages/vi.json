@@ -22,5 +22,28 @@
   "Header": {
     "profile": "Tài khoản",
     "logout": "Đăng xuất"
+  },
+  "Error": {
+    "title": {
+      "404": "Không tìm thấy tài nguyên",
+      "500": "Lỗi máy chủ",
+      "403": "Không có quyền truy cập",
+      "401": "Lỗi xác thực",
+      "default": "Có lỗi xảy ra"
+    },
+    "description": {
+      "404": "Tài nguyên bạn đang tìm kiếm không tồn tại",
+      "500": "Có lỗi xảy ra từ phía máy chủ",
+      "403": "Bạn không có quyền truy cập vào tài nguyên này",
+      "401": "Bạn không có quyền truy cập vào tài nguyên này",
+      "default": "Vui lòng thử lại sau"
+    },
+    "button": "Thử lại",
+    "details": {
+      "show": "Chi tiết",
+      "hide": "Đóng",
+      "title": "Chi tiết",
+      "id": "Mã lỗi"
+    }
   }
 }
