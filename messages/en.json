@@ -1,0 +1,26 @@
+{
+  "Metadata": {
+    "title": "G6 - School Management"
+  },
+  "Auth": {
+    "login": "Login"
+  },
+  "HomePage": {
+    "title": "Home",
+    "about": "About"
+  },
+  "Navigation": {
+    "title": "Navigation",
+    "students": "Students Management",
+    "teachers": "Teachers Management",
+    "departments": "Departments Management",
+    "classes": "Classes Management",
+    "courses": "Courses Management",
+    "grades": "Grades Management",
+    "tooltip": "Shortcut Ctrl + B"
+  },
+  "Header": {
+    "profile": "Profile",
+    "logout": "Logout"
+  }
+}

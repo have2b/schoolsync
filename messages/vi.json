@@ -1,0 +1,26 @@
+{
+  "Metadata": {
+    "title": "G6 - Quản lý trường học"
+  },
+  "Auth": {
+    "login": "Đăng nhập"
+  },
+  "HomePage": {
+    "title": "Trang chủ",
+    "about": "Giới thiệu"
+  },
+  "Navigation": {
+    "title": "Danh sách",
+    "students": "Quản lý sinh viên",
+    "teachers": "Quản lý giảng viên",
+    "departments": "Quản lý khoa",
+    "classes": "Quản lý lớp hành chính",
+    "courses": "Quản lý học phần",
+    "grades": "Quản lý điểm",
+    "tooltip": "Phím tắt Ctrl + B"
+  },
+  "Header": {
+    "profile": "Tài khoản",
+    "logout": "Đăng xuất"
+  }
+}
