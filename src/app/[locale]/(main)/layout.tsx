@@ -1,4 +1,5 @@
 import { routing } from '@/i18n/routing';
+import { SessionProvider } from '@/providers/SessionProvider';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -33,7 +34,9 @@ export default async function MainLayout({ children, params }: Readonly<MainLayo
   return (
     <html lang={locale}>
       <body className={`${robotoFlex.variable} antialiased`}>
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          <SessionProvider>{children}</SessionProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
