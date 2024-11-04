@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  Student @map("Sinh Vien")
+  Teacher @map("Giang Vien")
+  Admin   @map("Quan Tri")
+
+  @@map("VAITRO")
+}
+
+model Account {
+  id           Int     @id @default(autoincrement()) @map("MaTK")
+  username     String  @unique @map("TenTK")
+  email        String  @unique @map("Email")
+  password     String  @map("MatKhau")
+  name         String  @map("Ten")
+  role         Role    @map("VaiTro")
+  isFirstLogin Boolean @map("LanDauDangNhap")
+
+  students Student[]
+  teachers Teacher[]
+
+  @@map("TAIKHOAN")
+}
+
+enum Gender {
+  Male   @map("Nam")
+  Female @map("Nu")
+  Other  @map("Khac")
+
+  @@map("GIOITINH")
+}
+
+model Student {
+  id      Int      @id @default(autoincrement()) @map("MaSV")
+  dob     DateTime @map("NgaySinh")
+  gender  Gender   @default(Male) @map("GioiTinh")
+  address String   @map("DiaChi")
+  phone   String   @unique @map("SDT")
+
+  accountId Int     @map("MaTK")
+  account   Account @relation(fields: [accountId], references: [id])
+
+  departmentId Int        @map("MaKhoa")
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  classId Int   @map("MaLopHC")
+  class   Class @relation(fields: [classId], references: [id])
+
+  studentCourses StudentCourse[]
+
+  @@map("SINHVIEN")
+}
+
+model Department {
+  id      Int    @id @default(autoincrement()) @map("MaKhoa")
+  name    String @map("TenKhoa")
+  details String @map("MoTa")
+
+  Students Student[]
+  classes  Class[]
+
+  @@map("KHOA")
+}
+
+model Class {
+  id       Int    @id @default(autoincrement()) @map("MaLopHC")
+  name     String @map("TenLopHC")
+  capacity Int    @map("SoLuong")
+
+  departmentId Int        @map("MaKhoa")
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  students Student[]
+
+  teacherId Int     @map("MaGV")
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+
+  @@map("LOPHC")
+}
+
+model Course {
+  id        Int      @id @default(autoincrement()) @map("MaHP")
+  name      String   @map("TenHP")
+  credit    Int      @map("SoTC")
+  lesson    Int      @map("SoTiet")
+  semester  Int      @map("HocKy")
+  year      Int      @map("NamHoc")
+  startedAt DateTime @map("NgayBatDau")
+  endedAt   DateTime @map("NgayKetThuc")
+
+  teacherId Int     @map("MaGV")
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+
+  studentCourses StudentCourse[]
+
+  @@map("HOCPHAN")
+}
+
+enum Degree {
+  Bachelor @map("Cu Nhan")
+  Master   @map("Thac Si")
+  Phd      @map("Tien Si")
+  Assoc    @map("Pho Giao Su")
+  Prof     @map("Giao Su")
+
+  @@map("HOCVI")
+}
+
+model Teacher {
+  id      Int      @id @default(autoincrement()) @map("MaGV")
+  degree  Degree   @default(Bachelor) @map("HocVi")
+  major   String   @map("ChuyenNganh")
+  classes Class[]
+  courses Course[]
+
+  accountId Int     @map("MaTK")
+  account   Account @relation(fields: [accountId], references: [id])
+
+  @@map("GIANGVIEN")
+}
+
+model StudentCourse {
+  attendancePoint Decimal @map("DiemCC")
+  midTermPoint    Decimal @map("DiemKT1")
+  finalPoint      Decimal @map("DiemKT2")
+  finalGrade      Decimal @map("DiemTL")
+  examPoint       Decimal @map("DiemThi")
+
+  studentId Int     @map("MaSV")
+  student   Student @relation(fields: [studentId], references: [id])
+
+  courseId Int    @map("MaHP")
+  course   Course @relation(fields: [courseId], references: [id])
+
+  @@id([studentId, courseId])
+  @@map("DIEM")
+}
