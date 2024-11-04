@@ -7,14 +7,15 @@ const mainMiddleware = createMiddleware(routing);
 const authMiddleware = ({ req }: { req: NextRequest }) => {
   const token = req.cookies.get('AUTH_SESSION_TOKEN')?.value;
   const locale = req.nextUrl.pathname.startsWith('/vi/') ? 'vi' : 'en';
+  const isLoginPage = req.nextUrl.pathname.endsWith('/login');
 
   // If on login page and already logged in, redirect to home
-  if (req.nextUrl.pathname.endsWith('/login') && token) {
-    return NextResponse.redirect(new URL('/', req.url));
+  if (isLoginPage && token) {
+    return NextResponse.redirect(new URL(`/${locale}`, req.url));
   }
 
-  // If not on login page and not logged in, redirect to login
-  if (!token) {
+  // If on a protected route and not logged in, redirect to login
+  if (!isLoginPage && !token) {
     return NextResponse.redirect(new URL(`/${locale}/login`, req.url));
   }
 
@@ -22,10 +23,7 @@ const authMiddleware = ({ req }: { req: NextRequest }) => {
 };
 
 export default function middleware(req: NextRequest) {
-  // Check if it's a login page
   const isLoginPage = req.nextUrl.pathname.endsWith('/login');
-
-  // Check if path starts with /vi/ or /en/ (including root locale paths)
   const isProtectedRoute =
     (req.nextUrl.pathname.startsWith('/vi/') ||
       req.nextUrl.pathname.startsWith('/en/') ||
@@ -33,7 +31,7 @@ export default function middleware(req: NextRequest) {
       req.nextUrl.pathname === '/en') &&
     !isLoginPage;
 
-  // For login pages and protected routes, check authentication first
+  // Run authMiddleware on login page and protected routes
   if (isLoginPage || isProtectedRoute) {
     const authResponse = authMiddleware({ req });
     if (authResponse.status === 307) {
@@ -41,11 +39,10 @@ export default function middleware(req: NextRequest) {
     }
   }
 
-  // Apply i18n middleware for all routes
+  // Apply i18n middleware to handle routing
   return mainMiddleware(req);
 }
 
 export const config = {
-  // Match both internationalized pathnames and protected routes
   matcher: ['/', '/(vi|en)/:path*'],
 };
