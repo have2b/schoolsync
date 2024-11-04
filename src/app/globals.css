@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: var(--font-kumbh-sans);
+  font-family: var(--font-roboto-flex);
 }
 
 @layer base {

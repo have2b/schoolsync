@@ -5,8 +5,10 @@ import { NextRequest, NextResponse } from 'next/server';
 const mainMiddleware = createMiddleware(routing);
 
 const authMiddleware = ({ req }: { req: NextRequest }) => {
-  const token = req.cookies.get('auth_token')?.value;
-  if (!token || !token.startsWith('Bearer ') || !token.split('Bearer ')[1]) {
+  const token = req.cookies.get('session')?.value;
+  console.log(token);
+
+  if (!token) {
     const locale = req.nextUrl.pathname.startsWith('/vi/') ? 'vi' : 'en';
     return NextResponse.redirect(new URL(`/${locale}/login`, req.url));
   }

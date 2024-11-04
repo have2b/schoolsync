@@ -6,9 +6,9 @@ import localFont from 'next/font/local';
 import { notFound } from 'next/navigation';
 import '../../globals.css';
 
-const kumbhSans = localFont({
-  src: '../../fonts/KumbhSans.ttf',
-  variable: '--font-kumbh-sans',
+const robotoFlex = localFont({
+  src: '../../fonts/RobotoFlex.ttf',
+  variable: '--font-roboto-flex',
   weight: '100 900',
 });
 
@@ -32,7 +32,7 @@ export default async function MainLayout({ children, params }: Readonly<MainLayo
   const messages = await getMessages();
   return (
     <html lang={locale}>
-      <body className={`${kumbhSans.variable} antialiased`}>
+      <body className={`${robotoFlex.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>
