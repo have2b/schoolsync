@@ -17,6 +17,7 @@ import {
 } from '@/components';
 import { loginSchema } from '@/schema';
 import axios from 'axios';
+import { redirect } from 'next/navigation';
 
 export default function Login() {
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -27,10 +28,12 @@ export default function Login() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof loginSchema>) {
-    const res = axios.post('/api/auth/login', values);
+  async function onSubmit(values: z.infer<typeof loginSchema>) {
+    const res = await axios.post('/api/auth/login', values);
 
-    console.log(res);
+    if (res.data.status === 200) {
+      redirect('/');
+    }
   }
 
   return (
