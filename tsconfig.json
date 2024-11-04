@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/prisma": ["./prisma/instance"]
+      "@/prisma": ["./prisma/instance"],
+      "@/funcs": ["./server-functions"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
