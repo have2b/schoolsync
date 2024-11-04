@@ -43,3 +43,6 @@ next-env.d.ts
 
 # jetbrains
 .idea
+
+# log file
+*.log
