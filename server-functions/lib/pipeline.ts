@@ -1,4 +1,4 @@
-import { PipelineProps, PipelineResult } from '../types';
+import { PipelineProps, PipelineResult } from '../interfaces';
 import { logger } from './logger';
 
 export const pipeline = async <T>({

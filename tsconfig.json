@@ -21,6 +21,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/prisma": ["./prisma/instance"],
+      "@/funcs/*": ["./server-functions/*"],
       "@/funcs": ["./server-functions"]
     }
   },

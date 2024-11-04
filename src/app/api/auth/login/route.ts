@@ -1,4 +1,5 @@
-import { login, pipeline } from '@/funcs';
+import { pipeline } from '@/funcs';
+import { login } from '@/funcs/auth/login';
 
 export async function POST(req: Request) {
   const loginReq = await req.json();
