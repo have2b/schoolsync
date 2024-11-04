@@ -1,10 +1,14 @@
 import { JWTPayload, SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { cache } from 'react';
 import 'server-only';
+import { logger } from './logger';
 
 interface SessionPayload extends JWTPayload {
-  username: string;
+  accountId: number;
   expiresAt: Date;
+  role: string;
 }
 
 const secretKey = process.env.SESSION_SECRET;
@@ -25,16 +29,14 @@ export async function decrypt(session: string | undefined = '') {
     });
     return payload;
   } catch (error) {
-    console.log(error);
-
-    console.log('Failed to verify session');
+    logger.error('Error decrypting session', error);
   }
 }
 
-export async function createSession(username: string) {
+export async function createSession(accountId: number, role: string) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const token = await encrypt({ username, expiresAt });
-  return (await cookies()).set('session', token, {
+  const token = await encrypt({ accountId, expiresAt, role });
+  return (await cookies()).set('AUTH_SESSION_TOKEN', token, {
     httpOnly: true,
     secure: true,
     expires: expiresAt,
@@ -42,3 +44,14 @@ export async function createSession(username: string) {
     path: '/',
   });
 }
+
+export const verifySession = cache(async () => {
+  const cookie = (await cookies()).get('AUTH_SESSION_TOKEN')?.value;
+  const session = await decrypt(cookie);
+
+  if (!session?.accountId) {
+    redirect('/');
+  }
+
+  return { accountId: session.accountId, role: session.role };
+});

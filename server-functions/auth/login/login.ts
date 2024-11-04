@@ -30,7 +30,7 @@ export const login = async (req: LoginReq): Promise<PipelineResult<LoginRes | un
     };
   }
 
-  await createSession(findAccount.username);
+  await createSession(findAccount.id, findAccount.role);
 
   return {
     status: 200,
