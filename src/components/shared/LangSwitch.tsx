@@ -28,13 +28,13 @@ export const LangSwitch = () => {
 
   return (
     <Select onValueChange={onSelectChange} defaultValue={localActive} disabled={isPending}>
-      <SelectTrigger className="w-40">
+      <SelectTrigger className="w-[150px]">
         <SelectValue placeholder="Language" />
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="vi">
           <div className="flex items-center justify-start gap-2">
-            <div className="relative h-8 w-8">
+            <div className="relative size-8">
               <Image src={'/vn-flag.svg'} alt="vn-flag" fill />
             </div>
             <span className="font-medium">Tiếng Việt</span>
@@ -42,7 +42,7 @@ export const LangSwitch = () => {
         </SelectItem>
         <SelectItem value="en">
           <div className="flex items-center justify-start gap-2">
-            <div className="relative h-8 w-8">
+            <div className="relative size-8">
               <Image src={'/us-flag.svg'} alt="us-flag" fill />
             </div>
             <span className="font-medium">English</span>
