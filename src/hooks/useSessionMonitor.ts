@@ -24,7 +24,7 @@ export const useSessionMonitor = () => {
     checkSession();
 
     // Set up cookie change monitoring
-    const cookieMonitor = setInterval(checkSession, 1000);
+    const cookieMonitor = setInterval(checkSession, 2000);
 
     // Broadcast channel for cross-tab communication
     const channel = new BroadcastChannel('session-monitor');
