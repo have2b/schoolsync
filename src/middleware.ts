@@ -6,23 +6,28 @@ const mainMiddleware = createMiddleware(routing);
 
 const authMiddleware = ({ req }: { req: NextRequest }) => {
   const token = req.cookies.get('AUTH_SESSION_TOKEN')?.value;
-  const locale = req.nextUrl.pathname.startsWith('/vi/') ? 'vi' : 'en';
+
+  // Extract the requested locale from the URL
+  const requestedLocale = req.nextUrl.pathname.split('/')[1] || 'en';
   const isLoginPage = req.nextUrl.pathname.endsWith('/login');
 
   // If on login page and already logged in, redirect to home
   if (isLoginPage && token) {
-    return NextResponse.redirect(new URL(`/${locale}`, req.url));
+    return NextResponse.redirect(new URL(`/${requestedLocale}`, req.url));
   }
 
   // If on a protected route and not logged in, redirect to login
   if (!isLoginPage && !token) {
-    return NextResponse.redirect(new URL(`/${locale}/login`, req.url));
+    return NextResponse.redirect(new URL(`/${requestedLocale}/login`, req.url));
   }
 
   return NextResponse.next();
 };
 
 export default function middleware(req: NextRequest) {
+  // First, let the i18n middleware handle locale routing
+  const i18nResponse = mainMiddleware(req);
+
   const isLoginPage = req.nextUrl.pathname.endsWith('/login');
   const isProtectedRoute =
     (req.nextUrl.pathname.startsWith('/vi/') ||
@@ -31,7 +36,7 @@ export default function middleware(req: NextRequest) {
       req.nextUrl.pathname === '/en') &&
     !isLoginPage;
 
-  // Run authMiddleware on login page and protected routes
+  // Then apply auth middleware if needed
   if (isLoginPage || isProtectedRoute) {
     const authResponse = authMiddleware({ req });
     if (authResponse.status === 307) {
@@ -39,8 +44,7 @@ export default function middleware(req: NextRequest) {
     }
   }
 
-  // Apply i18n middleware to handle routing
-  return mainMiddleware(req);
+  return i18nResponse;
 }
 
 export const config = {

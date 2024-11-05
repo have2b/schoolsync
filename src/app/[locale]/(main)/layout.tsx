@@ -1,3 +1,5 @@
+import { SidebarProvider } from '@/components';
+import { AppSidebar } from '@/components/shared';
 import { routing } from '@/i18n/routing';
 import { SessionProvider } from '@/providers/SessionProvider';
 import type { Metadata } from 'next';
@@ -35,7 +37,12 @@ export default async function MainLayout({ children, params }: Readonly<MainLayo
     <html lang={locale}>
       <body className={`${robotoFlex.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
-          <SessionProvider>{children}</SessionProvider>
+          <SessionProvider>
+            <SidebarProvider>
+              <AppSidebar />
+              <main>{children}</main>
+            </SidebarProvider>
+          </SessionProvider>
         </NextIntlClientProvider>
       </body>
     </html>

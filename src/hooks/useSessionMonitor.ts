@@ -11,9 +11,12 @@ export const useSessionMonitor = () => {
         .split(';')
         .find((cookie) => cookie.trim().startsWith('AUTH_SESSION_TOKEN='));
 
+      // Only redirect to login if there's no session and we're not already on a login page
       if (!sessionCookie && !pathname.endsWith('/login')) {
-        const locale = pathname.startsWith('/vi/') ? 'vi' : 'en';
-        router.push(`/${locale}/login`);
+        // Preserve the requested locale instead of deriving from current path
+        const segments = pathname.split('/');
+        const targetLocale = segments[1] || 'en'; // Default to 'en' if no locale
+        router.push(`/${targetLocale}/login`);
       }
     };
 
