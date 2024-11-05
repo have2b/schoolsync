@@ -16,7 +16,7 @@ enum Role {
 }
 
 model Account {
-  id           Int     @id @default(autoincrement()) @map("MaTK")
+  id           Int     @id @default(autoincrement())
   username     String  @unique @map("TenTK")
   email        String  @unique @map("Email")
   password     String  @map("MatKhau")
@@ -39,11 +39,12 @@ enum Gender {
 }
 
 model Student {
-  id      Int      @id @default(autoincrement()) @map("MaSV")
-  dob     DateTime @map("NgaySinh")
-  gender  Gender   @default(Male) @map("GioiTinh")
-  address String   @map("DiaChi")
-  phone   String   @unique @map("SDT")
+  id          Int      @id @default(autoincrement())
+  studentCode String   @unique @map("MaSV")
+  dob         DateTime @map("NgaySinh")
+  gender      Gender   @default(Male) @map("GioiTinh")
+  address     String   @map("DiaChi")
+  phone       String   @unique @map("SDT")
 
   accountId Int     @map("MaTK")
   account   Account @relation(fields: [accountId], references: [id])
@@ -60,9 +61,10 @@ model Student {
 }
 
 model Department {
-  id      Int    @id @default(autoincrement()) @map("MaKhoa")
-  name    String @map("TenKhoa")
-  details String @map("MoTa")
+  id             Int    @id @default(autoincrement())
+  departmentCode String @unique @map("MaKhoa")
+  name           String @unique @map("TenKhoa")
+  detail         String @map("MoTa")
 
   Students Student[]
   classes  Class[]
@@ -71,9 +73,10 @@ model Department {
 }
 
 model Class {
-  id       Int    @id @default(autoincrement()) @map("MaLopHC")
-  name     String @map("TenLopHC")
-  capacity Int    @map("SoLuong")
+  id        Int    @id @default(autoincrement())
+  classCode String @unique @map("MaLopHC")
+  name      String @unique @map("TenLopHC")
+  capacity  Int    @map("SoLuong")
 
   departmentId Int        @map("MaKhoa")
   department   Department @relation(fields: [departmentId], references: [id])
@@ -87,14 +90,15 @@ model Class {
 }
 
 model Course {
-  id        Int      @id @default(autoincrement()) @map("MaHP")
-  name      String   @map("TenHP")
-  credit    Int      @map("SoTC")
-  lesson    Int      @map("SoTiet")
-  semester  Int      @map("HocKy")
-  year      Int      @map("NamHoc")
-  startedAt DateTime @map("NgayBatDau")
-  endedAt   DateTime @map("NgayKetThuc")
+  id         Int      @id @default(autoincrement())
+  courseCode String   @unique @map("MaHP")
+  name       String   @unique @map("TenHP")
+  credit     Int      @map("SoTC")
+  lesson     Int      @map("SoTiet")
+  semester   Int      @map("HocKy")
+  year       Int      @map("NamHoc")
+  startedAt  DateTime @map("NgayBatDau")
+  endedAt    DateTime @map("NgayKetThuc")
 
   teacherId Int     @map("MaGV")
   teacher   Teacher @relation(fields: [teacherId], references: [id])
@@ -115,11 +119,12 @@ enum Degree {
 }
 
 model Teacher {
-  id      Int      @id @default(autoincrement()) @map("MaGV")
-  degree  Degree   @default(Bachelor) @map("HocVi")
-  major   String   @map("ChuyenNganh")
-  classes Class[]
-  courses Course[]
+  id          Int      @id @default(autoincrement())
+  teacherCode String   @unique @map("MaGV")
+  degree      Degree   @default(Bachelor) @map("HocVi")
+  major       String   @map("ChuyenNganh")
+  classes     Class[]
+  courses     Course[]
 
   accountId Int     @map("MaTK")
   account   Account @relation(fields: [accountId], references: [id])
@@ -134,12 +139,12 @@ model StudentCourse {
   finalGrade      Decimal @map("DiemTL")
   examPoint       Decimal @map("DiemThi")
 
-  studentId Int     @map("MaSV")
-  student   Student @relation(fields: [studentId], references: [id])
+  studentCode String  @map("MaSV")
+  student     Student @relation(fields: [studentCode], references: [studentCode])
 
-  courseId Int    @map("MaHP")
-  course   Course @relation(fields: [courseId], references: [id])
+  courseCode String @map("MaHP")
+  course     Course @relation(fields: [courseCode], references: [courseCode])
 
-  @@id([studentId, courseId])
+  @@id([studentCode, courseCode])
   @@map("DIEM")
 }
