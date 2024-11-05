@@ -1,10 +1,10 @@
 import prisma from '@/prisma';
 import argon2 from 'argon2';
 
-const findData = await prisma.account.findMany({});
+const accountData = await prisma.account.findMany({});
 const passwordHash = await argon2.hash('password');
 
-if (findData.length === 0) {
+if (accountData.length === 0) {
   await prisma.account.createMany({
     data: [
       {
@@ -30,6 +30,29 @@ if (findData.length === 0) {
         name: 'Student',
         role: 'Student',
         isFirstLogin: false,
+      },
+    ],
+  });
+}
+
+const departmentData = await prisma.department.findMany({});
+if (departmentData.length === 0) {
+  await prisma.department.createMany({
+    data: [
+      {
+        departmentCode: 'K001',
+        name: 'Department 1',
+        detail: 'Department 1 detail',
+      },
+      {
+        departmentCode: 'K002',
+        name: 'Department 2',
+        detail: 'Department 2 detail',
+      },
+      {
+        departmentCode: 'K003',
+        name: 'Department 3',
+        detail: 'Department 3 detail',
       },
     ],
   });
