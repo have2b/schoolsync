@@ -1,5 +1,4 @@
-import { SidebarProvider } from '@/components';
-import { AppSidebar } from '@/components/shared';
+import { AppSidebar, Header, SidebarProvider } from '@/components';
 import { routing } from '@/i18n/routing';
 import { SessionProvider } from '@/providers/SessionProvider';
 import type { Metadata } from 'next';
@@ -40,7 +39,10 @@ export default async function MainLayout({ children, params }: Readonly<MainLayo
           <SessionProvider>
             <SidebarProvider>
               <AppSidebar />
-              <main>{children}</main>
+              <main className="w-full">
+                <Header />
+                {children}
+              </main>
             </SidebarProvider>
           </SessionProvider>
         </NextIntlClientProvider>
