@@ -12,7 +12,7 @@ import { getTranslations } from 'next-intl/server';
 import { LangSwitch } from './LangSwitch';
 
 export const Header = async () => {
-  const t = await getTranslations('Header');
+  const t = await getTranslations('header');
   return (
     <header className="flex w-full items-center justify-end gap-4 p-6 shadow-md">
       <LangSwitch />

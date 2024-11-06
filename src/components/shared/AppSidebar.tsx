@@ -20,7 +20,7 @@ import Link from 'next/link';
 import LocaleLink from './LocaleLink';
 
 export function AppSidebar() {
-  const t = useTranslations('Navigation');
+  const t = useTranslations('navigation');
   const { open } = useSidebar();
   return (
     <Sidebar collapsible="icon">
