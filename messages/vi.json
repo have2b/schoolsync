@@ -11,12 +11,12 @@
   },
   "navigation": {
     "title": "Danh Sách",
-    "students": "Quản Lý Sinh Viên",
-    "teachers": "Quản Lý Giảng Viên",
-    "departments": "Quản Lý Khoa",
-    "classes": "Quản Lý Lớp Hành Chính",
-    "courses": "Quản Lý Học Phần",
-    "grades": "Quản Lý Điểm",
+    "student": "Quản Lý Sinh Viên",
+    "teacher": "Quản Lý Giảng Viên",
+    "department": "Quản Lý Khoa",
+    "class": "Quản Lý Lớp Hành Chính",
+    "course": "Quản Lý Học Phần",
+    "grade": "Quản Lý Điểm",
     "tooltip": "Phím Tắt Ctrl + B"
   },
   "header": {
