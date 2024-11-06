@@ -1,3 +1,4 @@
+// middleware.ts
 import { routing } from '@/i18n/routing';
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
@@ -11,12 +12,12 @@ const authMiddleware = ({ req }: { req: NextRequest }) => {
   const requestedLocale = req.nextUrl.pathname.split('/')[1] || 'en';
   const isLoginPage = req.nextUrl.pathname.endsWith('/login');
 
-  // If on login page and already logged in, redirect to home
+  // Redirect to home if logged in and on the login page
   if (isLoginPage && token) {
     return NextResponse.redirect(new URL(`/${requestedLocale}`, req.url));
   }
 
-  // If on a protected route and not logged in, redirect to login
+  // Redirect to login if on a protected route and not logged in
   if (!isLoginPage && !token) {
     return NextResponse.redirect(new URL(`/${requestedLocale}/login`, req.url));
   }
@@ -25,20 +26,17 @@ const authMiddleware = ({ req }: { req: NextRequest }) => {
 };
 
 export default function middleware(req: NextRequest) {
-  // First, let the i18n middleware handle locale routing
+  // Let the i18n middleware handle locale routing first
   const i18nResponse = mainMiddleware(req);
 
+  // Define login and protected route checks
   const isLoginPage = req.nextUrl.pathname.endsWith('/login');
-  const isProtectedRoute =
-    (req.nextUrl.pathname.startsWith('/vi/') ||
-      req.nextUrl.pathname.startsWith('/en/') ||
-      req.nextUrl.pathname === '/vi' ||
-      req.nextUrl.pathname === '/en') &&
-    !isLoginPage;
+  const isProtectedRoute = /^\/(vi|en)(\/|$)/.test(req.nextUrl.pathname) && !isLoginPage;
 
-  // Then apply auth middleware if needed
+  // Apply auth middleware for protected routes and login page
   if (isLoginPage || isProtectedRoute) {
     const authResponse = authMiddleware({ req });
+    // Return auth response if it's a redirect (307), otherwise continue
     if (authResponse.status === 307) {
       return authResponse;
     }
