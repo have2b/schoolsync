@@ -1,49 +1,52 @@
 {
-  "Metadata": {
-    "title": "G6 - Quản lý trường học"
+  "metadata": {
+    "title": "SchoolSync"
   },
-  "Auth": {
-    "login": "Đăng nhập"
+  "auth": {
+    "login": "Đăng Nhập"
   },
-  "HomePage": {
-    "title": "Trang chủ",
-    "about": "Giới thiệu"
+  "homepage": {
+    "title": "Trang Chủ",
+    "about": "Giới Thiệu"
   },
-  "Navigation": {
-    "title": "Danh sách",
-    "students": "Quản lý sinh viên",
-    "teachers": "Quản lý giảng viên",
-    "departments": "Quản lý khoa",
-    "classes": "Quản lý lớp hành chính",
-    "courses": "Quản lý học phần",
-    "grades": "Quản lý điểm",
-    "tooltip": "Phím tắt Ctrl + B"
+  "navigation": {
+    "title": "Danh Sách",
+    "students": "Quản Lý Sinh Viên",
+    "teachers": "Quản Lý Giảng Viên",
+    "departments": "Quản Lý Khoa",
+    "classes": "Quản Lý Lớp Hành Chính",
+    "courses": "Quản Lý Học Phần",
+    "grades": "Quản Lý Điểm",
+    "tooltip": "Phím Tắt Ctrl + B"
   },
-  "Header": {
-    "profile": "Tài khoản",
-    "logout": "Đăng xuất"
+  "header": {
+    "profile": "Tài Khoản",
+    "logout": "Đăng Xuất"
   },
-  "Error": {
+  "error": {
     "title": {
-      "404": "Không tìm thấy tài nguyên",
-      "500": "Lỗi máy chủ",
-      "403": "Không có quyền truy cập",
-      "401": "Lỗi xác thực",
-      "default": "Có lỗi xảy ra"
+      "404": "Không Tìm Thấy Tài Nguyên",
+      "500": "Lỗi Máy Chủ",
+      "403": "Không Có Quyền Truy Cập",
+      "401": "Lỗi Xác Thực",
+      "default": "Có Lỗi Xảy Ra"
     },
     "description": {
-      "404": "Tài nguyên bạn đang tìm kiếm không tồn tại",
-      "500": "Có lỗi xảy ra từ phía máy chủ",
-      "403": "Bạn không có quyền truy cập vào tài nguyên này",
-      "401": "Bạn không có quyền truy cập vào tài nguyên này",
-      "default": "Vui lòng thử lại sau"
+      "404": "Tài Nguyên Bạn Đang Tìm Kiếm Không Tồn Tại",
+      "500": "Có Lỗi Xảy Ra Từ Phía Máy Chủ",
+      "403": "Bạn Không Có Quyền Truy Cập Vào Tài Nguyên Này",
+      "401": "Bạn Không Có Quyền Truy Cập Vào Tài Nguyên Này",
+      "default": "Vui Lòng Thử Lại Sau"
     },
-    "button": "Thử lại",
+    "button": "Thử Lại",
     "details": {
-      "show": "Chi tiết",
+      "show": "Chi Tiết",
       "hide": "Đóng",
-      "title": "Chi tiết",
-      "id": "Mã lỗi"
+      "title": "Chi Tiết",
+      "id": "Mã Lỗi"
     }
+  },
+  "department": {
+    "title": "Khoa"
   }
 }

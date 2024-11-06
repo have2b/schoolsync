@@ -1,49 +1,51 @@
 {
-  "Metadata": {
-    "title": "G6 - School Management"
+  "metadata": {
+    "title": "SchoolSync"
   },
-  "Auth": {
+  "auth": {
     "login": "Login"
   },
-  "HomePage": {
-    "title": "Home",
-    "about": "About"
+  "homepage": {
+    "title": "Home"
   },
-  "Navigation": {
-    "title": "Navigation",
-    "students": "Students Management",
-    "teachers": "Teachers Management",
-    "departments": "Departments Management",
-    "classes": "Classes Management",
-    "courses": "Courses Management",
-    "grades": "Grades Management",
-    "tooltip": "Shortcut Ctrl + B"
+  "navigation": {
+    "title": "Navigation menu",
+    "student": "Student Management",
+    "teacher": "Teacher Management",
+    "department": "Department Management",
+    "class": "Class Management",
+    "course": "Course Management",
+    "grade": "Grade Management",
+    "tooltip": "Shortcut ctrl + b"
   },
-  "Header": {
+  "header": {
     "profile": "Profile",
     "logout": "Logout"
   },
-  "Error": {
+  "error": {
     "title": {
       "404": "Page Not Found",
       "500": "Internal Server Error",
       "403": "Forbidden",
       "401": "Unauthorized",
-      "default": "Something went wrong"
+      "default": "Something Went Wrong"
     },
     "description": {
-      "404": "The resource you are looking for does not exist",
-      "500": "Something went wrong on our end",
-      "403": "You do not have permission to access this resource",
-      "401": "You are not authorized to access this resource",
+      "404": "The Resource You Are Looking For Does Not Exist",
+      "500": "Something Went Wrong On Our End",
+      "403": "You Do Not Have Permission To Access This Resource",
+      "401": "You Are Not Authorized To Access This Resource",
       "default": "Please try again later"
     },
     "button": "Try Again",
     "details": {
-      "show": "Show details",
-      "hide": "Hide details",
-      "title": "Error details",
-      "id": "Error ID"
+      "show": "Show Details",
+      "hide": "Hide Details",
+      "title": "Error Details",
+      "id": "Error id"
     }
+  },
+  "department": {
+    "title": "Department"
   }
 }
