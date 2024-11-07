@@ -14,7 +14,7 @@ import { LangSwitch } from './LangSwitch';
 export const Header = async () => {
   const t = await getTranslations('header');
   return (
-    <header className="flex w-full items-center justify-end gap-4 p-6 shadow-md">
+    <header className="flex w-full items-center justify-end gap-4 border-b-[1px] border-black/20 p-6 shadow-xl">
       <LangSwitch />
       <DropdownMenu>
         <DropdownMenuTrigger>

@@ -46,6 +46,11 @@
     }
   },
   "department": {
-    "title": "Department"
+    "title": "Department",
+    "id": "Id",
+    "code": "Code",
+    "name": "Name",
+    "detail": "Detail",
+    "action": "Action"
   }
 }

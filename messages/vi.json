@@ -47,6 +47,11 @@
     }
   },
   "department": {
-    "title": "Khoa"
+    "title": "Khoa",
+    "id": "Id",
+    "code": "Mã Khoa",
+    "name": "Tên Khoa",
+    "detail": "Mô tả",
+    "action": "Thao Tác"
   }
 }
