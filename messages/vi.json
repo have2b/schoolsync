@@ -53,5 +53,17 @@
     "name": "Tên Khoa",
     "detail": "Mô tả",
     "action": "Thao Tác"
+  },
+  "tableButtons": {
+    "addNew": "Thêm Mới",
+    "import": "Xuất Dữ Liệu",
+    "export": "Nhập Dữ Liệu",
+    "selectAll": "Chọn Tất Cả",
+    "deselectAll": "Bỏ Chọn Tất Cả",
+    "deleteSelected": "Xóa Mục Đã Chọn"
+  },
+  "common": {
+    "all": "Tất Cả",
+    "searchPlaceholder": "Nhập gì đó..."
   }
 }

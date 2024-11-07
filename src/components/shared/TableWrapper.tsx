@@ -8,15 +8,17 @@ import { DataTable } from './DataTable';
 export function TableWrapper<TData, TValue>({
   data,
   column,
+  tNamespace,
 }: {
   data: TData[];
   column: ColumnDef<TData, TValue>[];
+  tNamespace: string;
 }) {
   return (
     <DataTable
       columns={column}
       data={data}
-      tNamespace="department"
+      tNamespace={tNamespace}
       onDeleteSelected={handleDeleteSelected}
     />
   );

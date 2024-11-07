@@ -18,7 +18,7 @@ import {
   TableRow,
 } from '@/components';
 import { DataTableProps } from '@/models';
-import { DownloadIcon, PlusIcon, SearchIcon, Trash2Icon, UploadIcon } from 'lucide-react';
+import { DownloadIcon, PlusCircleIcon, SearchIcon, Trash2Icon, UploadIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -47,42 +47,57 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
   });
   const selectedRows = table.getSelectedRowModel().rows.map((row) => row.original);
-  const t = useTranslations(tNamespace);
+  const t = useTranslations();
 
   return (
-    <div className="space-y-4 rounded-md bg-white p-5 shadow-lg">
+    <div className="flex flex-col space-y-4 rounded-md bg-white p-5 shadow-lg">
       <div className="flex items-center justify-between">
-        <div className="flex w-1/3 items-center space-x-2">
-          <SearchIcon className="size-4 text-gray-400" />
-          <Input
-            placeholder="Search..."
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            className="max-w-sm"
-          />
+        <span className="text-2xl font-semibold">
+          {t('common.all').concat(` ${t(tNamespace.concat('.', 'title'))}`)}
+        </span>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" onClick={onImport}>
+            <UploadIcon className="size-4" />
+            {t('tableButtons.import')}
+          </Button>
+          <Button variant="outline" onClick={onExport}>
+            <DownloadIcon className="size-4" />
+            {t('tableButtons.export')}
+          </Button>
         </div>
-
+      </div>
+      <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
+          <div className="flex items-center justify-center rounded-sm border border-input px-3">
+            <SearchIcon className="size-4 text-gray-400" />
+            <Input
+              placeholder={t('common.searchPlaceholder')}
+              className="rounded-none border-none focus-visible:outline-none focus-visible:ring-0"
+              value={globalFilter}
+              onChange={(e) => setGlobalFilter(e.target.value)}
+            />
+          </div>
+          <Button
+            variant="outline"
+            onClick={() => table.toggleAllRowsSelected(!table.getIsAllRowsSelected())}
+          >
+            {table.getIsAllRowsSelected()
+              ? t('tableButtons.deselectAll')
+              : t('tableButtons.selectAll')}
+          </Button>
+        </div>
+        <div className="flex items-center gap-2">
           <Button
             variant="destructive"
-            size="sm"
             onClick={() => onDeleteSelected?.(selectedRows)}
             disabled={selectedRows.length === 0}
           >
-            <Trash2Icon className="mr-2 size-4" />
-            Delete Selected
+            <Trash2Icon className="size-4" />
+            {t('tableButtons.deleteSelected')}
           </Button>
-          <Button variant="outline" size="sm" onClick={onImport}>
-            <UploadIcon className="mr-2 size-4" />
-            Import
-          </Button>
-          <Button variant="outline" size="sm" onClick={onExport}>
-            <DownloadIcon className="mr-2 size-4" />
-            Export
-          </Button>
-          <Button variant="default" size="sm" onClick={onAdd}>
-            <PlusIcon className="mr-2 size-4" />
-            Add New
+          <Button variant="default" onClick={onAdd}>
+            <PlusCircleIcon className="size-4" />
+            {t('tableButtons.addNew')}
           </Button>
         </div>
       </div>
@@ -101,7 +116,7 @@ export function DataTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            t(headerTitle === '' ? 'title' : headerTitle),
+                            t(tNamespace.concat('.', headerTitle === '' ? 'title' : headerTitle!)),
                             header.getContext()
                           )}
                     </TableHead>

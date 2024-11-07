@@ -7,7 +7,7 @@ const DepartmentPage = async () => {
 
   return (
     <div className="container mx-auto rounded-2xl py-10">
-      <TableWrapper data={data} column={departmentColumn} />
+      <TableWrapper data={data} column={departmentColumn} tNamespace="department" />
     </div>
   );
 };

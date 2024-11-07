@@ -52,5 +52,17 @@
     "name": "Name",
     "detail": "Detail",
     "action": "Action"
+  },
+  "tableButtons": {
+    "addNew": "Add New",
+    "import": "Import",
+    "export": "Export",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "deleteSelected": "Delete Selected"
+  },
+  "common": {
+    "all": "All",
+    "searchPlaceholder": "Type something..."
   }
 }
