@@ -5,8 +5,8 @@ export function handleDeleteSelected<TData>(selectedRows: TData[]) {
   console.log('Deleting:', selectedRows);
 }
 
-export async function fetchTableData() {
-  const res = await axios.post('/api/departments/get-department', {
+export async function fetchData(url: string) {
+  const res = await axios.post(url, {
     pageIndex: 0,
     pageSize: 10,
   });

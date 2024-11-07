@@ -50,7 +50,7 @@ export function DataTable<TData, TValue>({
   const t = useTranslations(tNamespace);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 rounded-md bg-white p-5 shadow-lg">
       <div className="flex items-center justify-between">
         <div className="flex w-1/3 items-center space-x-2">
           <SearchIcon className="size-4 text-gray-400" />
@@ -86,7 +86,7 @@ export function DataTable<TData, TValue>({
           </Button>
         </div>
       </div>
-      <div className="rounded-2xl border bg-white">
+      <div className="rounded-md bg-white">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

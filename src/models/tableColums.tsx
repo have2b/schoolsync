@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components';
+import { Button, Input } from '@/components';
 import { Department } from '@prisma/client';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { SquarePenIcon, Trash2Icon } from 'lucide-react';
@@ -25,14 +25,14 @@ const ActionCell = ({ id }: { id: number }) => {
 
 function SelectCell<T>(row: Row<T>) {
   return (
-    <div className="flex items-center">
-      <input
+    <div className="flex items-center gap-2">
+      <Input
         type="checkbox"
-        className="h-4 w-4 rounded border-gray-300"
+        className="size-4"
         checked={row.getIsSelected()}
         onChange={(e) => row.toggleSelected(!!e.target.checked)}
       />
-      <span className="ml-2">{(row.original as { departmentCode: string }).departmentCode}</span>
+      <span>{(row.original as { departmentCode: string }).departmentCode}</span>
     </div>
   );
 }

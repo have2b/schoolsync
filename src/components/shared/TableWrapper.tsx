@@ -1,19 +1,23 @@
 'use client';
 
 import { handleDeleteSelected } from '@/actions';
-import { DataTable } from './dataTable';
-import { departmentColumn } from './departmentColumn';
+import { ColumnDef } from '@tanstack/react-table';
+import { DataTable } from './DataTable';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const DepartmentTable = ({ data }: { data: any[] }) => {
-  console.log(typeof departmentColumn);
-
+export function TableWrapper<TData, TValue>({
+  data,
+  column,
+}: {
+  data: TData[];
+  column: ColumnDef<TData, TValue>[];
+}) {
   return (
     <DataTable
-      columns={departmentColumn}
+      columns={column}
       data={data}
       tNamespace="department"
       onDeleteSelected={handleDeleteSelected}
     />
   );
-};
+}
