@@ -68,15 +68,18 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <div className="flex items-center justify-center rounded-sm border border-input px-3">
-            <SearchIcon className="size-4 text-gray-400" />
+          <div className="bottom-[1px] flex items-center justify-center rounded-lg border border-zinc-300 bg-zinc-300 transition-all focus-within:bg-white">
             <Input
               placeholder={t('common.searchPlaceholder')}
-              className="rounded-none border-none focus-visible:outline-none focus-visible:ring-0"
+              className="rounded-e-none border-none focus-visible:outline-none focus-visible:ring-0"
               value={globalFilter}
               onChange={(e) => setGlobalFilter(e.target.value)}
             />
+            <Button variant="outline" className="rounded-s-none border-none">
+              <SearchIcon className="size-4 text-gray-500" />
+            </Button>
           </div>
+
           <Button
             variant="outline"
             onClick={() => table.toggleAllRowsSelected(!table.getIsAllRowsSelected())}
