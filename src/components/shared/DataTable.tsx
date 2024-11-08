@@ -29,20 +29,19 @@ export function DataTable<TData, TValue>({
   onImport,
   onExport,
   onDeleteSelected,
+  onSearch,
+  searchValue,
   tNamespace,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = useState({});
-  const [globalFilter, setGlobalFilter] = useState('');
   const table = useReactTable({
     data,
     columns,
     state: {
       rowSelection,
-      globalFilter,
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
-    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
@@ -72,8 +71,8 @@ export function DataTable<TData, TValue>({
             <Input
               placeholder={t('common.searchPlaceholder')}
               className="rounded-e-none border-none focus-visible:outline-none focus-visible:ring-0"
-              value={globalFilter}
-              onChange={(e) => setGlobalFilter(e.target.value)}
+              value={searchValue}
+              onChange={(e) => onSearch?.(e.target.value)}
             />
             <Button variant="outline" className="rounded-s-none border-none">
               <SearchIcon className="size-4 text-gray-500" />

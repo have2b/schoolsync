@@ -10,6 +10,9 @@ export async function fetchData(url: string, params?: Partial<GetListProps>) {
   const res = await axios.post(url, {
     pageIndex: params?.pageIndex || 1,
     pageSize: params?.pageSize || 10,
+    search: params?.search || '',
+    sortBy: params?.sortBy || [],
   });
+
   return res.data.data;
 }

@@ -14,7 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components';
-import { usePagination } from '@/hooks';
+// import { usePagination } from '@/hooks';
+import { useTableData } from '@/hooks/useTableData';
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTable } from './DataTable';
 
@@ -23,6 +24,11 @@ interface PaginatedDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   tNamespace: string;
   initialPageSize?: number;
+  searchFields?: string[];
+  defaultSort?: Array<{
+    field: keyof TData;
+    order: 'asc' | 'desc';
+  }>;
 }
 
 export function PaginatedDataTable<TData, TValue>({
@@ -30,9 +36,19 @@ export function PaginatedDataTable<TData, TValue>({
   columns,
   tNamespace,
   initialPageSize = 10,
+  searchFields = ['name'],
+  defaultSort = [{ field: 'name' as keyof TData, order: 'asc' }],
 }: PaginatedDataTableProps<TData, TValue>) {
-  const { data, totalPages, pageIndex, pageSize, handlePageChange, handlePageSizeChange } =
-    usePagination<TData>(url, initialPageSize);
+  const {
+    data,
+    totalPages,
+    pageIndex,
+    pageSize,
+    handleSearch,
+    searchValue,
+    handlePageChange,
+    handlePageSizeChange,
+  } = useTableData<TData>({ url, initialPageSize, searchFields, defaultSort });
 
   const pageSizeOptions = [10, 20, 30, 50];
 
@@ -44,13 +60,13 @@ export function PaginatedDataTable<TData, TValue>({
 
     addPage(1);
 
-    if (pageIndex > 3) addEllipsis();
+    if (pageIndex! > 3) addEllipsis();
 
-    for (let i = Math.max(2, pageIndex - 1); i <= Math.min(totalPages - 1, pageIndex + 1); i++) {
+    for (let i = Math.max(2, pageIndex! - 1); i <= Math.min(totalPages - 1, pageIndex! + 1); i++) {
       addPage(i);
     }
 
-    if (pageIndex < totalPages - 2) addEllipsis();
+    if (pageIndex! < totalPages - 2) addEllipsis();
 
     if (totalPages > 1) addPage(totalPages);
 
@@ -62,7 +78,7 @@ export function PaginatedDataTable<TData, TValue>({
       <div className="flex items-center justify-end space-x-2">
         <span className="text-sm text-gray-500">Rows per page:</span>
         <Select
-          value={pageSize.toString()}
+          value={pageSize!.toString()}
           onValueChange={(value) => handlePageSizeChange(Number(value))}
         >
           <SelectTrigger className="w-[70px]">
@@ -78,13 +94,19 @@ export function PaginatedDataTable<TData, TValue>({
         </Select>
       </div>
 
-      <DataTable columns={columns} data={data} tNamespace={tNamespace} />
+      <DataTable
+        columns={columns}
+        data={data}
+        tNamespace={tNamespace}
+        onSearch={handleSearch}
+        searchValue={searchValue}
+      />
 
       <Pagination>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              onClick={() => handlePageChange(pageIndex - 1)}
+              onClick={() => handlePageChange(pageIndex! - 1)}
               className={
                 pageIndex === 1
                   ? 'pointer-events-none opacity-50'
@@ -111,7 +133,7 @@ export function PaginatedDataTable<TData, TValue>({
 
           <PaginationItem>
             <PaginationNext
-              onClick={() => handlePageChange(pageIndex + 1)}
+              onClick={() => handlePageChange(pageIndex! + 1)}
               className={
                 pageIndex === totalPages
                   ? 'pointer-events-none opacity-50'

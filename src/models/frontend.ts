@@ -8,4 +8,6 @@ export interface DataTableProps<TData, TValue> {
   onImport?: () => void;
   onExport?: () => void;
   onDeleteSelected?: (selectedRows: TData[]) => void;
+  onSearch?: (value: string) => void;
+  searchValue?: string;
 }
