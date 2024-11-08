@@ -15,11 +15,13 @@ import {
   FormMessage,
   Input,
 } from '@/components';
+import axios from '@/config/axiosConfig';
+import { usePathname } from '@/i18n/routing';
 import { loginSchema } from '@/schema';
-import axios from 'axios';
 import { redirect } from 'next/navigation';
 
 export default function Login() {
+  const pathName = usePathname();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -29,10 +31,11 @@ export default function Login() {
   });
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
-    const res = await axios.post('/api/auth/login', values);
+    const res = await axios.post('/auth/login', values);
 
     if (res.data.status === 200) {
-      redirect('/');
+      const locale = pathName.split('/')[0] || 'en';
+      redirect(`/${locale}/department`);
     }
   }
 
