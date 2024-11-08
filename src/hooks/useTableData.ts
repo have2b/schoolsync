@@ -74,6 +74,17 @@ export function useTableData<T>({
     debouncedSearch(searchValue);
   };
 
+  const handleSearchFieldChange = (newFields: string[]) => {
+    setTableParams((prev) => ({
+      ...prev,
+      search: {
+        ...prev.search,
+        value: prev.search?.value ?? '',
+        fields: newFields, // Accepts an array of fields now
+      },
+    }));
+  };
+
   const handleSort = (field: string) => {
     const currentSort = tableParams.sortBy?.[0];
     const newOrder: SortConfig['order'] =
@@ -95,6 +106,8 @@ export function useTableData<T>({
     error,
     sortConfig: tableParams.sortBy?.[0],
     searchValue: tableParams.search?.value ?? '',
+    searchFields,
+    handleSearchFieldChange,
     handleSearch,
     handleSort,
     handlePageChange,

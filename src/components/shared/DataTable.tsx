@@ -10,6 +10,11 @@ import {
 import {
   Button,
   Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   Table,
   TableBody,
   TableCell,
@@ -32,6 +37,9 @@ export function DataTable<TData, TValue>({
   onSearch,
   searchValue,
   tNamespace,
+  searchFields,
+  onSearchFieldChange,
+  defaultKeys,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = useState({});
   const table = useReactTable({
@@ -77,6 +85,26 @@ export function DataTable<TData, TValue>({
             <Button variant="outline" className="rounded-s-none border-none">
               <SearchIcon className="size-4 text-gray-500" />
             </Button>
+          </div>
+          <div className="flex items-center gap-2">
+            <Select
+              value={searchFields?.join(', ')}
+              onValueChange={(value) => {
+                const selectedFields = value.split(',').map((field) => field.trim());
+                onSearchFieldChange?.(selectedFields); // Pass an array of selected fields
+              }}
+            >
+              <SelectTrigger className="w-28">
+                <SelectValue placeholder={t(tNamespace.concat('.', 'name'))} />
+              </SelectTrigger>
+              <SelectContent>
+                {defaultKeys.map((key) => (
+                  <SelectItem key={key} value={key}>
+                    {t(tNamespace.concat('.', key))}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <Button
@@ -141,7 +169,7 @@ export function DataTable<TData, TValue>({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  {t('common.noResult')}
                 </TableCell>
               </TableRow>
             )}

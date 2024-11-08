@@ -39,7 +39,7 @@ function SelectCell<T>(row: Row<T>) {
 
 export const departmentColumn: ColumnDef<Department>[] = [
   {
-    id: 'code',
+    id: 'departmentCode',
     accessorKey: 'departmentCode',
     header: 'code',
     cell: ({ row }) => SelectCell(row),

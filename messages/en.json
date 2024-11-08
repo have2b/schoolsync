@@ -48,7 +48,7 @@
   "department": {
     "title": "Department",
     "id": "Id",
-    "code": "Code",
+    "departmentCode": "Code",
     "name": "Name",
     "detail": "Detail",
     "action": "Action"
@@ -63,6 +63,7 @@
   },
   "common": {
     "all": "All",
-    "searchPlaceholder": "Type something..."
+    "searchPlaceholder": "Type something...",
+    "noResult": "No result..."
   }
 }

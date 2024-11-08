@@ -49,7 +49,7 @@
   "department": {
     "title": "Khoa",
     "id": "Id",
-    "code": "Mã Khoa",
+    "departmentCode": "Mã Khoa",
     "name": "Tên Khoa",
     "detail": "Mô tả",
     "action": "Thao Tác"
@@ -64,6 +64,7 @@
   },
   "common": {
     "all": "Tất Cả",
-    "searchPlaceholder": "Nhập gì đó..."
+    "searchPlaceholder": "Nhập gì đó...",
+    "noResult": "Không Tìm Thấy Kết Quả"
   }
 }

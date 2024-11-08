@@ -14,5 +14,7 @@ export async function fetchData(url: string, params?: Partial<GetListProps>) {
     sortBy: params?.sortBy || [],
   });
 
+  console.log(params?.search);
+
   return res.data.data;
 }

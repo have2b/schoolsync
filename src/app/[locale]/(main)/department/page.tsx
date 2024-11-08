@@ -7,6 +7,7 @@ const DepartmentPage = async () => {
       <PaginatedDataTable
         url="/departments/get-department"
         columns={departmentColumn}
+        defaultKeys={['name', 'departmentCode', 'detail']}
         tNamespace="department"
         initialPageSize={10}
       />

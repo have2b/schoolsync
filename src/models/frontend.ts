@@ -10,4 +10,7 @@ export interface DataTableProps<TData, TValue> {
   onDeleteSelected?: (selectedRows: TData[]) => void;
   onSearch?: (value: string) => void;
   searchValue?: string;
+  searchFields?: string[];
+  onSearchFieldChange?: (fields: string[]) => void;
+  defaultKeys: string[];
 }

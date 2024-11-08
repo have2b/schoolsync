@@ -29,6 +29,7 @@ interface PaginatedDataTableProps<TData, TValue> {
     field: keyof TData;
     order: 'asc' | 'desc';
   }>;
+  defaultKeys: string[];
 }
 
 export function PaginatedDataTable<TData, TValue>({
@@ -38,6 +39,7 @@ export function PaginatedDataTable<TData, TValue>({
   initialPageSize = 10,
   searchFields = ['name'],
   defaultSort = [{ field: 'name' as keyof TData, order: 'asc' }],
+  defaultKeys,
 }: PaginatedDataTableProps<TData, TValue>) {
   const {
     data,
@@ -48,6 +50,7 @@ export function PaginatedDataTable<TData, TValue>({
     searchValue,
     handlePageChange,
     handlePageSizeChange,
+    handleSearchFieldChange,
   } = useTableData<TData>({ url, initialPageSize, searchFields, defaultSort });
 
   const pageSizeOptions = [10, 20, 30, 50];
@@ -100,6 +103,9 @@ export function PaginatedDataTable<TData, TValue>({
         tNamespace={tNamespace}
         onSearch={handleSearch}
         searchValue={searchValue}
+        // searchFields={searchFields}
+        defaultKeys={defaultKeys}
+        onSearchFieldChange={handleSearchFieldChange}
       />
 
       <Pagination>
