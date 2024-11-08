@@ -14,15 +14,25 @@ export const useBreadcrumbs = () => {
   const links = ADMIN_NAV_LINKS;
 
   return useMemo(() => {
-    const pathSegments = pathname.split('/').filter((_, index) => index > 1);
+    // Split the pathname and get the locale from the first segment
+    const segments = pathname.split('/').filter(Boolean);
+    const locale = segments[0];
+
+    // Get path segments after locale
+    const pathSegments = segments.slice(1);
 
     const breadcrumbs: BreadcrumbItemProps[] = pathSegments.map((segment, index) => {
-      const currentPath = '/' + pathSegments.slice(0, index + 2).join('/');
+      // Build the current path including locale and all segments up to current
+      const currentPath = '/' + [locale, ...pathSegments.slice(0, index + 1)].join('/');
 
       const navItem = links.find((link) => link.href === '/' + segment);
+
+      // If it's a nav item, prepend the locale to its href
+      const href = navItem ? `/${locale}${navItem.href}` : currentPath;
+
       return {
-        href: navItem ? navItem.href : currentPath,
-        label: navItem ? navItem.name : segment.charAt(0).toUpperCase() + segment.slice(1),
+        href,
+        label: navItem ? navItem.name : segment,
       };
     });
 
