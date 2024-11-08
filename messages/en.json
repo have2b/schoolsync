@@ -16,7 +16,8 @@
     "class": "Class Management",
     "course": "Course Management",
     "grade": "Grade Management",
-    "tooltip": "Shortcut ctrl + b"
+    "tooltip": "Shortcut ctrl + b",
+    "add": "Add"
   },
   "header": {
     "profile": "Profile",

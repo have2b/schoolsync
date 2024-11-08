@@ -17,7 +17,8 @@
     "class": "Quản Lý Lớp Hành Chính",
     "course": "Quản Lý Học Phần",
     "grade": "Quản Lý Điểm",
-    "tooltip": "Phím Tắt Ctrl + B"
+    "tooltip": "Phím Tắt Ctrl + B",
+    "add": "Thêm mới"
   },
   "header": {
     "profile": "Tài Khoản",

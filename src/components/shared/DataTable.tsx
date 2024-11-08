@@ -22,6 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components';
+import { usePathname, useRouter } from '@/i18n/routing';
 import { DataTableProps } from '@/models';
 import { DownloadIcon, PlusCircleIcon, SearchIcon, Trash2Icon, UploadIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -30,7 +31,6 @@ import { useState } from 'react';
 export function DataTable<TData, TValue>({
   columns,
   data,
-  onAdd,
   onImport,
   onExport,
   onDeleteSelected,
@@ -55,6 +55,8 @@ export function DataTable<TData, TValue>({
   });
   const selectedRows = table.getSelectedRowModel().rows.map((row) => row.original);
   const t = useTranslations();
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="flex flex-col space-y-4 rounded-md bg-white p-5 shadow-lg">
@@ -125,7 +127,7 @@ export function DataTable<TData, TValue>({
             <Trash2Icon className="size-4" />
             {t('tableButtons.deleteSelected')}
           </Button>
-          <Button variant="default" onClick={onAdd}>
+          <Button variant="default" onClick={() => router.push(`${pathname}/add`)}>
             <PlusCircleIcon className="size-4" />
             {t('tableButtons.addNew')}
           </Button>
