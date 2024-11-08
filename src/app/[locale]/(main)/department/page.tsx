@@ -1,13 +1,15 @@
-import { fetchData } from '@/actions';
-import { TableWrapper } from '@/components';
+import { PaginatedDataTable } from '@/components';
 import { departmentColumn } from '@/models';
 
 const DepartmentPage = async () => {
-  const data = await fetchData('/departments/get-department');
-
   return (
     <div className="container mx-auto rounded-2xl py-10">
-      <TableWrapper data={data} column={departmentColumn} tNamespace="department" />
+      <PaginatedDataTable
+        url="/departments/get-department"
+        columns={departmentColumn}
+        tNamespace="department"
+        initialPageSize={10}
+      />
     </div>
   );
 };

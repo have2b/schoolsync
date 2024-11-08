@@ -18,7 +18,7 @@ export const ContentLayout: React.FC<{ children: React.ReactNode }> = ({ childre
   const t = useTranslations('navigation');
 
   return (
-    <div className="flex w-full flex-col bg-muted p-10">
+    <div className="flex w-full flex-col p-10">
       <ContentTitle title={t(contentTitle)} />
       <Breadcrumb>
         <BreadcrumbList>

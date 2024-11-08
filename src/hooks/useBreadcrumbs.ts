@@ -1,3 +1,5 @@
+'use client';
+
 import { ADMIN_NAV_LINKS } from '@/constants';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';

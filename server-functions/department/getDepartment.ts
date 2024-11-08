@@ -110,7 +110,7 @@ export const getDepartment = async (
     const departments = await prisma.department.findMany({
       where,
       orderBy,
-      skip: pageIndex * pageSize,
+      skip: (pageIndex - 1) * pageSize,
       take: pageSize,
     });
 
@@ -119,8 +119,8 @@ export const getDepartment = async (
       totalItems,
       totalPages,
       currentPage: pageIndex,
-      hasNextPage: pageIndex < totalPages - 1,
-      hasPreviousPage: pageIndex > 0,
+      hasNextPage: pageIndex < totalPages,
+      hasPreviousPage: pageIndex > 1,
     };
 
     // Return successful response

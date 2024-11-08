@@ -1,6 +1,7 @@
 import { AppSidebar, ContentLayout, Header, SidebarProvider } from '@/components';
 import { routing } from '@/i18n/routing';
 // import { SessionProvider } from '@/providers/SessionProvider';
+import { QueryProvider } from '@/providers/QueryProvider';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -36,15 +37,17 @@ export default async function MainLayout({ children, params }: Readonly<MainLayo
     <html lang={locale}>
       <body className={`${robotoFlex.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
-          {/* <SessionProvider> */}
-          <SidebarProvider>
-            <AppSidebar />
-            <main className="w-full">
-              <Header />
-              <ContentLayout>{children}</ContentLayout>
-            </main>
-          </SidebarProvider>
-          {/* </SessionProvider> */}
+          <QueryProvider>
+            {/* <SessionProvider> */}
+            <SidebarProvider>
+              <AppSidebar />
+              <main className="w-full bg-muted">
+                <Header />
+                <ContentLayout>{children}</ContentLayout>
+              </main>
+            </SidebarProvider>
+            {/* </SessionProvider> */}
+          </QueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>
