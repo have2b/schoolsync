@@ -1,3 +1,4 @@
+import { Toaster } from '@/components';
 import { routing } from '@/i18n/routing';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
@@ -33,7 +34,10 @@ export default async function AuthLayout({ children, params }: Readonly<AuthLayo
   return (
     <html lang={locale}>
       <body className={`${robotoFlex.variable} antialiased`}>
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+          <Toaster richColors position="top-right" />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

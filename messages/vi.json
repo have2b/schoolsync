@@ -3,7 +3,13 @@
     "title": "SchoolSync"
   },
   "auth": {
-    "login": "Đăng Nhập"
+    "login": "Đăng Nhập",
+    "loginSuccess": "Đăng Nhập Thành Công",
+    "incorrectPassword": "Mật Khẩu Không Đúng",
+    "username": "Tài Khoản",
+    "usernamePlaceholder": "Nhập tài khoản...",
+    "password": "Mật Khẩu",
+    "passwordPlaceholder": "Nhập mật khẩu..."
   },
   "homepage": {
     "title": "Trang Chủ",

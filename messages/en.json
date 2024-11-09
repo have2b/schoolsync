@@ -3,7 +3,13 @@
     "title": "SchoolSync"
   },
   "auth": {
-    "login": "Login"
+    "login": "Login",
+    "loginSuccess": "Login Success",
+    "incorrectPassword": "Incorrect Password",
+    "username": "Username",
+    "usernamePlaceholder": "Enter username...",
+    "password": "Password",
+    "passwordPlaceholder": "Enter password..."
   },
   "homepage": {
     "title": "Home"

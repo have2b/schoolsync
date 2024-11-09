@@ -28,7 +28,7 @@ export const LangSwitch = () => {
 
   return (
     <Select onValueChange={onSelectChange} defaultValue={localActive} disabled={isPending}>
-      <SelectTrigger className="w-[150px]">
+      <SelectTrigger className="w-[150px] bg-white">
         <SelectValue placeholder="Language" />
       </SelectTrigger>
       <SelectContent>
