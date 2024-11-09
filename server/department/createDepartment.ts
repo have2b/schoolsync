@@ -29,6 +29,20 @@ export const createDepartment = async (
   try {
     const { name, detail } = req;
 
+    const isExisted = await prisma.department.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    if (isExisted) {
+      return {
+        status: 400,
+        message: 'duplicatedName',
+        data: null,
+      };
+    }
+
     // Generate the next department code
     const departmentCode = await generateDepartmentCode();
 

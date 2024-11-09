@@ -10,7 +10,7 @@ import {
   FormMessage,
   Input,
 } from '@/components';
-import { createData } from '@/lib/utils';
+import { useCrud } from '@/hooks/useCrud';
 import { createDepartmentSchema } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
@@ -28,14 +28,12 @@ export default function AddDepartment() {
     },
   });
 
+  const { useCreate } = useCrud({ baseUrl: '/departments', modelName: 'department' });
+  const { mutate: createDepartment } = useCreate();
+
   function onSubmit(values: z.infer<typeof createDepartmentSchema>) {
     try {
-      const res = createData('/departments/create-department', values);
-      toast.promise(res, {
-        loading: t('common.creating'),
-        success: t('common.created') + ' ' + t('department.title'),
-        error: t('common.error'),
-      });
+      createDepartment(values);
     } catch (error) {
       console.error('Form submission error', error);
       toast.error(t('common.error'));

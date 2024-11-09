@@ -23,7 +23,8 @@ export async function fetchData(url: string, params?: Partial<GetListProps>) {
   return res.data.data;
 }
 
-export async function createData<T>(url: string, data: T) {
+export async function mutateData<T>(url: string, data: T) {
   const res = await api.post(url, data);
-  return res.data.data;
+
+  return res.data;
 }

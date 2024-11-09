@@ -79,6 +79,7 @@
     "created": "Tạo Thành Công",
     "updated": "Cập Nhật Thành Công",
     "deleted": "Xóa Thành Công",
-    "error": "Lỗi"
+    "error": "Lỗi",
+    "duplicatedName": "Tên Bị Trùng"
   }
 }
