@@ -7,4 +7,10 @@ const createDepartmentSchema = z.object({
   detail: z.string().max(50).optional(),
 });
 
-export { createDepartmentSchema };
+const updateDepartmentSchema = z.object({
+  departmentCode: z.string(),
+  name: z.string().min(2).max(50),
+  detail: z.string().max(50).optional(),
+});
+
+export { createDepartmentSchema, updateDepartmentSchema };

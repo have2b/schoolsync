@@ -1,5 +1,5 @@
-import { mutateData } from '@/lib/utils';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { fetchData, mutateData } from '@/lib/utils';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 
@@ -12,15 +12,31 @@ export const useCrud = ({ modelName, baseUrl }: CrudHookProps) => {
   const t = useTranslations('common');
   const queryClient = useQueryClient();
 
+  // Get data by id hook
+  const useGet = (id: string) => {
+    return useQuery({
+      queryKey: [`${modelName}`, id],
+      queryFn: async () => {
+        const response = await fetchData(`${baseUrl}/${id}/get-by-id`);
+
+        if (response.status !== 200) {
+          throw new Error(response.message);
+        }
+
+        return response.data;
+      },
+    });
+  };
+
   // Mutation hook for creating
   const useCreate = () => {
     return useMutation({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       mutationFn: async (data: any) => {
-        const response = await mutateData(`${baseUrl}/create-${modelName}`, data);
+        const response = await mutateData(`${baseUrl}/create-${modelName}`, data, 'post');
 
         // Check if response is not successful
-        if (!response.ok && response.status !== 200) {
+        if (response.status !== 201) {
           throw new Error(response.message);
         }
 
@@ -49,10 +65,10 @@ export const useCrud = ({ modelName, baseUrl }: CrudHookProps) => {
     return useMutation({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       mutationFn: async ({ id, data }: { id: string; data: any }) => {
-        const response = await mutateData(`${baseUrl}/${id}/update-${modelName}`, data);
+        const response = await mutateData(`${baseUrl}/${id}/update-${modelName}`, data, 'put');
 
         // Check if response is not successful
-        if (!response.ok && response.status !== 200) {
+        if (response.status !== 204) {
           throw new Error(response.message);
         }
 
@@ -80,21 +96,21 @@ export const useCrud = ({ modelName, baseUrl }: CrudHookProps) => {
   const useDelete = () => {
     return useMutation({
       mutationFn: async (id: string) => {
-        const response = await mutateData(`${baseUrl}/${id}/delete-${modelName}`, {});
+        const response = await mutateData(`${baseUrl}/${id}/delete-${modelName}`, 'delete');
 
         // Check if response is not successful
-        if (!response.ok && response.status !== 200) {
+        if (response.status !== 204) {
           throw new Error(response.message);
         }
       },
       onMutate: () => {
         // Show loading toast when mutation starts
-        toast.loading(t('updating'));
+        toast.loading(t('deleting'));
       },
       onSuccess: () => {
         // Clear loading toast and show success
         toast.dismiss();
-        toast.success(t('updated'));
+        toast.success(t('deleted'));
         queryClient.invalidateQueries({ queryKey: [modelName] });
       },
       onError: (error: Error) => {
@@ -106,6 +122,7 @@ export const useCrud = ({ modelName, baseUrl }: CrudHookProps) => {
   };
 
   return {
+    useGet,
     useCreate,
     useUpdate,
     useDelete,

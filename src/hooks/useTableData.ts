@@ -1,6 +1,6 @@
 'use client';
 
-import { fetchData } from '@/lib/utils';
+import { fetchListData } from '@/lib/utils';
 import { GetListProps, SortConfig, UseTableProps } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import { debounce } from 'lodash';
@@ -24,7 +24,7 @@ export function useTableData<T>({
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['table-data', url, tableParams],
-    queryFn: () => fetchData(url, tableParams),
+    queryFn: () => fetchListData(url, tableParams),
     placeholderData: true, // Show old data while fetching new data
   });
 

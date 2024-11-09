@@ -23,7 +23,8 @@
     "course": "Course Management",
     "grade": "Grade Management",
     "tooltip": "Shortcut ctrl + b",
-    "add": "Add"
+    "add": "Add",
+    "edit": "Edit"
   },
   "header": {
     "profile": "Profile",

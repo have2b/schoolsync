@@ -24,7 +24,8 @@
     "course": "Quản Lý Học Phần",
     "grade": "Quản Lý Điểm",
     "tooltip": "Phím Tắt Ctrl + B",
-    "add": "Thêm mới"
+    "add": "Thêm Mới",
+    "edit": "Chỉnh Sửa Thông Tin"
   },
   "header": {
     "profile": "Tài Khoản",

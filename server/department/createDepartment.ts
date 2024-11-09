@@ -55,7 +55,7 @@ export const createDepartment = async (
     });
 
     return {
-      status: 200,
+      status: 201,
       message: 'created',
       data: {
         id: department.id,
