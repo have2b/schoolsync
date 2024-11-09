@@ -15,9 +15,9 @@ import {
   FormMessage,
   Input,
 } from '@/components';
-import axios from '@/config/axiosConfig';
 import { usePathname } from '@/i18n/routing';
-import { loginSchema } from '@/schema';
+import api from '@/lib/api';
+import { loginSchema } from '@/types';
 import { redirect } from 'next/navigation';
 
 export default function Login() {
@@ -31,7 +31,7 @@ export default function Login() {
   });
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
-    const res = await axios.post('/auth/login', values);
+    const res = await api.post('/auth/login', values);
 
     if (res.data.status === 200) {
       const locale = pathName.split('/')[0] || 'en';

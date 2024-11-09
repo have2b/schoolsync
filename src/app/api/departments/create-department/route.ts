@@ -1,5 +1,5 @@
-import { pipeline } from '@/funcs';
-import { createDepartment } from '@/funcs/department';
+import { pipeline } from '@/server';
+import { createDepartment } from '@/server/department';
 
 // Create department
 export async function POST(req: Request) {

@@ -1,25 +1,10 @@
 'use client';
 
-import { fetchData } from '@/actions';
-import { GetListProps } from '@/funcs/interfaces';
+import { fetchData } from '@/lib/utils';
+import { GetListProps, SortConfig, UseTableProps } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import { debounce } from 'lodash';
 import { useState } from 'react';
-
-interface SortConfig {
-  field: string;
-  order: 'asc' | 'desc';
-}
-
-interface UseTableProps<TData> {
-  url: string;
-  initialPageSize: number;
-  searchFields?: string[];
-  defaultSort?: Array<{
-    field: keyof TData;
-    order: 'asc' | 'desc';
-  }>;
-}
 
 export function useTableData<T>({
   url,

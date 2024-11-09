@@ -1,5 +1,5 @@
-import { pipeline } from '@/funcs';
-import { updateDepartment } from '@/funcs/department';
+import { pipeline } from '@/server';
+import { updateDepartment } from '@/server/department';
 
 export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const updateDepartmentReq = await req.json();

@@ -1,4 +1,4 @@
-import { verifySession } from '@/funcs';
+import { verifySession } from '@/server';
 
 export default async function Home() {
   const session = await verifySession();

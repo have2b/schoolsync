@@ -1,10 +1,10 @@
-import { PaginatedDataTable } from '@/components';
-import { departmentColumn } from '@/models';
+import { PaginatedTable } from '@/components';
+import { departmentColumn } from '@/types';
 
 const DepartmentPage = async () => {
   return (
     <div className="container mx-auto rounded-2xl py-10">
-      <PaginatedDataTable
+      <PaginatedTable
         url="/departments/get-department"
         columns={departmentColumn}
         defaultKeys={['name', 'departmentCode', 'detail']}

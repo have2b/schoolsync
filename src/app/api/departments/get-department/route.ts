@@ -1,5 +1,5 @@
-import { pipeline } from '@/funcs';
-import { getDepartment } from '@/funcs/department';
+import { pipeline } from '@/server';
+import { getDepartment } from '@/server/department';
 
 // Get department
 export async function POST(req: Request) {
