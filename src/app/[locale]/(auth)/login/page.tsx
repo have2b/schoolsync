@@ -15,16 +15,15 @@ import {
   Input,
   LangSwitch,
 } from '@/components';
-import { usePathname } from '@/i18n/routing';
 import api from '@/lib/api';
 import { loginSchema } from '@/types';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
+import { redirect, useParams } from 'next/navigation';
 import { toast } from 'sonner';
 
 export default function Login() {
-  const pathName = usePathname();
+  const params = useParams();
   const t = useTranslations('auth');
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -39,7 +38,8 @@ export default function Login() {
 
     if (res.data.status === 200) {
       toast.success(t(res.data.message));
-      const locale = pathName.split('/')[0] || 'en';
+      const locale = (params.locale as string) || 'vi';
+
       setTimeout(() => {
         redirect(`/${locale}/department`);
       }, 1000);
