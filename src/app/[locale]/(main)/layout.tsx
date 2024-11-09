@@ -1,6 +1,7 @@
 import { AppSidebar, ContentLayout, Header, SidebarProvider } from '@/components';
 import { routing } from '@/i18n/routing';
 // import { SessionProvider } from '@/providers/SessionProvider';
+import { Toaster } from '@/components';
 import { QueryProvider } from '@/providers/QueryProvider';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
@@ -45,6 +46,7 @@ export default async function MainLayout({ children, params }: Readonly<MainLayo
                 <Header />
                 <ContentLayout>{children}</ContentLayout>
               </main>
+              <Toaster position="top-right" richColors />
             </SidebarProvider>
             {/* </SessionProvider> */}
           </QueryProvider>

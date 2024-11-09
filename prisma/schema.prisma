@@ -61,10 +61,10 @@ model Student {
 }
 
 model Department {
-  id             Int    @id @default(autoincrement())
-  departmentCode String @unique @map("MaKhoa")
-  name           String @unique @map("TenKhoa")
-  detail         String @map("MoTa")
+  id             Int     @id @default(autoincrement())
+  departmentCode String  @unique @map("MaKhoa")
+  name           String  @unique @map("TenKhoa")
+  detail         String? @map("MoTa")
 
   Students Student[]
   classes  Class[]

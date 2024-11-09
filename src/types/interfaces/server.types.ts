@@ -96,7 +96,7 @@ export interface LoginRes {
 
 export interface CreateDepartmentReq {
   name: string;
-  detail: string;
+  detail?: string;
 }
 
 export interface CreateDepartmentRes {

@@ -52,8 +52,10 @@
     "id": "Id",
     "departmentCode": "Mã Khoa",
     "name": "Tên Khoa",
-    "detail": "Mô tả",
-    "action": "Thao Tác"
+    "detail": "Mô Tả",
+    "action": "Thao Tác",
+    "namePlaceholder": "Điền Tên Khoa",
+    "detailPlaceholder": "Điền Mô Tả Khoa"
   },
   "tableButtons": {
     "addNew": "Thêm Mới",
@@ -68,6 +70,15 @@
     "searchPlaceholder": "Nhập gì đó...",
     "noResult": "Không Tìm Thấy Kết Quả",
     "prev": "Trước",
-    "next": "Sau"
+    "next": "Sau",
+    "submit": "Lưu",
+    "cancel": "Hủy",
+    "creating": "Đang Tạo...",
+    "updating": "Đang Cập Nhật...",
+    "deleting": "Đang Xóa...",
+    "created": "Tạo Thành Công",
+    "updated": "Cập Nhật Thành Công",
+    "deleted": "Xóa Thành Công",
+    "error": "Lỗi"
   }
 }

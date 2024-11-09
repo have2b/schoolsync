@@ -52,7 +52,9 @@
     "departmentCode": "Code",
     "name": "Name",
     "detail": "Detail",
-    "action": "Action"
+    "action": "Action",
+    "namePlaceholder": "Enter name",
+    "detailPlaceholder": "Enter detail"
   },
   "tableButtons": {
     "addNew": "Add New",
@@ -67,6 +69,15 @@
     "searchPlaceholder": "Type something...",
     "noResult": "No result...",
     "prev": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "creating": "Creating...",
+    "updating": "Updating...",
+    "deleting": "Deleting...",
+    "created": "Created successfully",
+    "updated": "Updated successfully",
+    "deleted": "Deleted successfully",
+    "error": "Error"
   }
 }
