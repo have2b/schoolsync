@@ -65,6 +65,8 @@
   "common": {
     "all": "All",
     "searchPlaceholder": "Type something...",
-    "noResult": "No result..."
+    "noResult": "No result...",
+    "prev": "Previous",
+    "next": "Next"
   }
 }

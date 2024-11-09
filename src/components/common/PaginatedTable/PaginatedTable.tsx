@@ -16,6 +16,7 @@ import {
 } from '@/components';
 import { useTableData } from '@/hooks';
 import { ColumnDef } from '@tanstack/react-table';
+import { useTranslations } from 'next-intl';
 import { DataTable } from '../DataTable';
 
 interface PaginatedTableProps<TData, TValue> {
@@ -53,6 +54,7 @@ export function PaginatedTable<TData, TValue>({
   } = useTableData<TData>({ url, initialPageSize, searchFields, defaultSort });
 
   const pageSizeOptions = [10, 20, 30, 50];
+  const t = useTranslations('common');
 
   // Generate page numbers with ellipsis
   const getPageNumbers = () => {
@@ -117,6 +119,7 @@ export function PaginatedTable<TData, TValue>({
                   ? 'pointer-events-none opacity-50'
                   : 'cursor-pointer hover:bg-zinc-200'
               }
+              displayText={t('prev')}
             />
           </PaginationItem>
 
@@ -144,6 +147,7 @@ export function PaginatedTable<TData, TValue>({
                   ? 'pointer-events-none opacity-50'
                   : 'cursor-pointer hover:bg-zinc-200'
               }
+              displayText={t('next')}
             />
           </PaginationItem>
         </PaginationContent>

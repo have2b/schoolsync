@@ -66,6 +66,8 @@
   "common": {
     "all": "Tất Cả",
     "searchPlaceholder": "Nhập gì đó...",
-    "noResult": "Không Tìm Thấy Kết Quả"
+    "noResult": "Không Tìm Thấy Kết Quả",
+    "prev": "Trước",
+    "next": "Sau"
   }
 }
