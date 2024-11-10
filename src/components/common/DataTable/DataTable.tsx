@@ -8,6 +8,15 @@ import {
 } from '@tanstack/react-table';
 
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
   Button,
   Input,
   Select,
@@ -25,7 +34,14 @@ import {
 import { useCrud } from '@/hooks';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { DataTableProps } from '@/types';
-import { DownloadIcon, PlusCircleIcon, SearchIcon, Trash2Icon, UploadIcon } from 'lucide-react';
+import {
+  CircleXIcon,
+  DownloadIcon,
+  PlusCircleIcon,
+  SearchIcon,
+  Trash2Icon,
+  UploadIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -62,6 +78,11 @@ export function DataTable<TData, TValue>({
     baseUrl: `/${tNamespace}s`,
   });
   const { mutate: bulkDeleteData } = useBulkDelete();
+
+  const handleDelete = () => {
+    bulkDeleteData(selectedRows.map((row) => (row as { id: number | string }).id.toString()));
+    table.toggleAllRowsSelected(false);
+  };
 
   return (
     <div className="flex flex-col space-y-4 rounded-md bg-white p-5 shadow-lg">
@@ -124,18 +145,27 @@ export function DataTable<TData, TValue>({
           </Button>
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            variant="destructive"
-            onClick={() =>
-              bulkDeleteData(
-                selectedRows.map((row) => (row as { id: number | string }).id.toString())
-              )
-            }
-            disabled={selectedRows.length === 0}
-          >
-            <Trash2Icon className="size-4" />
-            {t('tableButtons.deleteSelected')}
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive" disabled={selectedRows.length === 0}>
+                <Trash2Icon className="size-4" />
+                {t('tableButtons.deleteSelected')}
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <div className="flex items-center justify-center">
+                  <CircleXIcon className="size-36 text-red-500" />
+                </div>
+                <AlertDialogTitle>{t('common.areYouSure')}</AlertDialogTitle>
+                <AlertDialogDescription>{t('common.deleteDescription')}</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>{t('common.cancel')}</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>{t('common.accept')}</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <Button variant="default" onClick={() => router.push(`${pathname}/add`)}>
             <PlusCircleIcon className="size-4" />
             {t('tableButtons.addNew')}
