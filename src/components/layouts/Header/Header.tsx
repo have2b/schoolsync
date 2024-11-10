@@ -35,8 +35,6 @@ export const Header = () => {
     fetchAccount();
   }, []);
 
-  console.log(account);
-
   const handleLogout = async () => {
     try {
       const result = await logout();

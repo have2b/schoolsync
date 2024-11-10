@@ -41,8 +41,8 @@ export default function Login() {
       const locale = (params.locale as string) || 'vi';
 
       setTimeout(() => {
-        redirect(`/${locale}/department`);
-      }, 1000);
+        redirect(`/${locale}`);
+      }, 500);
     } else {
       toast.error(t(res.data.message));
     }
