@@ -121,10 +121,40 @@ export const useCrud = ({ modelName, baseUrl }: CrudHookProps) => {
     });
   };
 
+  // Mutation hook for bulk deleting
+  const useBulkDelete = () => {
+    return useMutation({
+      mutationFn: async (ids: string[]) => {
+        const response = await mutateData(`${baseUrl}/bulk-delete-${modelName}`, ids, 'post');
+
+        // Check if response is not successful
+        if (response.status !== 204) {
+          throw new Error(response.message);
+        }
+      },
+      onMutate: () => {
+        // Show loading toast when mutation starts
+        toast.loading(t('deleting'));
+      },
+      onSuccess: () => {
+        // Clear loading toast and show success
+        toast.dismiss();
+        toast.success(t('deleted'));
+        queryClient.invalidateQueries({ queryKey: [modelName] });
+      },
+      onError: (error: Error) => {
+        // Clear loading toast and show error
+        toast.dismiss();
+        toast.error(t(error.message));
+      },
+    });
+  };
+
   return {
     useGet,
     useCreate,
     useUpdate,
     useDelete,
+    useBulkDelete,
   };
 };

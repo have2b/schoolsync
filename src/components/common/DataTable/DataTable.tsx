@@ -22,6 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components';
+import { useCrud } from '@/hooks';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { DataTableProps } from '@/types';
 import { DownloadIcon, PlusCircleIcon, SearchIcon, Trash2Icon, UploadIcon } from 'lucide-react';
@@ -33,7 +34,6 @@ export function DataTable<TData, TValue>({
   data,
   onImport,
   onExport,
-  onDeleteSelected,
   onSearch,
   searchValue,
   tNamespace,
@@ -57,6 +57,11 @@ export function DataTable<TData, TValue>({
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
+  const { useBulkDelete } = useCrud({
+    modelName: tNamespace,
+    baseUrl: `/${tNamespace}s`,
+  });
+  const { mutate: bulkDeleteData } = useBulkDelete();
 
   return (
     <div className="flex flex-col space-y-4 rounded-md bg-white p-5 shadow-lg">
@@ -93,7 +98,7 @@ export function DataTable<TData, TValue>({
               value={searchFields?.join(', ')}
               onValueChange={(value) => {
                 const selectedFields = value.split(',').map((field) => field.trim());
-                onSearchFieldChange?.(selectedFields); // Pass an array of selected fields
+                onSearchFieldChange?.(selectedFields);
               }}
             >
               <SelectTrigger className="w-28">
@@ -121,7 +126,11 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center gap-2">
           <Button
             variant="destructive"
-            onClick={() => onDeleteSelected?.(selectedRows)}
+            onClick={() =>
+              bulkDeleteData(
+                selectedRows.map((row) => (row as { id: number | string }).id.toString())
+              )
+            }
             disabled={selectedRows.length === 0}
           >
             <Trash2Icon className="size-4" />
