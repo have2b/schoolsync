@@ -1,6 +1,6 @@
 'use client';
 
-import { logout } from '@/app/action';
+import { getAccount, logout } from '@/app/action';
 import {
   Avatar,
   AvatarFallback,
@@ -11,14 +11,31 @@ import {
   DropdownMenuTrigger,
   LangSwitch,
 } from '@/components';
+import { Account } from '@prisma/client';
 import { ChevronDownIcon, DoorOpenIcon, UserIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export const Header = () => {
   const t = useTranslations('header');
   const router = useRouter();
   const params = useParams();
+  const [account, setAccount] = useState<Account | null>(null);
+
+  useEffect(() => {
+    const fetchAccount = async () => {
+      try {
+        const res = await getAccount();
+        setAccount(res);
+      } catch (error) {
+        console.error('Error fetching account:', error);
+      }
+    };
+    fetchAccount();
+  }, []);
+
+  console.log(account);
 
   const handleLogout = async () => {
     try {
@@ -39,7 +56,7 @@ export const Header = () => {
         <DropdownMenuTrigger>
           <div className="flex items-center justify-center gap-1">
             <Avatar>
-              <AvatarImage src="https://github.com/have2b.png" />
+              <AvatarImage src={account?.avatar} />
               <AvatarFallback>AV</AvatarFallback>
             </Avatar>
             <ChevronDownIcon />

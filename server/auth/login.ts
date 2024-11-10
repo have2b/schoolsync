@@ -1,7 +1,7 @@
+import { createSession } from '@/app/action';
 import prisma from '@/prisma';
 import { LoginReq, LoginRes, PipelineResult } from '@/types';
 import argon2 from 'argon2';
-import { createSession } from '../utils';
 
 export const login = async (req: LoginReq): Promise<PipelineResult<LoginRes | unknown>> => {
   const { username, password } = req;
