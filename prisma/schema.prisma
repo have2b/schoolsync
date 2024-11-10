@@ -22,6 +22,7 @@ model Account {
   password     String  @map("MatKhau")
   name         String  @map("Ten")
   role         Role    @map("VaiTro")
+  avatar       String  @map("AnhDaiDien")
   isFirstLogin Boolean @map("LanDauDangNhap")
 
   students Student[]
