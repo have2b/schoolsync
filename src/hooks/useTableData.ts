@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 export function useTableData<T>({
   url,
+  modelName,
   initialPageSize = 10,
   searchFields = ['name'],
   defaultSort = [{ field: 'name' as keyof T, order: 'asc' }],
@@ -23,7 +24,7 @@ export function useTableData<T>({
   });
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['table-data', url, tableParams],
+    queryKey: [modelName, url, tableParams],
     queryFn: () => fetchListData(url, tableParams),
     placeholderData: true, // Show old data while fetching new data
   });

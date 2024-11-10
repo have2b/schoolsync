@@ -21,6 +21,7 @@ import { DataTable } from '../DataTable';
 
 interface PaginatedTableProps<TData, TValue> {
   url: string;
+  modelName: string;
   columns: ColumnDef<TData, TValue>[];
   tNamespace: string;
   initialPageSize?: number;
@@ -36,6 +37,7 @@ export function PaginatedTable<TData, TValue>({
   url,
   columns,
   tNamespace,
+  modelName,
   initialPageSize = 10,
   searchFields = ['name'],
   defaultSort = [{ field: 'name' as keyof TData, order: 'asc' }],
@@ -51,7 +53,7 @@ export function PaginatedTable<TData, TValue>({
     handlePageChange,
     handlePageSizeChange,
     handleSearchFieldChange,
-  } = useTableData<TData>({ url, initialPageSize, searchFields, defaultSort });
+  } = useTableData<TData>({ url, initialPageSize, searchFields, defaultSort, modelName });
 
   const pageSizeOptions = [10, 20, 30, 50];
   const t = useTranslations('common');

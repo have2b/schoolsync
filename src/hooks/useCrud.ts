@@ -96,7 +96,7 @@ export const useCrud = ({ modelName, baseUrl }: CrudHookProps) => {
   const useDelete = () => {
     return useMutation({
       mutationFn: async (id: string) => {
-        const response = await mutateData(`${baseUrl}/${id}/delete-${modelName}`, 'delete');
+        const response = await mutateData(`${baseUrl}/${id}/delete-${modelName}`, {}, 'delete');
 
         // Check if response is not successful
         if (response.status !== 204) {

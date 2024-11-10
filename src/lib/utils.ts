@@ -28,11 +28,7 @@ export async function fetchData(url: string) {
   return res.data;
 }
 
-export async function mutateData<T>(
-  url: string,
-  data: T,
-  method: 'post' | 'put' | 'delete' = 'post'
-) {
+export async function mutateData<T>(url: string, data: T, method: 'post' | 'put' | 'delete') {
   switch (method) {
     case 'delete':
       return (await api.delete(url)).data;

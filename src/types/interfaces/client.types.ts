@@ -5,6 +5,7 @@ export interface SortConfig {
 
 export interface UseTableProps<TData> {
   url: string;
+  modelName: string;
   initialPageSize: number;
   searchFields?: string[];
   defaultSort?: Array<{

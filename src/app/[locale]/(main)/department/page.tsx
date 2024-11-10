@@ -6,6 +6,7 @@ const DepartmentPage = async () => {
     <div className="container mx-auto rounded-2xl py-10">
       <PaginatedTable
         url="/departments/get-department"
+        modelName="department"
         columns={departmentColumn}
         defaultKeys={['name', 'departmentCode', 'detail']}
         tNamespace="department"
