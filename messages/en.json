@@ -56,7 +56,7 @@
   "department": {
     "title": "Department",
     "id": "Id",
-    "departmentCode": "Code",
+    "code": "Code",
     "name": "Name",
     "detail": "Detail",
     "action": "Action",
@@ -86,6 +86,10 @@
     "updated": "Updated successfully",
     "deleted": "Deleted successfully",
     "error": "Error",
-    "duplicatedName": "Duplicated name"
+    "duplicatedName": "Duplicated name",
+    "areYouSure": "Are you sure?",
+    "accept": "Accept",
+    "deleteDescription": "This action cannot be undone. This will permanently delete this object?",
+    "rowsPerPage": "Rows per page:"
   }
 }

@@ -57,7 +57,7 @@
   "department": {
     "title": "Khoa",
     "id": "Id",
-    "departmentCode": "Mã Khoa",
+    "code": "Mã Khoa",
     "name": "Tên Khoa",
     "detail": "Mô Tả",
     "action": "Thao Tác",
@@ -87,6 +87,10 @@
     "updated": "Cập Nhật Thành Công",
     "deleted": "Xóa Thành Công",
     "error": "Lỗi",
-    "duplicatedName": "Tên Bị Trùng"
+    "duplicatedName": "Tên Bị Trùng",
+    "areYouSure": "Bạn Có Chắc?",
+    "accept": "Xác Nhận",
+    "deleteDescription": "Hành động này không thể hoàn tác. Bạn có thực sự muốn xóa đối tượng này?",
+    "rowsPerPage": "Số hàng:"
   }
 }

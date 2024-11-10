@@ -6,7 +6,7 @@ const generateDepartmentCode = async (): Promise<string> => {
   // Get the latest department
   const lastDepartment = await prisma.department.findFirst({
     orderBy: {
-      departmentCode: 'desc',
+      code: 'desc',
     },
   });
 
@@ -16,7 +16,7 @@ const generateDepartmentCode = async (): Promise<string> => {
   }
 
   // Extract the number from the last code and increment it
-  const lastNumber = parseInt(lastDepartment.departmentCode.substring(1));
+  const lastNumber = parseInt(lastDepartment.code.substring(1));
   const nextNumber = lastNumber + 1;
 
   // Format the new code with leading zeros
@@ -44,13 +44,13 @@ export const createDepartment = async (
     }
 
     // Generate the next department code
-    const departmentCode = await generateDepartmentCode();
+    const code = await generateDepartmentCode();
 
     const department = await prisma.department.create({
       data: {
         name,
         detail,
-        departmentCode,
+        code,
       },
     });
 
@@ -59,7 +59,7 @@ export const createDepartment = async (
       message: 'created',
       data: {
         id: department.id,
-        departmentCode: department.departmentCode,
+        code: department.code,
       },
     };
   } catch (error) {

@@ -82,7 +82,7 @@ export function PaginatedTable<TData, TValue>({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-end space-x-2">
-        <span className="text-sm text-gray-500">Rows per page:</span>
+        <span className="text-sm text-gray-500">{t('rowsPerPage')}</span>
         <Select
           value={pageSize!.toString()}
           onValueChange={(value) => handlePageSizeChange(Number(value))}

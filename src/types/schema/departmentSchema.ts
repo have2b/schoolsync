@@ -8,7 +8,7 @@ const createDepartmentSchema = z.object({
 });
 
 const updateDepartmentSchema = z.object({
-  departmentCode: z.string(),
+  code: z.string(),
   name: z.string().min(2).max(50),
   detail: z.string().max(50).optional(),
 });

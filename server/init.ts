@@ -40,17 +40,17 @@ if (departmentData.length === 0) {
   await prisma.department.createMany({
     data: [
       {
-        departmentCode: 'K001',
+        code: 'K001',
         name: 'Department 1',
         detail: 'Department 1 detail',
       },
       {
-        departmentCode: 'K002',
+        code: 'K002',
         name: 'Department 2',
         detail: 'Department 2 detail',
       },
       {
-        departmentCode: 'K003',
+        code: 'K003',
         name: 'Department 3',
         detail: 'Department 3 detail',
       },

@@ -137,7 +137,7 @@ export function DataTable<TData, TValue>({
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="bg-black/10 hover:bg-black/20">
+              <TableRow key={headerGroup.id} className="bg-black/10 hover:bg-black/10">
                 {headerGroup.headers.map((header) => {
                   const headerTitle = header.column.columnDef.id;
                   return (

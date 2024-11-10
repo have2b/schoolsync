@@ -32,7 +32,7 @@ export default function UpdateDepartment() {
   const form = useForm<z.infer<typeof updateDepartmentSchema>>({
     resolver: zodResolver(updateDepartmentSchema),
     defaultValues: {
-      departmentCode: '',
+      code: '',
       name: '',
       detail: '',
     },
@@ -41,7 +41,7 @@ export default function UpdateDepartment() {
   useEffect(() => {
     if (department) {
       form.reset({
-        departmentCode: department.departmentCode,
+        code: department.code,
         name: department.name,
         detail: department.detail ?? '',
       });
@@ -80,10 +80,10 @@ export default function UpdateDepartment() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <FormField
             control={form.control}
-            name="departmentCode"
+            name="code"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>{t('department.departmentCode')}</FormLabel>
+                <FormLabel>{t('department.code')}</FormLabel>
                 <FormControl>
                   <Input
                     placeholder={t('department.namePlaceholder')}

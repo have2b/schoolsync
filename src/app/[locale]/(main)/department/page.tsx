@@ -8,7 +8,7 @@ const DepartmentPage = async () => {
         url="/departments/get-department"
         modelName="department"
         columns={departmentColumn}
-        defaultKeys={['name', 'departmentCode', 'detail']}
+        defaultKeys={['name', 'code', 'detail']}
         tNamespace="department"
         initialPageSize={10}
       />
