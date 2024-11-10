@@ -4,7 +4,7 @@ import { GetListProps, GetListResponse, PaginationMeta, PipelineResult } from '@
 import { Department, Prisma } from '@prisma/client';
 import { logger } from '../utils';
 
-export const getDepartment = async (
+export const getDepartments = async (
   props: GetListProps<Department>
 ): Promise<PipelineResult<GetListResponse<Department> | unknown>> => {
   try {

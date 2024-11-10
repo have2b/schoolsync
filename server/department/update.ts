@@ -29,7 +29,7 @@ export const updateDepartment = async (
       },
     });
 
-    if (isExisted) {
+    if (isExisted && existingDepartment.name !== name) {
       return {
         status: 400,
         message: 'duplicatedName',

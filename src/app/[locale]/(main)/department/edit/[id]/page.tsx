@@ -53,12 +53,10 @@ export default function UpdateDepartment() {
       updateDepartment(
         { id, data: values },
         {
-          onSuccess: () => {
-            const locale = (params.locale as string) || 'vi';
+          onSuccess: async () => {
+            const locale = ((await params).locale as string) || 'vi';
 
-            setTimeout(() => {
-              redirect(`/${locale}/department`);
-            }, 1000);
+            redirect(`/${locale}/department`);
           },
         }
       );

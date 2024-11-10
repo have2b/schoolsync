@@ -33,7 +33,7 @@ export const useCrud = ({ modelName, baseUrl }: CrudHookProps) => {
     return useMutation({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       mutationFn: async (data: any) => {
-        const response = await mutateData(`${baseUrl}/create-${modelName}`, data, 'post');
+        const response = await mutateData(`${baseUrl}/create`, data, 'post');
 
         // Check if response is not successful
         if (response.status !== 201) {
@@ -65,7 +65,7 @@ export const useCrud = ({ modelName, baseUrl }: CrudHookProps) => {
     return useMutation({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       mutationFn: async ({ id, data }: { id: string; data: any }) => {
-        const response = await mutateData(`${baseUrl}/${id}/update-${modelName}`, data, 'put');
+        const response = await mutateData(`${baseUrl}/${id}/update`, data, 'put');
 
         // Check if response is not successful
         if (response.status !== 204) {
@@ -96,7 +96,7 @@ export const useCrud = ({ modelName, baseUrl }: CrudHookProps) => {
   const useDelete = () => {
     return useMutation({
       mutationFn: async (id: string) => {
-        const response = await mutateData(`${baseUrl}/${id}/delete-${modelName}`, {}, 'delete');
+        const response = await mutateData(`${baseUrl}/${id}/delete`, {}, 'delete');
 
         // Check if response is not successful
         if (response.status !== 204) {
@@ -125,7 +125,7 @@ export const useCrud = ({ modelName, baseUrl }: CrudHookProps) => {
   const useBulkDelete = () => {
     return useMutation({
       mutationFn: async (ids: string[]) => {
-        const response = await mutateData(`${baseUrl}/bulk-delete-${modelName}`, ids, 'post');
+        const response = await mutateData(`${baseUrl}/bulk-delete`, ids, 'post');
 
         // Check if response is not successful
         if (response.status !== 204) {
