@@ -34,11 +34,7 @@ export default function GlobalError({
           Try Again
         </Button>
         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          If you keep experiencing this issue, please{' '}
-          <a href="/contact" className="text-blue-500 hover:underline dark:text-blue-400">
-            contact support
-          </a>
-          .
+          If you keep experiencing this issue, please contact support .
         </p>
       </div>
     </div>
