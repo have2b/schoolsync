@@ -78,7 +78,8 @@ interface DataTableProps<TData, TValue> {
 const globalFilterFn: FilterFn<any> = (row, columnId, value) => {
   const search = value.toLowerCase();
   const cellValue = row.getValue(columnId)?.toString().toLowerCase();
-  return cellValue !== undefined && cellValue.includes(search);
+  const regex = new RegExp(search.split(' ').join('.*'), 'i');
+  return cellValue !== undefined && regex.test(cellValue);
 };
 
 interface PaginationButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

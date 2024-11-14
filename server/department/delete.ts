@@ -1,6 +1,10 @@
 import prisma from '@/prisma';
-import { DeleteRes, PipelineResult } from '@/types';
+import { PipelineResult } from '@/types';
 import { logger } from '../utils';
+
+interface DeleteRes {
+  id: number;
+}
 
 export const deleteDepartment = async (
   id: string

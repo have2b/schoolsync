@@ -1,9 +1,13 @@
 import prisma from '@/prisma';
-import { LoginReq, PipelineResult } from '@/types';
+import { PipelineResult } from '@/types';
 import { Account } from '@prisma/client';
 import argon2 from 'argon2';
 import { createSession } from '../utils';
 
+interface LoginReq {
+  username: string;
+  password: string;
+}
 export const login = async (req: LoginReq): Promise<PipelineResult<Account | unknown>> => {
   const { username, password } = req;
 

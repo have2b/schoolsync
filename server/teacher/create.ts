@@ -1,8 +1,19 @@
 import prisma from '@/prisma';
-import { CreateRes, CreateTeacherReq, PipelineResult } from '@/types';
+import { PipelineResult } from '@/types';
 import { faker } from '@faker-js/faker';
 import { Degree } from '@prisma/client';
 import { generateAccountEmail, generatePassword, logger } from '../utils';
+
+interface CreateTeacherReq {
+  name: string;
+  degree: string;
+  major: string;
+  departmentId: string;
+}
+
+interface CreateTeacherRes {
+  id: number;
+}
 
 const generateTeacherCode = async (): Promise<string> => {
   // Get the latest teacher
@@ -27,7 +38,7 @@ const generateTeacherCode = async (): Promise<string> => {
 
 export const createTeacher = async (
   req: CreateTeacherReq
-): Promise<PipelineResult<CreateRes | unknown>> => {
+): Promise<PipelineResult<CreateTeacherRes | unknown>> => {
   try {
     const { name, degree, major, departmentId } = req;
 

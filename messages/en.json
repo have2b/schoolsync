@@ -136,6 +136,14 @@
       "major": {
         "label": "Major",
         "placeholder": "Enter major"
+      },
+      "department": {
+        "label": "Department",
+        "placeholder": "Choose department"
+      },
+      "avatar": {
+        "label": "Avatar",
+        "placeholder": "Choose or drag and drop avatar here"
       }
     }
   },

@@ -1,12 +1,23 @@
 import prisma from '@/prisma';
-import { PipelineResult, UpdateRes, UpdateTeacherReq } from '@/types';
+import { PipelineResult } from '@/types';
 import { Degree } from '@prisma/client';
 import { logger } from '../utils';
+
+interface UpdateTeacherReq {
+  name?: string;
+  degree?: string;
+  major?: string;
+  departmentId?: number;
+}
+
+interface UpdateTeacherRes {
+  id: number;
+}
 
 export const updateTeacher = async (
   id: string,
   req: UpdateTeacherReq
-): Promise<PipelineResult<UpdateRes | unknown>> => {
+): Promise<PipelineResult<UpdateTeacherRes | unknown>> => {
   try {
     const { name, degree, major, departmentId } = req;
 

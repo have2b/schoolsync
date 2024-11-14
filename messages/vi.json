@@ -133,6 +133,14 @@
       "major": {
         "label": "Chuyên ngành",
         "placeholder": "Điền chuyên ngành giảng viên"
+      },
+      "department": {
+        "label": "Khoa",
+        "placeholder": "Chọn khoa"
+      },
+      "avatar": {
+        "label": "Avatar",
+        "placeholder": "Chọn ảnh hoặc kéo thả vào đây"
       }
     }
   },

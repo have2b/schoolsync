@@ -1,7 +1,15 @@
 import prisma from '@/prisma';
-import { CreateDepartmentReq, CreateRes, PipelineResult } from '@/types';
+import { PipelineResult } from '@/types';
 import { logger } from '../utils';
 
+interface CreateDepartmentReq {
+  name: string;
+  detail?: string;
+}
+
+interface CreateDepartmentRes {
+  id: number;
+}
 const generateDepartmentCode = async (): Promise<string> => {
   // Get the latest department
   const lastDepartment = await prisma.department.findFirst({
@@ -25,7 +33,7 @@ const generateDepartmentCode = async (): Promise<string> => {
 
 export const createDepartment = async (
   req: CreateDepartmentReq
-): Promise<PipelineResult<CreateRes | unknown>> => {
+): Promise<PipelineResult<CreateDepartmentRes | unknown>> => {
   try {
     const { name, detail } = req;
 
