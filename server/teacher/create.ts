@@ -5,20 +5,20 @@ import { Degree } from '@prisma/client';
 import { generateAccountEmail, generatePassword, logger } from '../utils';
 
 const generateTeacherCode = async (): Promise<string> => {
-  // Get the latest department
-  const lastTeacher = await prisma.department.findFirst({
+  // Get the latest teacher
+  const lastTeacher = await prisma.teacher.findFirst({
     orderBy: {
       code: 'desc',
     },
   });
 
-  // If no departments exist, start with K001
+  // If no teachers exist, start with GV001
   if (!lastTeacher) {
     return 'GV001';
   }
 
   // Extract the number from the last code and increment it
-  const lastNumber = parseInt(lastTeacher.code.substring(1));
+  const lastNumber = parseInt(lastTeacher.code.substring(2));
   const nextNumber = lastNumber + 1;
 
   // Format the new code with leading zeros
