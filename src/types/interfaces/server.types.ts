@@ -21,6 +21,13 @@ export interface CreateDepartmentReq {
   detail?: string;
 }
 
+export interface CreateTeacherReq {
+  name: string;
+  degree: string;
+  major: string;
+  departmentId: string;
+}
+
 export interface CreateRes {
   id: number;
 }
@@ -32,6 +39,13 @@ export interface DeleteRes {
 export interface UpdateDepartmentReq {
   name: string;
   detail?: string;
+}
+
+export interface UpdateTeacherReq {
+  name?: string;
+  degree?: string;
+  major?: string;
+  departmentId?: number;
 }
 export interface UpdateStudentReq {
   name: string;

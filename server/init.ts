@@ -68,6 +68,7 @@ if (teacherData.length === 0) {
     where: { role: 'Teacher' },
     select: { id: true },
   });
+  const departments = await prisma.department.findMany({ select: { id: true } });
 
   const fakeTeachers = teacherAccounts.map((account, index) => {
     const firstName = faker.person.firstName();
@@ -78,6 +79,7 @@ if (teacherData.length === 0) {
       degree: faker.helpers.arrayElement(['Bachelor', 'Master', 'Phd', 'Assoc', 'Prof']),
       major: faker.person.jobArea(),
       accountId: account.id,
+      departmentId: getRandomItem(departments).id,
       isActive: true,
     };
   });

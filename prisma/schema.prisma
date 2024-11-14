@@ -87,6 +87,7 @@ model Department {
 
   students Student[]
   classes  Class[]
+  teachers Teacher[]
 
   @@map("KHOA")
 }
@@ -134,19 +135,21 @@ model Course {
 }
 
 model Teacher {
-  id        Int      @id @default(autoincrement())
-  code      String   @unique @map("MaGV")
-  name      String   @map("HoTen")
-  degree    Degree   @default(Bachelor) @map("HocVi")
-  major     String   @map("ChuyenNganh")
-  accountId Int      @map("MaTK")
-  createdAt DateTime @default(now()) @map("NgayTao")
-  updatedAt DateTime @updatedAt @map("NgayCapNhat")
-  isActive  Boolean  @default(true) @map("DangHoatDong")
+  id           Int      @id @default(autoincrement())
+  code         String   @unique @map("MaGV")
+  name         String   @map("HoTen")
+  degree       Degree   @default(Bachelor) @map("HocVi")
+  major        String   @map("ChuyenNganh")
+  accountId    Int      @map("MaTK")
+  departmentId Int      @map("MaKhoa")
+  createdAt    DateTime @default(now()) @map("NgayTao")
+  updatedAt    DateTime @updatedAt @map("NgayCapNhat")
+  isActive     Boolean  @default(true) @map("DangHoatDong")
 
-  account Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
-  classes Class[]
-  courses Course[]
+  account    Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  classes    Class[]
+  courses    Course[]
 
   @@index([accountId])
   @@index([name]) // Add index for name searches
