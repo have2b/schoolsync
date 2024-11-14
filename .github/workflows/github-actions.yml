@@ -7,20 +7,37 @@ on:
     branches:
       - main
   pull_request:
-      branches:
-        - main
-      types:
-        - merged
+    branches:
+      - main
+    types:
+      - merged
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      # Add Node.js setup
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # If you want to use Bun, add this step
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
+
+      - name: Install Dependencies
+        run: bun install
+
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
