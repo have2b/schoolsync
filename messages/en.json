@@ -1,95 +1,167 @@
 {
   "metadata": {
-    "title": "SchoolSync"
+    "app": {
+      "title": "SchoolSync",
+      "version": "1.0.0"
+    }
   },
   "auth": {
-    "login": "Login",
-    "loginSuccess": "Login Success",
-    "incorrectPassword": "Incorrect Password",
-    "username": "Username",
-    "usernamePlaceholder": "Enter username...",
-    "password": "Password",
-    "passwordPlaceholder": "Enter password..."
-  },
-  "homepage": {
-    "title": "Home"
+    "actions": {
+      "login": "Login",
+      "logout": "Logout"
+    },
+    "status": {
+      "loginSuccess": "Login Success",
+      "incorrectPassword": "Incorrect Password",
+      "notFound": "User Not Found",
+      "logoutSuccess": "Logout Success"
+    },
+    "fields": {
+      "username": {
+        "label": "Username",
+        "placeholder": "Enter username..."
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter password..."
+      }
+    }
   },
   "navigation": {
-    "title": "Navigation menu",
-    "student": "Student Management",
-    "teacher": "Teacher Management",
-    "department": "Department Management",
-    "class": "Class Management",
-    "course": "Course Management",
-    "grade": "Grade Management",
-    "tooltip": "Shortcut ctrl + b",
-    "add": "Add",
-    "edit": "Edit"
+    "menu": {
+      "title": "Navigation menu",
+      "tooltip": "Shortcut ctrl + b"
+    },
+    "sections": {
+      "student": "Student Management",
+      "teacher": "Teacher Management",
+      "department": "Department Management",
+      "class": "Class Management",
+      "course": "Course Management",
+      "grade": "Grade Management",
+      "add": "Add",
+      "edit": "Edit"
+    }
   },
   "header": {
-    "profile": "Profile",
-    "logout": "Logout"
+    "userMenu": {
+      "profile": "Profile",
+      "logout": "Logout"
+    }
   },
   "error": {
-    "title": {
-      "404": "Page Not Found",
-      "500": "Internal Server Error",
-      "403": "Forbidden",
-      "401": "Unauthorized",
-      "default": "Something Went Wrong"
+    "types": {
+      "404": {
+        "title": "Page Not Found",
+        "description": "Oops! The page you're looking for doesn't exist."
+      },
+      "500": {
+        "title": "Internal Server Error",
+        "description": "Something Went Wrong On Our End"
+      },
+      "403": {
+        "title": "Forbidden",
+        "description": "Sorry, you don't have permission to access this page."
+      },
+      "401": {
+        "title": "Unauthorized",
+        "description": "Oops! It seems you don't have permission to access this page."
+      },
+      "default": {
+        "title": "Something Went Wrong",
+        "description": "Please try again later"
+      }
     },
-    "description": {
-      "404": "The Resource You Are Looking For Does Not Exist",
-      "500": "Something Went Wrong On Our End",
-      "403": "You Do Not Have Permission To Access This Resource",
-      "401": "You Are Not Authorized To Access This Resource",
-      "default": "Please try again later"
-    },
-    "button": "Try Again",
     "details": {
-      "show": "Show Details",
-      "hide": "Hide Details",
-      "title": "Error Details",
-      "id": "Error id"
+      "actions": {
+        "show": "Show Details",
+        "hide": "Hide Details"
+      },
+      "content": {
+        "title": "Error Details",
+        "id": "Error id"
+      }
+    },
+    "actions": {
+      "retry": "Try Again",
+      "goHome": "Go back home"
     }
   },
   "department": {
     "title": "Department",
-    "id": "Id",
-    "code": "Code",
-    "name": "Name",
-    "detail": "Detail",
-    "action": "Action",
-    "namePlaceholder": "Enter name",
-    "detailPlaceholder": "Enter detail"
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Code",
+        "placeholder": "Enter code"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter name"
+      },
+      "detail": {
+        "label": "Detail",
+        "placeholder": "Enter detail"
+      }
+    },
+    "columns": {
+      "action": "Action"
+    }
   },
-  "tableButtons": {
-    "addNew": "Add New",
-    "import": "Import",
-    "export": "Export",
-    "selectAll": "Select All",
-    "deselectAll": "Deselect All",
-    "deleteSelected": "Delete Selected"
+  "table": {
+    "actions": {
+      "addNew": "Add New",
+      "import": "Import",
+      "export": "Export",
+      "selectAll": "Select All",
+      "deselectAll": "Deselect All",
+      "deleteSelected": "Delete Selected"
+    },
+    "pagination": {
+      "rowsPerPage": "Rows per page:",
+      "prev": "Previous",
+      "next": "Next"
+    }
   },
   "common": {
-    "all": "All",
-    "searchPlaceholder": "Type something...",
-    "noResult": "No result...",
-    "prev": "Previous",
-    "next": "Next",
-    "submit": "Submit",
-    "cancel": "Cancel",
-    "creating": "Creating...",
-    "updating": "Updating...",
-    "deleting": "Deleting...",
-    "created": "Created successfully",
-    "updated": "Updated successfully",
-    "deleted": "Deleted successfully",
-    "error": "Error",
-    "duplicatedName": "Duplicated name",
-    "areYouSure": "Are you sure?",
-    "accept": "Accept",
-    "deleteDescription": "This action cannot be undone. This will permanently delete this object?",
-    "rowsPerPage": "Rows per page:"
+    "status": {
+      "creating": "Creating...",
+      "updating": "Updating...",
+      "deleting": "Deleting...",
+      "created": "Created successfully",
+      "updated": "Updated successfully",
+      "deleted": "Deleted successfully",
+      "error": "Error",
+      "duplicatedName": "Duplicated name"
+    },
+    "actions": {
+      "submit": "Submit",
+      "cancel": "Cancel"
+    },
+    "search": {
+      "title": "Search by",
+      "all": "All",
+      "placeholder": "Type something...",
+      "noResult": "No result..."
+    },
+    "filter": {
+      "title": "Filter",
+      "toggleColumn": "Select column",
+      "searchColumn": "Search column",
+      "clear": "Clear filter"
+    },
+    "row": {
+      "perPage": "Rows per page",
+      "selected": "Selected {row, plural, =0 {0 row} =1 {1 row} other {# rows}}",
+      "showing": "Page {row} in total {total, plural, =0 {0 page} =1 {1 page} other {# pages}} "
+    },
+    "columns": {
+      "action": "Action"
+    },
+    "confirmation": {
+      "title": "Are you sure?",
+      "accept": "Accept",
+      "deleteWarning": "This action cannot be undone. Are you sure you want to delete {row, plural, =1 {this object} other {these # objects}}?"
+    }
   }
 }

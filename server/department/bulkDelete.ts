@@ -1,10 +1,10 @@
 import prisma from '@/prisma';
-import { DeleteDepartmentRes, PipelineResult } from '@/types';
+import { DeleteRes, PipelineResult } from '@/types';
 import { logger } from '../utils';
 
 export const bulkDeleteDepartment = async (
   ids: string[]
-): Promise<PipelineResult<DeleteDepartmentRes[] | unknown>> => {
+): Promise<PipelineResult<DeleteRes[] | unknown>> => {
   try {
     // Convert string IDs to numbers if necessary (assuming IDs are numeric)
     const numericIds = ids.map((id) => Number(id));
@@ -27,11 +27,14 @@ export const bulkDeleteDepartment = async (
     }
 
     // Perform bulk deletion
-    const deletedDepartments = await prisma.department.deleteMany({
+    const deletedDepartments = await prisma.department.updateMany({
       where: {
         id: {
           in: numericIds,
         },
+      },
+      data: {
+        isActive: false,
       },
     });
 

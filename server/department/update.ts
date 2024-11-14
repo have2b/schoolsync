@@ -1,11 +1,11 @@
 import prisma from '@/prisma';
-import { PipelineResult, UpdateDepartmentReq, UpdateDepartmentRes } from '@/types';
+import { PipelineResult, UpdateDepartmentReq, UpdateRes } from '@/types';
 import { logger } from '../utils';
 
 export const updateDepartment = async (
   id: string,
   req: UpdateDepartmentReq
-): Promise<PipelineResult<UpdateDepartmentRes | unknown>> => {
+): Promise<PipelineResult<UpdateRes | unknown>> => {
   try {
     const { name, detail } = req;
 

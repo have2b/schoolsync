@@ -15,22 +15,6 @@ enum Role {
   @@map("VAITRO")
 }
 
-model Account {
-  id           Int     @id @default(autoincrement())
-  username     String  @unique @map("TenTK")
-  email        String  @unique @map("Email")
-  password     String  @map("MatKhau")
-  name         String  @map("Ten")
-  role         Role    @map("VaiTro")
-  avatar       String  @map("AnhDaiDien")
-  isFirstLogin Boolean @map("LanDauDangNhap")
-
-  students Student[]
-  teachers Teacher[]
-
-  @@map("TAIKHOAN")
-}
-
 enum Gender {
   Male   @map("Nam")
   Female @map("Nu")
@@ -39,54 +23,91 @@ enum Gender {
   @@map("GIOITINH")
 }
 
+enum Degree {
+  Bachelor @map("Cu Nhan")
+  Master   @map("Thac Si")
+  Phd      @map("Tien Si")
+  Assoc    @map("Pho Giao Su")
+  Prof     @map("Giao Su")
+
+  @@map("HOCVI")
+}
+
+model Account {
+  id           Int       @id @default(autoincrement())
+  username     String    @unique @map("TenTK")
+  email        String    @unique @map("Email")
+  password     String    @map("MatKhau")
+  role         Role      @map("VaiTro")
+  avatar       String?   @map("AnhDaiDien")
+  isFirstLogin Boolean   @default(true) @map("LanDauDangNhap")
+  createdAt    DateTime  @default(now()) @map("NgayTao")
+  updatedAt    DateTime  @updatedAt @map("NgayCapNhat")
+  students     Student[]
+  teachers     Teacher[]
+
+  @@map("TAIKHOAN")
+}
+
 model Student {
-  id      Int      @id @default(autoincrement())
-  code    String   @unique @map("MaSV")
-  dob     DateTime @map("NgaySinh")
-  gender  Gender   @default(Male) @map("GioiTinh")
-  address String   @map("DiaChi")
-  phone   String   @unique @map("SDT")
+  id           Int      @id @default(autoincrement())
+  code         String   @unique @map("MaSV")
+  name         String   @map("HoTen")
+  dob          DateTime @map("NgaySinh")
+  gender       Gender   @default(Male) @map("GioiTinh")
+  address      String   @map("DiaChi")
+  phone        String   @unique @map("SDT")
+  accountId    Int      @map("MaTK")
+  departmentId Int      @map("MaKhoa")
+  classId      Int      @map("MaLopHC")
+  createdAt    DateTime @default(now()) @map("NgayTao")
+  updatedAt    DateTime @updatedAt @map("NgayCapNhat")
+  isActive     Boolean  @default(true) @map("DangHoatDong")
 
-  accountId Int     @map("MaTK")
-  account   Account @relation(fields: [accountId], references: [id])
-
-  departmentId Int        @map("MaKhoa")
-  department   Department @relation(fields: [departmentId], references: [id])
-
-  classId Int   @map("MaLopHC")
-  class   Class @relation(fields: [classId], references: [id])
-
+  account        Account         @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  department     Department      @relation(fields: [departmentId], references: [id])
+  class          Class           @relation(fields: [classId], references: [id])
   studentCourses StudentCourse[]
 
+  @@index([accountId])
+  @@index([departmentId])
+  @@index([classId])
+  @@index([name])
   @@map("SINHVIEN")
 }
 
 model Department {
-  id     Int     @id @default(autoincrement())
-  code   String  @unique @map("MaKhoa")
-  name   String  @unique @map("TenKhoa")
-  detail String? @map("MoTa")
+  id        Int      @id @default(autoincrement())
+  code      String   @unique @map("MaKhoa")
+  name      String   @unique @map("TenKhoa")
+  detail    String?  @map("MoTa")
+  createdAt DateTime @default(now()) @map("NgayTao")
+  updatedAt DateTime @updatedAt @map("NgayCapNhat")
+  isActive  Boolean  @default(true) @map("DangHoatDong")
 
-  Students Student[]
+  students Student[]
   classes  Class[]
 
   @@map("KHOA")
 }
 
 model Class {
-  id       Int    @id @default(autoincrement())
-  code     String @unique @map("MaLopHC")
-  name     String @unique @map("TenLopHC")
-  capacity Int    @map("SoLuong")
+  id           Int      @id @default(autoincrement())
+  code         String   @unique @map("MaLopHC")
+  name         String   @unique @map("TenLopHC")
+  capacity     Int      @map("SoLuong")
+  departmentId Int      @map("MaKhoa")
+  teacherId    Int      @map("MaGV")
+  createdAt    DateTime @default(now()) @map("NgayTao")
+  updatedAt    DateTime @updatedAt @map("NgayCapNhat")
+  isActive     Boolean  @default(true) @map("DangHoatDong")
 
-  departmentId Int        @map("MaKhoa")
-  department   Department @relation(fields: [departmentId], references: [id])
+  department Department @relation(fields: [departmentId], references: [id])
+  teacher    Teacher    @relation(fields: [teacherId], references: [id])
+  students   Student[]
 
-  students Student[]
-
-  teacherId Int     @map("MaGV")
-  teacher   Teacher @relation(fields: [teacherId], references: [id])
-
+  @@index([departmentId])
+  @@index([teacherId])
   @@map("LOPHC")
 }
 
@@ -100,52 +121,54 @@ model Course {
   year      Int      @map("NamHoc")
   startedAt DateTime @map("NgayBatDau")
   endedAt   DateTime @map("NgayKetThuc")
+  teacherId Int      @map("MaGV")
+  createdAt DateTime @default(now()) @map("NgayTao")
+  updatedAt DateTime @updatedAt @map("NgayCapNhat")
+  isActive  Boolean  @default(true) @map("DangHoatDong")
 
-  teacherId Int     @map("MaGV")
-  teacher   Teacher @relation(fields: [teacherId], references: [id])
-
+  teacher        Teacher         @relation(fields: [teacherId], references: [id])
   studentCourses StudentCourse[]
 
+  @@index([teacherId])
   @@map("HOCPHAN")
 }
 
-enum Degree {
-  Bachelor @map("Cu Nhan")
-  Master   @map("Thac Si")
-  Phd      @map("Tien Si")
-  Assoc    @map("Pho Giao Su")
-  Prof     @map("Giao Su")
-
-  @@map("HOCVI")
-}
-
 model Teacher {
-  id      Int      @id @default(autoincrement())
-  code    String   @unique @map("MaGV")
-  degree  Degree   @default(Bachelor) @map("HocVi")
-  major   String   @map("ChuyenNganh")
+  id        Int      @id @default(autoincrement())
+  code      String   @unique @map("MaGV")
+  name      String   @map("HoTen")
+  degree    Degree   @default(Bachelor) @map("HocVi")
+  major     String   @map("ChuyenNganh")
+  accountId Int      @map("MaTK")
+  createdAt DateTime @default(now()) @map("NgayTao")
+  updatedAt DateTime @updatedAt @map("NgayCapNhat")
+  isActive  Boolean  @default(true) @map("DangHoatDong")
+
+  account Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
   classes Class[]
   courses Course[]
 
-  accountId Int     @map("MaTK")
-  account   Account @relation(fields: [accountId], references: [id])
-
+  @@index([accountId])
+  @@index([name]) // Add index for name searches
   @@map("GIANGVIEN")
 }
 
 model StudentCourse {
-  attendancePoint Decimal @map("DiemCC")
-  midTermPoint    Decimal @map("DiemKT1")
-  finalPoint      Decimal @map("DiemKT2")
-  finalGrade      Decimal @map("DiemTL")
-  examPoint       Decimal @map("DiemThi")
+  attendancePoint Decimal  @map("DiemCC")
+  midTermPoint    Decimal  @map("DiemKT1")
+  finalPoint      Decimal  @map("DiemKT2")
+  finalGrade      Decimal  @map("DiemTL")
+  examPoint       Decimal  @map("DiemThi")
+  studentCode     String   @map("MaSV")
+  courseCode      String   @map("MaHP")
+  createdAt       DateTime @default(now()) @map("NgayTao")
+  updatedAt       DateTime @updatedAt @map("NgayCapNhat")
 
-  studentCode String  @map("MaSV")
-  student     Student @relation(fields: [studentCode], references: [code])
-
-  courseCode String @map("MaHP")
-  course     Course @relation(fields: [courseCode], references: [code])
+  student Student @relation(fields: [studentCode], references: [code])
+  course  Course  @relation(fields: [courseCode], references: [code])
 
   @@id([studentCode, courseCode])
+  @@index([studentCode])
+  @@index([courseCode])
   @@map("DIEM")
 }

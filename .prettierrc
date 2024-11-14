@@ -13,7 +13,5 @@
   "quoteProps": "as-needed",
   "htmlWhitespaceSensitivity": "css",
   "vueIndentScriptAndStyle": true,
-  "plugins": [
-    "prettier-plugin-tailwindcss"
-  ]
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

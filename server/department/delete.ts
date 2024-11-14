@@ -1,10 +1,10 @@
 import prisma from '@/prisma';
-import { DeleteDepartmentRes, PipelineResult } from '@/types';
+import { DeleteRes, PipelineResult } from '@/types';
 import { logger } from '../utils';
 
 export const deleteDepartment = async (
   id: string
-): Promise<PipelineResult<DeleteDepartmentRes | unknown>> => {
+): Promise<PipelineResult<DeleteRes | unknown>> => {
   try {
     const existingDepartment = await prisma.department.findFirst({
       where: {
@@ -20,9 +20,12 @@ export const deleteDepartment = async (
       };
     }
 
-    const deletedDepartment = await prisma.department.delete({
+    const deletedDepartment = await prisma.department.update({
       where: {
         id: Number(id),
+      },
+      data: {
+        isActive: false,
       },
     });
 

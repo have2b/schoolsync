@@ -1,96 +1,164 @@
 {
   "metadata": {
-    "title": "SchoolSync"
+    "app": {
+      "title": "SchoolSync",
+      "version": "1.0.0"
+    }
   },
   "auth": {
-    "login": "Đăng Nhập",
-    "loginSuccess": "Đăng Nhập Thành Công",
-    "incorrectPassword": "Mật Khẩu Không Đúng",
-    "username": "Tài Khoản",
-    "usernamePlaceholder": "Nhập tài khoản...",
-    "password": "Mật Khẩu",
-    "passwordPlaceholder": "Nhập mật khẩu..."
-  },
-  "homepage": {
-    "title": "Trang Chủ",
-    "about": "Giới Thiệu"
+    "actions": {
+      "login": "Đăng Nhập",
+      "logout": "Đăng Xuất"
+    },
+    "status": {
+      "loginSuccess": "Đăng Nhập Thành Công",
+      "incorrectPassword": "Mật Khẩu Không Đúng",
+      "notFound": "Tài Khoản Không Tồn Tại",
+      "logoutSuccess": "Đăng Xuất Thành Công"
+    },
+    "fields": {
+      "username": {
+        "label": "Tài Khoản",
+        "placeholder": "Nhập tài khoản..."
+      },
+      "password": {
+        "label": "Mật Khẩu",
+        "placeholder": "Nhập mật khẩu..."
+      }
+    }
   },
   "navigation": {
-    "title": "Danh Sách",
-    "student": "Quản Lý Sinh Viên",
-    "teacher": "Quản Lý Giảng Viên",
-    "department": "Quản Lý Khoa",
-    "class": "Quản Lý Lớp Hành Chính",
-    "course": "Quản Lý Học Phần",
-    "grade": "Quản Lý Điểm",
-    "tooltip": "Phím Tắt Ctrl + B",
-    "add": "Thêm Mới",
-    "edit": "Chỉnh Sửa Thông Tin"
+    "menu": {
+      "title": "Danh Sách",
+      "tooltip": "Phím Tắt Ctrl + B"
+    },
+    "sections": {
+      "student": "Quản Lý Sinh Viên",
+      "teacher": "Quản Lý Giảng Viên",
+      "department": "Quản Lý Khoa",
+      "class": "Quản Lý Lớp Hành Chính",
+      "course": "Quản Lý Học Phần",
+      "grade": "Quản Lý Điểm",
+      "add": "Thêm mới",
+      "edit": "Chỉnh sửa thông tin"
+    }
   },
   "header": {
-    "profile": "Tài Khoản",
-    "logout": "Đăng Xuất"
+    "userMenu": {
+      "profile": "Tài Khoản",
+      "logout": "Đăng Xuất"
+    }
   },
   "error": {
-    "title": {
-      "404": "Không Tìm Thấy Tài Nguyên",
-      "500": "Lỗi Máy Chủ",
-      "403": "Không Có Quyền Truy Cập",
-      "401": "Lỗi Xác Thực",
-      "default": "Có Lỗi Xảy Ra"
+    "types": {
+      "404": {
+        "title": "Không Tìm Thấy Tài Nguyên",
+        "description": "Ồ! Tài nguyên bạn đang tìm kiếm không tồn tại"
+      },
+      "500": {
+        "title": "Lỗi Máy Chủ",
+        "description": "Có Lỗi Xảy Ra Từ Phía Máy Chủ"
+      },
+      "403": {
+        "title": "Không Có Quyền Truy Cập",
+        "description": "Xin lỗi, bạn không có quyền truy cập vào trang này."
+      },
+      "401": {
+        "title": "Lỗi Xác Thực",
+        "description": "Ồ! Có vẻ bạn không có không có quyền truy cập vào trang này."
+      },
+      "default": {
+        "title": "Có Lỗi Xảy Ra",
+        "description": "Vui Lòng Thử Lại Sau"
+      }
     },
-    "description": {
-      "404": "Tài Nguyên Bạn Đang Tìm Kiếm Không Tồn Tại",
-      "500": "Có Lỗi Xảy Ra Từ Phía Máy Chủ",
-      "403": "Bạn Không Có Quyền Truy Cập Vào Tài Nguyên Này",
-      "401": "Bạn Không Có Quyền Truy Cập Vào Tài Nguyên Này",
-      "default": "Vui Lòng Thử Lại Sau"
-    },
-    "button": "Thử Lại",
     "details": {
-      "show": "Chi Tiết",
-      "hide": "Đóng",
-      "title": "Chi Tiết",
-      "id": "Mã Lỗi"
+      "actions": {
+        "show": "Chi Tiết",
+        "hide": "Đóng"
+      },
+      "content": {
+        "title": "Chi Tiết",
+        "id": "Mã Lỗi"
+      }
+    },
+    "actions": {
+      "retry": "Thử Lại",
+      "goHome": "Về trang chủ"
     }
   },
   "department": {
     "title": "Khoa",
-    "id": "Id",
-    "code": "Mã Khoa",
-    "name": "Tên Khoa",
-    "detail": "Mô Tả",
-    "action": "Thao Tác",
-    "namePlaceholder": "Điền Tên Khoa",
-    "detailPlaceholder": "Điền Mô Tả Khoa"
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Mã khoa",
+        "placeholder": "Điền mã khoa"
+      },
+      "name": {
+        "label": "Tên khoa",
+        "placeholder": "Điền tên khoa"
+      },
+      "detail": {
+        "label": "Mô tả",
+        "placeholder": "Điền mô tả khoa"
+      }
+    }
   },
-  "tableButtons": {
-    "addNew": "Thêm Mới",
-    "import": "Xuất Dữ Liệu",
-    "export": "Nhập Dữ Liệu",
-    "selectAll": "Chọn Tất Cả",
-    "deselectAll": "Bỏ Chọn Tất Cả",
-    "deleteSelected": "Xóa Mục Đã Chọn"
+  "table": {
+    "actions": {
+      "addNew": "Thêm mới",
+      "import": "Nhập dữ liệu",
+      "export": "Xuất dữ liệu",
+      "selectAll": "Chọn tất cả",
+      "deselectAll": "Bỏ chọn tất cả",
+      "deleteSelected": "Xóa mục đã chọn"
+    },
+    "pagination": {
+      "rowsPerPage": "Số hàng:",
+      "prev": "Trước",
+      "next": "Sau"
+    }
   },
   "common": {
-    "all": "Tất Cả",
-    "searchPlaceholder": "Nhập gì đó...",
-    "noResult": "Không Tìm Thấy Kết Quả",
-    "prev": "Trước",
-    "next": "Sau",
-    "submit": "Lưu",
-    "cancel": "Hủy",
-    "creating": "Đang Tạo...",
-    "updating": "Đang Cập Nhật...",
-    "deleting": "Đang Xóa...",
-    "created": "Tạo Thành Công",
-    "updated": "Cập Nhật Thành Công",
-    "deleted": "Xóa Thành Công",
-    "error": "Lỗi",
-    "duplicatedName": "Tên Bị Trùng",
-    "areYouSure": "Bạn Có Chắc?",
-    "accept": "Xác Nhận",
-    "deleteDescription": "Hành động này không thể hoàn tác. Bạn có thực sự muốn xóa đối tượng này?",
-    "rowsPerPage": "Số hàng:"
+    "status": {
+      "creating": "Đang Tạo...",
+      "updating": "Đang Cập Nhật...",
+      "deleting": "Đang Xóa...",
+      "created": "Tạo Thành Công",
+      "updated": "Cập Nhật Thành Công",
+      "deleted": "Xóa Thành Công",
+      "error": "Lỗi",
+      "duplicatedName": "Tên Bị Trùng"
+    },
+    "actions": {
+      "submit": "Lưu",
+      "cancel": "Hủy"
+    },
+    "search": {
+      "title": "Tìm kiếm theo",
+      "all": "Tất cả",
+      "placeholder": "Nhập gì đó...",
+      "noResult": "Không Tìm Thấy Kết Quả"
+    },
+    "filter": {
+      "title": "Bộ lọc",
+      "toggleColumn": "Chọn cột",
+      "searchColumn": "Cột tìm kiếm",
+      "clear": "Xóa bộ lọc"
+    },
+    "row": {
+      "perPage": "Số hàng",
+      "selected": "Đã chọn {row, plural, =1 {1 hàng} other {# hàng}}",
+      "showing": "Trang {row} trên tổng {total} trang"
+    },
+    "columns": {
+      "action": "Thao tác"
+    },
+    "confirmation": {
+      "title": "Bạn có chắc?",
+      "accept": "Xác nhận",
+      "deleteWarning": "Hành động này không thể hoàn tác. Bạn có thực sự muốn xóa {row, plural, =1 {} other {#}} đối tượng này?"
+    }
   }
 }

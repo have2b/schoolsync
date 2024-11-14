@@ -2,21 +2,24 @@ import { PipelineProps, PipelineResult } from '@/types';
 import { logger } from './logger';
 
 const logStart = (context: string) => {
-  logger.info(`${context}-start`, '---------------------------------------------------------');
+  logger.info(`[${context}] - START`, '---------------------------------------------------------');
 };
 
 const logSuccess = (context: string, message: string, data: unknown) => {
-  logger.info(`${context}-success`, message, JSON.stringify(data));
+  logger.info(`[${context}] - SUCCESS`, `${message} | Data: ${JSON.stringify(data)}`);
 };
 
 const logError = (context: string, error: unknown) => {
   const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-  const errorData = error instanceof Error ? error : { error };
-  logger.error(`${context}-error`, errorMessage, JSON.stringify(errorData));
+  const errorStack = error instanceof Error ? error.stack : 'No stack trace available';
+  logger.error(
+    `[${context}] - ERROR`,
+    `${errorMessage} | Data: ${JSON.stringify(error)} | Stack: ${errorStack}`
+  );
 };
 
 const logFinish = (context: string) => {
-  logger.info(`${context}-finish`, '---------------------------------------------------------');
+  logger.info(`[${context}] - FINISH`, '---------------------------------------------------------');
 };
 
 export const pipeline = async <T>({

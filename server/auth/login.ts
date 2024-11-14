@@ -1,9 +1,10 @@
-import { createSession } from '@/app/action';
 import prisma from '@/prisma';
-import { LoginReq, LoginRes, PipelineResult } from '@/types';
+import { LoginReq, PipelineResult } from '@/types';
+import { Account } from '@prisma/client';
 import argon2 from 'argon2';
+import { createSession } from '../utils';
 
-export const login = async (req: LoginReq): Promise<PipelineResult<LoginRes | unknown>> => {
+export const login = async (req: LoginReq): Promise<PipelineResult<Account | unknown>> => {
   const { username, password } = req;
 
   const findAccount = await prisma.account.findFirst({
@@ -33,8 +34,6 @@ export const login = async (req: LoginReq): Promise<PipelineResult<LoginRes | un
   return {
     status: 200,
     message: 'loginSuccess',
-    data: {
-      username: findAccount.username,
-    },
+    data: findAccount,
   };
 };

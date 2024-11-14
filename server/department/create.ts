@@ -1,5 +1,5 @@
 import prisma from '@/prisma';
-import { CreateDepartmentReq, CreateDepartmentRes, PipelineResult } from '@/types';
+import { CreateDepartmentReq, CreateRes, PipelineResult } from '@/types';
 import { logger } from '../utils';
 
 const generateDepartmentCode = async (): Promise<string> => {
@@ -25,7 +25,7 @@ const generateDepartmentCode = async (): Promise<string> => {
 
 export const createDepartment = async (
   req: CreateDepartmentReq
-): Promise<PipelineResult<CreateDepartmentRes | unknown>> => {
+): Promise<PipelineResult<CreateRes | unknown>> => {
   try {
     const { name, detail } = req;
 
