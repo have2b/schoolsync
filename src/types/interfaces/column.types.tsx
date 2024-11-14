@@ -30,6 +30,11 @@ function HeaderCol<T>({ column, modelName, sortable = true }: RenderHeaderProps<
   );
 }
 
+function CellTranslated({ value, modelName }: { value: string; modelName: string }) {
+  const t = useTranslations(modelName);
+  return <span>{t(value)}</span>;
+}
+
 export const departmentColumn: ColumnDef<Department>[] = [
   {
     id: 'code',
@@ -97,7 +102,12 @@ export const teacherColumn: ColumnDef<Teacher>[] = [
     id: 'degree',
     accessorKey: 'degree',
     header: ({ column }) => <HeaderCol column={column} modelName="teacher" />,
-    cell: ({ row }) => <div className="pl-4">{row.getValue('degree')}</div>,
+    cell: ({ row }) => (
+      <CellTranslated
+        value={(row.getValue('degree') as string).toLowerCase()}
+        modelName="enum.degree"
+      />
+    ),
   },
   {
     id: 'major',

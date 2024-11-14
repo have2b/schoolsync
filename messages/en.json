@@ -87,6 +87,15 @@
       "goHome": "Go back home"
     }
   },
+  "enum": {
+    "degree": {
+      "bachelor": "Bachelor",
+      "master": "Master",
+      "phd": "PhD",
+      "assoc": "Associate Prof",
+      "prof": "Professor"
+    }
+  },
   "department": {
     "title": "Department",
     "fields": {

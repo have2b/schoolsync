@@ -87,6 +87,15 @@
       "goHome": "Về trang chủ"
     }
   },
+  "enum": {
+    "degree": {
+      "bachelor": "Cử nhân",
+      "master": "Thạc sĩ",
+      "phd": "Tiến sĩ",
+      "assoc": "Phó giáo sư",
+      "prof": "Giáo sư"
+    }
+  },
   "department": {
     "title": "Khoa",
     "fields": {
@@ -118,8 +127,8 @@
         "placeholder": "Điền tên giảng viên"
       },
       "degree": {
-        "label": "Trình độ",
-        "placeholder": "Chọn trình độ giảng viên"
+        "label": "Học vị",
+        "placeholder": "Chọn học vị giảng viên"
       },
       "major": {
         "label": "Chuyên ngành",
