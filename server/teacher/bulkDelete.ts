@@ -6,8 +6,6 @@ export const bulkDeleteTeacher = async (
   ids: string[]
 ): Promise<PipelineResult<DeleteRes[] | unknown>> => {
   try {
-    console.log(ids.length);
-
     // Convert string IDs to numbers if necessary (assuming IDs are numeric)
     const numericIds = ids.map((id) => Number(id));
 

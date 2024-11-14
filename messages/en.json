@@ -108,6 +108,28 @@
       "action": "Action"
     }
   },
+  "teacher": {
+    "title": "Teacher",
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Code",
+        "placeholder": "Enter code"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter name"
+      },
+      "degree": {
+        "label": "Degree",
+        "placeholder": "Choose degree"
+      },
+      "major": {
+        "label": "Major",
+        "placeholder": "Enter major"
+      }
+    }
+  },
   "table": {
     "actions": {
       "addNew": "Add New",

@@ -105,6 +105,28 @@
       }
     }
   },
+  "teacher": {
+    "title": "Giảng Viên",
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Mã giảng viên",
+        "placeholder": "Điền mã giảng viên"
+      },
+      "name": {
+        "label": "Tên giảng viên",
+        "placeholder": "Điền tên giảng viên"
+      },
+      "degree": {
+        "label": "Trình độ",
+        "placeholder": "Chọn trình độ giảng viên"
+      },
+      "major": {
+        "label": "Chuyên ngành",
+        "placeholder": "Điền chuyên ngành giảng viên"
+      }
+    }
+  },
   "table": {
     "actions": {
       "addNew": "Thêm mới",

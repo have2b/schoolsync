@@ -1,7 +1,7 @@
 'use client';
 
 import { ActionCell, Button, Input } from '@/components';
-import { Department } from '@prisma/client';
+import { Department, Teacher } from '@prisma/client';
 import { Column, ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -65,6 +65,50 @@ export const departmentColumn: ColumnDef<Department>[] = [
       <HeaderCol column={{} as Column<unknown>} modelName="department" sortable={false} />
     ),
     cell: ({ row }) => <ActionCell id={row.original.id} modelName="department" />,
+    enableSorting: false,
+    enableHiding: false,
+  },
+];
+
+export const teacherColumn: ColumnDef<Teacher>[] = [
+  {
+    id: 'code',
+    accessorKey: 'code',
+    header: ({ column }) => <HeaderCol column={column} modelName="teacher" />,
+    cell: ({ row }) => (
+      <div className="flex items-center gap-2">
+        <Input
+          type="checkbox"
+          className="size-4"
+          checked={row.getIsSelected()}
+          onChange={(e) => row.toggleSelected(!!e.target.checked)}
+        />
+        <span>{row.getValue('code')}</span>
+      </div>
+    ),
+  },
+  {
+    id: 'name',
+    accessorKey: 'name',
+    header: ({ column }) => <HeaderCol column={column} modelName="teacher" />,
+    cell: ({ row }) => <div className="pl-4">{row.getValue('name')}</div>,
+  },
+  {
+    id: 'degree',
+    accessorKey: 'degree',
+    header: ({ column }) => <HeaderCol column={column} modelName="teacher" />,
+    cell: ({ row }) => <div className="pl-4">{row.getValue('degree')}</div>,
+  },
+  {
+    id: 'major',
+    accessorKey: 'major',
+    header: ({ column }) => <HeaderCol column={column} modelName="teacher" />,
+    cell: ({ row }) => <div className="pl-4">{row.getValue('major')}</div>,
+  },
+  {
+    id: 'action',
+    header: () => <HeaderCol column={{} as Column<unknown>} modelName="teacher" sortable={false} />,
+    cell: ({ row }) => <ActionCell id={row.original.id} modelName="teacher" />,
     enableSorting: false,
     enableHiding: false,
   },
