@@ -26,6 +26,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Degree, Department } from '@prisma/client';
 import { CloudUploadIcon, PaperclipIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -66,14 +67,13 @@ export default function AdminUpdateTeacher() {
 
   useEffect(() => {
     if (teacher) {
-      console.log(teacher.degree);
       form.reset({
         code: teacher.code,
         name: teacher.name,
         degree: teacher.degree,
         major: teacher.major,
         departmentId: teacher.departmentId.toString(),
-        avatar: teacher.avatar,
+        avatar: teacher.account.avatar,
       });
     }
     async function fetchDepartments() {
@@ -210,7 +210,15 @@ export default function AdminUpdateTeacher() {
                         id="fileInput"
                         className="h-full outline-dashed outline-1 outline-slate-500"
                       >
-                        <div className="flex h-full w-full flex-col items-center justify-center p-8">
+                        <div className="flex h-full w-full flex-col items-center justify-center gap-6 p-6">
+                          <div className="relative size-32">
+                            <Image
+                              src={teacher.account.avatar}
+                              alt="avatar"
+                              fill
+                              className="rounded-full object-contain"
+                            />
+                          </div>
                           <CloudUploadIcon className="size-10 text-gray-500" />
                           <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
                             <span>{t('teacher.fields.avatar.placeholder')}</span>

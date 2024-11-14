@@ -1,13 +1,26 @@
 import prisma from '@/prisma';
 import { PipelineResult } from '@/types';
-import { Teacher } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { logger } from '../utils';
 
-export const getTeacherById = async (id: string): Promise<PipelineResult<Teacher | unknown>> => {
+export const getTeacherById = async (
+  id: string
+): Promise<
+  PipelineResult<
+    Prisma.TeacherGetPayload<{ include: { account: { select: { avatar: true } } } }> | unknown
+  >
+> => {
   try {
     const existingTeacher = await prisma.teacher.findFirst({
       where: {
         id: Number(id),
+      },
+      include: {
+        account: {
+          select: {
+            avatar: true,
+          },
+        },
       },
     });
 
