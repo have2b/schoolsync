@@ -95,6 +95,11 @@
       "phd": "Tiến sĩ",
       "assoc": "Phó giáo sư",
       "prof": "Giáo sư"
+    },
+    "gender": {
+      "male": "Nam",
+      "female": "Nữ",
+      "other": "Khác"
     }
   },
   "department": {
@@ -168,6 +173,40 @@
       "teacher": {
         "label": "Giảng viên",
         "placeholder": "Chọn giảng viên"
+      }
+    }
+  },
+  "student": {
+    "title": "Sinh Viên",
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Mã sinh viên",
+        "placeholder": "Điền mã sinh viên"
+      },
+      "name": {
+        "label": "Tên sinh viên",
+        "placeholder": "Điền tên sinh viên"
+      },
+      "dob": {
+        "label": "Ngày sinh",
+        "placeholder": "Chọn ngày sinh sinh viên"
+      },
+      "gender": {
+        "label": "Giới tính",
+        "placeholder": "Chọn giới tính sinh viên"
+      },
+      "group": {
+        "label": "Lớp hành chính",
+        "placeholder": "Chọn lớp hành chính"
+      },
+      "department": {
+        "label": "Khoa",
+        "placeholder": "Chọn khoa"
+      },
+      "avatar": {
+        "label": "Avatar",
+        "placeholder": "Chọn ảnh hoặc kéo thả vào đây"
       }
     }
   },

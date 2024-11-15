@@ -2,8 +2,10 @@
 
 import { ActionCell, Button, Input } from '@/components';
 import { GetListGroupRes } from '@/server/group';
+import { GetListStudentRes } from '@/server/student';
 import { Department, Teacher } from '@prisma/client';
 import { Column, ColumnDef } from '@tanstack/react-table';
+import { format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -171,6 +173,71 @@ export const groupColumn: ColumnDef<GetListGroupRes>[] = [
     id: 'action',
     header: () => <HeaderCol column={{} as Column<unknown>} modelName="group" sortable={false} />,
     cell: ({ row }) => <ActionCell id={row.original.id} modelName="group" />,
+    enableSorting: false,
+    enableHiding: false,
+  },
+];
+
+export const studentColumn: ColumnDef<GetListStudentRes>[] = [
+  {
+    id: 'code',
+    accessorKey: 'code',
+    header: ({ column }) => <HeaderCol column={column} modelName="student" />,
+    cell: ({ row }) => (
+      <div className="flex items-center justify-center gap-2">
+        <Input
+          type="checkbox"
+          className="size-4"
+          checked={row.getIsSelected()}
+          onChange={(e) => row.toggleSelected(!!e.target.checked)}
+        />
+        <span>{row.getValue('code')}</span>
+      </div>
+    ),
+  },
+  {
+    id: 'name',
+    accessorKey: 'name',
+    header: ({ column }) => <HeaderCol column={column} modelName="student" />,
+    cell: ({ row }) => <div>{row.getValue('name')}</div>,
+  },
+  {
+    id: 'dob',
+    accessorKey: 'dob',
+    header: ({ column }) => <HeaderCol column={column} modelName="student" />,
+    cell: ({ row }) => {
+      const dob = row.getValue('dob');
+      const formattedDate = dob ? format(new Date(dob.toString()), 'dd/MM/yyyy') : '';
+      return <div>{formattedDate}</div>;
+    },
+  },
+  {
+    id: 'gender',
+    accessorKey: 'gender',
+    header: ({ column }) => <HeaderCol column={column} modelName="student" />,
+    cell: ({ row }) => (
+      <CellTranslated
+        value={(row.getValue('gender') as string).toLowerCase()}
+        modelName="enum.gender"
+      />
+    ),
+  },
+  {
+    id: 'group',
+    accessorFn: (row) => row.group?.name,
+    header: ({ column }) => <HeaderCol column={column} modelName="student" />,
+    cell: ({ row }) => <div>{row.getValue('group')}</div>,
+  },
+  {
+    id: 'department',
+    accessorFn: (row) => row.department?.name,
+    header: ({ column }) => <HeaderCol column={column} modelName="student" />,
+    cell: ({ row }) => <div>{row.getValue('department')}</div>,
+  },
+  {
+    id: 'action',
+    header: () => <HeaderCol column={{} as Column<unknown>} modelName="student" sortable={false} />,
+    cell: ({ row }) => <ActionCell id={row.original.id} modelName="student" />,
     enableSorting: false,
     enableHiding: false,
   },
