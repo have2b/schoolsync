@@ -60,19 +60,19 @@ model Student {
   phone        String   @unique @map("SDT")
   accountId    Int      @map("MaTK")
   departmentId Int      @map("MaKhoa")
-  classId      Int      @map("MaLopHC")
+  groupId      Int      @map("MaLopHC")
   createdAt    DateTime @default(now()) @map("NgayTao")
   updatedAt    DateTime @updatedAt @map("NgayCapNhat")
   isActive     Boolean  @default(true) @map("DangHoatDong")
 
   account        Account         @relation(fields: [accountId], references: [id], onDelete: Cascade)
   department     Department      @relation(fields: [departmentId], references: [id])
-  class          Class           @relation(fields: [classId], references: [id])
+  group          Group           @relation(fields: [groupId], references: [id])
   studentCourses StudentCourse[]
 
   @@index([accountId])
   @@index([departmentId])
-  @@index([classId])
+  @@index([groupId])
   @@index([name])
   @@map("SINHVIEN")
 }
@@ -87,13 +87,13 @@ model Department {
   isActive  Boolean  @default(true) @map("DangHoatDong")
 
   students Student[]
-  classes  Class[]
+  groups   Group[]
   teachers Teacher[]
 
   @@map("KHOA")
 }
 
-model Class {
+model Group {
   id           Int      @id @default(autoincrement())
   code         String   @unique @map("MaLopHC")
   name         String   @unique @map("TenLopHC")
@@ -149,7 +149,7 @@ model Teacher {
 
   account    Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)
   department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  classes    Class[]
+  groups     Group[]
   courses    Course[]
 
   @@index([accountId])

@@ -12,7 +12,7 @@ const getRandomItem = <T>(array: T[]) => array[Math.floor(Math.random() * array.
 // await prisma.studentCourse.deleteMany();
 // await prisma.student.deleteMany();
 // await prisma.course.deleteMany();
-// await prisma.class.deleteMany();
+// await prisma.group.deleteMany();
 // await prisma.teacher.deleteMany();
 // await prisma.department.deleteMany();
 // await prisma.account.deleteMany();
@@ -89,8 +89,8 @@ if (teacherData.length === 0) {
   });
 }
 
-const classData = await prisma.class.findMany({});
-if (classData.length === 0) {
+const groupData = await prisma.group.findMany({});
+if (groupData.length === 0) {
   const departments = await prisma.department.findMany({ select: { id: true } });
   const teachers = await prisma.teacher.findMany({ select: { id: true } });
 
@@ -105,7 +105,7 @@ if (classData.length === 0) {
     })
   );
 
-  await prisma.class.createMany({
+  await prisma.group.createMany({
     data: fakeClasses,
   });
 }
@@ -117,7 +117,7 @@ if (studentData.length === 0) {
     select: { id: true },
   });
   const departments = await prisma.department.findMany({ select: { id: true } });
-  const classes = await prisma.class.findMany({ select: { id: true } });
+  const groups = await prisma.group.findMany({ select: { id: true } });
 
   const fakeStudents = studentAccounts.map((account, index) => {
     const firstName = faker.person.firstName();
@@ -131,7 +131,7 @@ if (studentData.length === 0) {
       phone: faker.phone.number({ style: 'human' }), // Vietnamese phone format
       accountId: account.id,
       departmentId: getRandomItem(departments).id,
-      classId: getRandomItem(classes).id,
+      groupId: getRandomItem(groups).id,
       isActive: true,
     };
   });
