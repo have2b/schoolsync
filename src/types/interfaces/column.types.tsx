@@ -1,6 +1,7 @@
 'use client';
 
 import { ActionCell, Button, Input } from '@/components';
+import { GetListCourseRes } from '@/server/course';
 import { GetListGroupRes } from '@/server/group';
 import { GetListStudentRes } from '@/server/student';
 import { Department, Teacher } from '@prisma/client';
@@ -238,6 +239,68 @@ export const studentColumn: ColumnDef<GetListStudentRes>[] = [
     id: 'action',
     header: () => <HeaderCol column={{} as Column<unknown>} modelName="student" sortable={false} />,
     cell: ({ row }) => <ActionCell id={row.original.id} modelName="student" />,
+    enableSorting: false,
+    enableHiding: false,
+  },
+];
+
+export const courseColumn: ColumnDef<GetListCourseRes>[] = [
+  {
+    id: 'code',
+    accessorKey: 'code',
+    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
+    cell: ({ row }) => (
+      <div className="flex items-center justify-center gap-2">
+        <Input
+          type="checkbox"
+          className="size-4"
+          checked={row.getIsSelected()}
+          onChange={(e) => row.toggleSelected(!!e.target.checked)}
+        />
+        <span>{row.getValue('code')}</span>
+      </div>
+    ),
+  },
+  {
+    id: 'name',
+    accessorKey: 'name',
+    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
+    cell: ({ row }) => <div>{row.getValue('name')}</div>,
+  },
+  {
+    id: 'credit',
+    accessorKey: 'credit',
+    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
+    cell: ({ row }) => <div>{row.getValue('credit')}</div>,
+  },
+  {
+    id: 'lesson',
+    accessorKey: 'lesson',
+    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
+    cell: ({ row }) => <div>{row.getValue('lesson')}</div>,
+  },
+  {
+    id: 'year',
+    accessorKey: 'year',
+    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
+    cell: ({ row }) => <div>{row.getValue('year')}</div>,
+  },
+  {
+    id: 'semester',
+    accessorKey: 'semester',
+    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
+    cell: ({ row }) => <div>{row.getValue('semester')}</div>,
+  },
+  {
+    id: 'teacher',
+    accessorFn: (row) => row.teacher?.name,
+    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
+    cell: ({ row }) => <div>{row.getValue('teacher')}</div>,
+  },
+  {
+    id: 'action',
+    header: () => <HeaderCol column={{} as Column<unknown>} modelName="course" sortable={false} />,
+    cell: ({ row }) => <ActionCell id={row.original.id} modelName="course" />,
     enableSorting: false,
     enableHiding: false,
   },

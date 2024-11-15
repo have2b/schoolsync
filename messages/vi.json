@@ -218,6 +218,48 @@
       }
     }
   },
+  "course": {
+    "title": "Học Phần",
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Mã học phần",
+        "placeholder": "Điền mã học phần"
+      },
+      "name": {
+        "label": "Tên học phần",
+        "placeholder": "Điền tên học phần"
+      },
+      "credit": {
+        "label": "Số tín chỉ",
+        "placeholder": "Điền số tín chỉ"
+      },
+      "lesson": {
+        "label": "Số tiết",
+        "placeholder": "Điền số tiết"
+      },
+      "startedAt": {
+        "label": "Ngày bắt đầu",
+        "placeholder": "Chọn ngày bắt đầu học phần"
+      },
+      "endedAt": {
+        "label": "Ngày kết thúc",
+        "placeholder": "Chọn ngày kết thúc học phần"
+      },
+      "year": {
+        "label": "Năm học",
+        "placeholder": "Điền năm học"
+      },
+      "semester": {
+        "label": "Học kỳ",
+        "placeholder": "Điền học kỳ"
+      },
+      "teacher": {
+        "label": "Giảng viên",
+        "placeholder": "Chọn giảng viên"
+      }
+    }
+  },
   "table": {
     "actions": {
       "addNew": "Thêm mới",

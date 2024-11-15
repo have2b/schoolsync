@@ -127,7 +127,7 @@ export default function AdminUpdateStudent() {
         className="mt-10 w-full space-y-10 rounded-md bg-white p-10 shadow-xl"
       >
         <span className="text-2xl font-semibold">
-          {t('navigation.sections.add') + ' ' + t('student.title').toLowerCase()}
+          {t('navigation.sections.edit') + ' ' + t('student.title').toLowerCase()}
         </span>
         <div className="grid grid-cols-2 gap-6">
           <div className="col-span-1 space-y-3">

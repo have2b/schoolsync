@@ -65,7 +65,7 @@ export default function AdminAddTeacher() {
       setDepartments(res.data);
     }
     fetchDepartments();
-  }, [departments]);
+  }, []);
 
   function onSubmit(values: z.infer<typeof createTeacherSchema>) {
     try {

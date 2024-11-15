@@ -221,6 +221,48 @@
       }
     }
   },
+  "course": {
+    "title": "Học Phần",
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Code",
+        "placeholder": "Enter code"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter name"
+      },
+      "credit": {
+        "label": "Credit",
+        "placeholder": "Enter credit"
+      },
+      "lesson": {
+        "label": "Lesson",
+        "placeholder": "Enter lesson"
+      },
+      "startedAt": {
+        "label": "Start Date",
+        "placeholder": "Choose start date"
+      },
+      "endedAt": {
+        "label": "End Date",
+        "placeholder": "Choose end date"
+      },
+      "year": {
+        "label": "Year",
+        "placeholder": "Enter year"
+      },
+      "semester": {
+        "label": "Semester",
+        "placeholder": "Enter semester"
+      },
+      "teacher": {
+        "label": "Teacher",
+        "placeholder": "Choose teacher"
+      }
+    }
+  },
   "table": {
     "actions": {
       "addNew": "Add New",
