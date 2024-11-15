@@ -122,7 +122,11 @@ export default function AdminUpdateTeacher() {
                 <FormItem>
                   <FormLabel required>{t('teacher.fields.name.label')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t('teacher.fields.name.placeholder')} type="" {...field} />
+                    <Input
+                      placeholder={t('teacher.fields.name.placeholder')}
+                      type="text"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -159,7 +163,11 @@ export default function AdminUpdateTeacher() {
                 <FormItem>
                   <FormLabel required>{t('teacher.fields.major.label')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t('teacher.fields.major.placeholder')} type="" {...field} />
+                    <Input
+                      placeholder={t('teacher.fields.major.placeholder')}
+                      type="text"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

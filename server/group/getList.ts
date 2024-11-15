@@ -3,15 +3,20 @@ import { PipelineResult } from '@/types';
 import { Prisma } from '@prisma/client';
 import { logger } from '../utils';
 
-export const getGroups = async (): Promise<
-  PipelineResult<
-    Prisma.GroupGetPayload<{ include: { teacher: { select: { name: true } } } }> | unknown
-  >
-> => {
+export type GetListGroupRes = Prisma.GroupGetPayload<{
+  include: { teacher: { select: { name: true } }; department: { select: { name: true } } };
+}>;
+
+export const getGroups = async (): Promise<PipelineResult<GetListGroupRes[] | unknown>> => {
   try {
     const data = await prisma.group.findMany({
       include: {
         teacher: {
+          select: {
+            name: true,
+          },
+        },
+        department: {
           select: {
             name: true,
           },

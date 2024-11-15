@@ -36,7 +36,7 @@
       "student": "Quản Lý Sinh Viên",
       "teacher": "Quản Lý Giảng Viên",
       "department": "Quản Lý Khoa",
-      "class": "Quản Lý Lớp Hành Chính",
+      "group": "Quản Lý Lớp Hành Chính",
       "course": "Quản Lý Học Phần",
       "grade": "Quản Lý Điểm",
       "add": "Thêm mới",
@@ -141,6 +141,32 @@
       "avatar": {
         "label": "Avatar",
         "placeholder": "Chọn ảnh hoặc kéo thả vào đây"
+      }
+    }
+  },
+  "group": {
+    "title": "Lớp Hành Chính",
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Mã lớp",
+        "placeholder": "Điền mã lớp"
+      },
+      "name": {
+        "label": "Tên lớp",
+        "placeholder": "Điền tên lớp"
+      },
+      "capacity": {
+        "label": "Số lượng",
+        "placeholder": "Điền số lượng"
+      },
+      "department": {
+        "label": "Khoa",
+        "placeholder": "Chọn khoa"
+      },
+      "teacher": {
+        "label": "Giảng viên",
+        "placeholder": "Chọn giảng viên"
       }
     }
   },

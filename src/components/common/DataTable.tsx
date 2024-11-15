@@ -243,12 +243,16 @@ export function DataTable<TData, TValue>({
                 placeholder={t('common.search.placeholder')}
                 value={globalFilter}
                 onChange={(e) => setGlobalFilter(e.target.value)}
-                className="pl-8 focus:bg-white"
+                className="bg-zinc-100 pl-8 focus:bg-white"
               />
               {globalFilter && (
                 <X
                   className="absolute right-2 top-2.5 size-4 cursor-pointer text-muted-foreground"
-                  onClick={() => setGlobalFilter('')}
+                  onClick={() => {
+                    setGlobalFilter('');
+                    const isAnyRowSelected = table.getSelectedRowModel().rows.length > 0;
+                    table.toggleAllPageRowsSelected(!isAnyRowSelected);
+                  }}
                 />
               )}
             </div>
@@ -289,7 +293,15 @@ export function DataTable<TData, TValue>({
               </DropdownMenuContent>
             </DropdownMenu>
             {(globalFilter || columnFilters.length > 0) && (
-              <Button variant="ghost" onClick={clearFilters} className="h-8 px-2 lg:px-3">
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  clearFilters();
+                  const isAnyRowSelected = table.getSelectedRowModel().rows.length > 0;
+                  table.toggleAllPageRowsSelected(!isAnyRowSelected);
+                }}
+                className="h-8 px-2 lg:px-3"
+              >
                 {t('common.filter.clear')}
               </Button>
             )}
