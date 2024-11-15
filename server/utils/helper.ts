@@ -1,18 +1,22 @@
 import prisma from '@/prisma';
-import slugify from 'slugify';
 
 const formatNameForEmail = (fullName: string): string => {
-  // Split into parts
-  const parts = fullName.split(' ').filter((part) => part.length > 0);
+  // Split the name into parts, remove extra spaces
+  const parts = fullName
+    .trim()
+    .split(/\s+/)
+    .filter((part) => part.length > 0);
+
   if (parts.length === 0) return '';
 
-  // Use slugify to handle Vietnamese characters
-  return slugify(fullName, {
-    lower: true, // Convert to lowercase
-    strict: true, // Strip special characters except replacement
-    locale: 'vi', // Use Vietnamese locale
-    trim: true, // Trim leading and trailing replacement chars
-  });
+  // Use the last name as the starting point (first letter)
+  const lastName = parts.pop()?.toLowerCase() || '';
+
+  // Combine initials of first and middle names
+  const initials = parts.map((part) => part[0].toLowerCase()).join('');
+
+  // Concatenate initials with the last name
+  return `${lastName}${initials}`;
 };
 
 const generateAccountEmail = async (name: string): Promise<string> => {
@@ -37,7 +41,6 @@ const generateAccountEmail = async (name: string): Promise<string> => {
 };
 
 const generatePassword = (name: string, code: string): string => {
-  // Create a password combining name, code
   const formattedName = formatNameForEmail(name);
   return `${formattedName}@${code}`;
 };
