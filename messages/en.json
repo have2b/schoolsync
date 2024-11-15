@@ -95,6 +95,11 @@
       "phd": "PhD",
       "assoc": "Associate Prof",
       "prof": "Professor"
+    },
+    "gender": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other"
     }
   },
   "department": {
@@ -171,6 +176,48 @@
       "teacher": {
         "label": "Teacher",
         "placeholder": "Choose teacher"
+      }
+    }
+  },
+  "student": {
+    "title": "Student",
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Code",
+        "placeholder": "Enter code"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter name"
+      },
+      "dob": {
+        "label": "Date of Birth",
+        "placeholder": "Choose date of birth"
+      },
+      "gender": {
+        "label": "Gender",
+        "placeholder": "Choose gender"
+      },
+      "group": {
+        "label": "Class",
+        "placeholder": "Choose class"
+      },
+      "address": {
+        "label": "Address",
+        "placeholder": "Enter address"
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "Enter phone"
+      },
+      "department": {
+        "label": "Department",
+        "placeholder": "Choose department"
+      },
+      "avatar": {
+        "label": "Avatar",
+        "placeholder": "Choose or drag and drop avatar here"
       }
     }
   },

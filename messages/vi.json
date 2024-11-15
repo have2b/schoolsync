@@ -200,6 +200,14 @@
         "label": "Lớp hành chính",
         "placeholder": "Chọn lớp hành chính"
       },
+      "address": {
+        "label": "Địa chỉ",
+        "placeholder": "Điền địa chỉ sinh viên"
+      },
+      "phone": {
+        "label": "Số điện thoại",
+        "placeholder": "Điền số điện thoại sinh viên"
+      },
       "department": {
         "label": "Khoa",
         "placeholder": "Chọn khoa"

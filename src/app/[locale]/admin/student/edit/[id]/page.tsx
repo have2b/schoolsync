@@ -3,6 +3,7 @@
 import { fetchListData } from '@/action';
 import {
   Button,
+  Calendar,
   FileInput,
   FileUploader,
   FileUploaderContent,
@@ -14,6 +15,9 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   Select,
   SelectContent,
   SelectItem,
@@ -21,12 +25,13 @@ import {
   SelectValue,
 } from '@/components';
 import { useCrud } from '@/hooks/useCrud';
-import { updateTeacherSchema } from '@/types';
+import { cn } from '@/lib/utils';
+import { updateStudentSchema } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Degree, Department } from '@prisma/client';
-import { CloudUploadIcon, PaperclipIcon } from 'lucide-react';
+import { Department, Gender, Group } from '@prisma/client';
+import { format } from 'date-fns';
+import { CalendarIcon, CloudUploadIcon, PaperclipIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -34,18 +39,19 @@ import { toast } from 'sonner';
 import * as z from 'zod';
 import LoadingForm from './loading';
 
-export default function AdminUpdateTeacher() {
+export default function AdminUpdateStudent() {
   const t = useTranslations();
   const params = useParams();
   const router = useRouter();
   const id = (params.id as string) || '';
 
-  const { useGet, useUpdate } = useCrud({ modelName: 'teacher' });
-  const { data: teacher } = useGet(id);
-  const { mutate: updateTeacher } = useUpdate();
+  const { useGet, useUpdate } = useCrud({ modelName: 'student' });
+  const { data: student } = useGet(id);
+  const { mutate: updateStudent } = useUpdate();
 
   const [files, setFiles] = useState<File[] | null>(null);
   const [departments, setDepartments] = useState<Department[]>([]);
+  const [groups, setGroups] = useState<Group[]>([]);
 
   const dropZoneConfig = {
     maxFiles: 1,
@@ -53,43 +59,54 @@ export default function AdminUpdateTeacher() {
     multiple: false,
   };
 
-  const form = useForm<z.infer<typeof updateTeacherSchema>>({
-    resolver: zodResolver(updateTeacherSchema),
+  const form = useForm<z.infer<typeof updateStudentSchema>>({
+    resolver: zodResolver(updateStudentSchema),
     defaultValues: {
       code: '',
       name: '',
-      degree: '',
-      major: '',
+      dob: '' as unknown as Date,
+      gender: '',
+      address: '',
+      phone: '',
+      groupId: '',
       departmentId: '',
       avatar: '',
     },
   });
 
   useEffect(() => {
-    if (teacher) {
+    if (student) {
       form.reset({
-        code: teacher.code,
-        name: teacher.name,
-        degree: teacher.degree,
-        major: teacher.major,
-        departmentId: teacher.departmentId.toString(),
-        avatar: teacher.account.avatar,
+        code: student.code,
+        name: student.name,
+        dob: new Date(student.dob),
+        gender: student.gender,
+        address: student.address,
+        phone: student.phone,
+        groupId: student.groupId.toString(),
+        departmentId: student.departmentId.toString(),
+        avatar: student.account.avatar,
       });
     }
-    async function fetchDepartments() {
-      const res = await fetchListData('departments/get-list');
-      setDepartments(res.data);
+    async function fetchData() {
+      const [departmentsRes, groupsRes] = await Promise.all([
+        fetchListData('departments/get-list'),
+        fetchListData('groups/get-list'),
+      ]);
+      setDepartments(departmentsRes.data);
+      setGroups(groupsRes.data);
     }
-    fetchDepartments();
-  }, [teacher, form]);
+    fetchData();
+  }, [student, form]);
 
-  function onSubmit(values: z.infer<typeof updateTeacherSchema>) {
+  function onSubmit(values: z.infer<typeof updateStudentSchema>) {
     try {
       const updatedValues = {
         ...values,
-        departmentId: Number(values.departmentId), // Convert to number
+        departmentId: Number(values.departmentId),
+        groupId: Number(values.groupId),
       };
-      updateTeacher(
+      updateStudent(
         { id, data: updatedValues },
         {
           onSuccess: () => router.back(),
@@ -101,7 +118,7 @@ export default function AdminUpdateTeacher() {
     }
   }
 
-  if (!teacher || departments.length === 0) return <LoadingForm />; // Or a loading indicator
+  if (!student || departments.length === 0) return <LoadingForm />; // Or a loading indicator
 
   return (
     <Form {...form}>
@@ -110,37 +127,101 @@ export default function AdminUpdateTeacher() {
         className="mt-10 w-full space-y-10 rounded-md bg-white p-10 shadow-xl"
       >
         <span className="text-2xl font-semibold">
-          {t('navigation.sections.edit') + ' ' + t('teacher.title').toLowerCase()}
+          {t('navigation.sections.add') + ' ' + t('student.title').toLowerCase()}
         </span>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="col-span-1 md:col-span-1">
+        <div className="grid grid-cols-2 gap-6">
+          <div className="col-span-1 space-y-3">
             {/* Other form fields on the left */}
-            <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel required>{t('teacher.fields.code.label')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={t('teacher.fields.code.placeholder')}
-                      type="text"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel required>{t('teacher.fields.name.label')}</FormLabel>
+                  <FormLabel required>{t('student.fields.name.label')}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={t('teacher.fields.name.placeholder')}
+                      placeholder={t('student.fields.name.placeholder')}
+                      type="text"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="grid grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="dob"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col justify-end">
+                    <FormLabel required>{t('student.fields.dob.label')}</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={'outline'}
+                            className={cn(
+                              'w-full pl-3 text-left font-normal',
+                              !field.value && 'text-muted-foreground'
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, 'dd/MM/yyyy')
+                            ) : (
+                              <span>{t('student.fields.dob.placeholder')}</span>
+                            )}
+                            <CalendarIcon className="ml-auto size-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          captionLayout="dropdown"
+                          selected={field.value ? new Date(field.value) : undefined}
+                          onSelect={field.onChange}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="gender"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel required>{t('student.fields.gender.label')}</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('student.fields.gender.placeholder')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.values(Gender).map((gender) => (
+                          <SelectItem key={gender} value={gender}>
+                            {t(`enum.gender.${gender.toLowerCase()}`)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel required>{t('student.fields.address.label')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t('student.fields.address.placeholder')}
                       type="text"
                       {...field}
                     />
@@ -151,37 +232,13 @@ export default function AdminUpdateTeacher() {
             />
             <FormField
               control={form.control}
-              name="degree"
+              name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel required>{t('teacher.fields.degree.label')}</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder={t('teacher.fields.degree.placeholder')} />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {Object.values(Degree).map((degree) => (
-                        <SelectItem key={degree} value={degree}>
-                          {t(`enum.degree.${degree.toLowerCase()}`)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="major"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel required>{t('teacher.fields.major.label')}</FormLabel>
+                  <FormLabel required>{t('student.fields.phone.label')}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={t('teacher.fields.major.placeholder')}
+                      placeholder={t('student.fields.phone.placeholder')}
                       type="text"
                       {...field}
                     />
@@ -190,30 +247,56 @@ export default function AdminUpdateTeacher() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="departmentId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel required>{t('teacher.fields.department.label')}</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder={t('teacher.fields.department.placeholder')} />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {departments?.map(({ id, name }: Department) => (
-                        <SelectItem key={id} value={id.toString()}>
-                          {name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="departmentId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel required>{t('student.fields.department.label')}</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('student.fields.department.placeholder')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {departments?.map(({ id, name }: Department) => (
+                          <SelectItem key={id} value={id.toString()}>
+                            {name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="groupId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel required>{t('student.fields.group.label')}</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('student.fields.group.placeholder')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {groups?.map(({ id, name }: Group) => (
+                          <SelectItem key={id} value={id.toString()}>
+                            {name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
 
           <div className="col-span-1 h-full md:col-span-1">
@@ -223,7 +306,7 @@ export default function AdminUpdateTeacher() {
               name="avatar"
               render={() => (
                 <FormItem className="h-full">
-                  <FormLabel>{t('teacher.fields.avatar.label')}</FormLabel>
+                  <FormLabel>{t('student.fields.avatar.label')}</FormLabel>
                   <FormControl>
                     <FileUploader
                       value={files}
@@ -235,18 +318,10 @@ export default function AdminUpdateTeacher() {
                         id="fileInput"
                         className="h-full outline-dashed outline-1 outline-slate-500"
                       >
-                        <div className="flex h-full w-full flex-col items-center justify-center gap-6 p-6">
-                          <div className="relative size-32">
-                            <Image
-                              src={teacher.account.avatar}
-                              alt="avatar"
-                              fill
-                              className="rounded-full object-contain"
-                            />
-                          </div>
+                        <div className="flex h-full w-full flex-col items-center justify-center p-8">
                           <CloudUploadIcon className="size-10 text-gray-500" />
                           <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
-                            <span>{t('teacher.fields.avatar.placeholder')}</span>
+                            <span>{t('student.fields.avatar.placeholder')}</span>
                           </p>
                         </div>
                       </FileInput>
