@@ -110,11 +110,28 @@ export default function AdminUpdateTeacher() {
         className="mt-10 w-full space-y-10 rounded-md bg-white p-10 shadow-xl"
       >
         <span className="text-2xl font-semibold">
-          {t('navigation.sections.add') + ' ' + t('teacher.title').toLowerCase()}
+          {t('navigation.sections.edit') + ' ' + t('teacher.title').toLowerCase()}
         </span>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="col-span-1 md:col-span-1">
             {/* Other form fields on the left */}
+            <FormField
+              control={form.control}
+              name="code"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel required>{t('teacher.fields.code.label')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t('teacher.fields.code.placeholder')}
+                      type="text"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="name"

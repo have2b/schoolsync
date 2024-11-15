@@ -14,7 +14,8 @@
       "loginSuccess": "Login Success",
       "incorrectPassword": "Incorrect Password",
       "notFound": "User Not Found",
-      "logoutSuccess": "Logout Success"
+      "logoutSuccess": "Logout Success",
+      "loggingIn": "Logging In..."
     },
     "fields": {
       "username": {

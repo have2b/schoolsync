@@ -13,7 +13,7 @@ import {
 import { useAuth } from '@/store/auth';
 import { ChevronDownIcon, DoorOpenIcon, UserIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
 import { toast } from 'sonner';
 
@@ -22,7 +22,6 @@ export const Header = () => {
   const memoizedTranslations = useMemo(() => t('auth.status.logoutSuccess'), [t]);
 
   const router = useRouter();
-  const params = useParams();
   const { account, logout } = useAuth();
 
   const handleLogout = useCallback(async () => {
@@ -30,13 +29,12 @@ export const Header = () => {
       const result = await logout();
       if (result) {
         toast.success(memoizedTranslations);
-        const locale = params.locale as string;
-        router.push(`/${locale}/login`);
+        router.push(`/login`);
       }
     } catch (error) {
       console.error('Logout failed:', error);
     }
-  }, [logout, params.locale, router, memoizedTranslations]);
+  }, [logout, router, memoizedTranslations]);
 
   return (
     <header className="flex w-full items-center justify-end gap-4 border-b-[1px] border-black/20 p-6 shadow-xl">

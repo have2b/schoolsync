@@ -14,7 +14,8 @@
       "loginSuccess": "Đăng Nhập Thành Công",
       "incorrectPassword": "Mật Khẩu Không Đúng",
       "notFound": "Tài Khoản Không Tồn Tại",
-      "logoutSuccess": "Đăng Xuất Thành Công"
+      "logoutSuccess": "Đăng Xuất Thành Công",
+      "loggingIn": "Đang Đăng Nhập..."
     },
     "fields": {
       "username": {

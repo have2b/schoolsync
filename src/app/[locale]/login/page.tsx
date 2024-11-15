@@ -18,15 +18,18 @@ import {
 import api from '@/lib/api';
 import { useAuth } from '@/store/auth';
 import { loginSchema } from '@/types';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { redirect, useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Suspense } from 'react';
 import { toast } from 'sonner';
 import LoadingSkeleton from './loading';
 
 export default function LoginPage() {
+  const { login } = useAuth();
   const params = useParams();
+  const router = useRouter();
   const t = useTranslations('auth');
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -35,20 +38,44 @@ export default function LoginPage() {
       password: '',
     },
   });
-  const { login } = useAuth();
+
+  const useLogin = () => {
+    return useMutation({
+      mutationFn: async (values: z.infer<typeof loginSchema>) => {
+        const response = await api.post('/auth/login', values);
+
+        // Check if response is not successful
+        if (response.data.status !== 200) {
+          throw new Error(response.data.message);
+        }
+
+        return response.data;
+      },
+      onMutate: () => {
+        // Show loading toast when mutation starts
+        toast.loading(t('status.loggingIn'));
+      },
+      onSuccess: async (data) => {
+        // Clear loading toast and show success
+        toast.dismiss();
+        login(data.data); // Call login function with the data
+        toast.success(t('status.' + data.message));
+
+        const locale = ((await params).locale as string) || 'vi';
+        router.push(`/${locale}`);
+      },
+      onError: (error: Error) => {
+        // Clear loading toast and show error
+        toast.dismiss();
+        toast.error(t('status.' + error.message));
+      },
+    });
+  };
+
+  const loginMutation = useLogin();
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
-    const res = (await api.post('/auth/login', values)).data;
-
-    if (res.status === 200) {
-      login(res.data);
-      toast.success(t('status.' + res.message));
-      const locale = (params.locale as string) || 'vi';
-
-      redirect(`/${locale}`);
-    } else {
-      toast.error(t('status.' + res.message));
-    }
+    loginMutation.mutate(values);
   }
 
   return (
