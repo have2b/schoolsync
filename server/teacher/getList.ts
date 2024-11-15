@@ -16,7 +16,7 @@ export const getTeachers = async (): Promise<PipelineResult<Teacher[] | unknown>
       },
     };
   } catch (error) {
-    logger.error('Error getting departments', error);
+    logger.error('Error getting teachers', error);
     return {
       status: 500,
       message: 'internalError',

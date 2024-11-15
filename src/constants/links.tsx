@@ -28,8 +28,8 @@ export const ADMIN_NAV_LINKS = [
   },
   {
     id: 4,
-    name: 'class',
-    href: '/class',
+    name: 'group',
+    href: '/group',
     icon: <BookOpenIcon />,
   },
   {
