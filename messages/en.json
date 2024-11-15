@@ -36,7 +36,7 @@
       "student": "Student Management",
       "teacher": "Teacher Management",
       "department": "Department Management",
-      "class": "Class Management",
+      "group": "Class Management",
       "course": "Course Management",
       "grade": "Grade Management",
       "add": "Add",
@@ -144,6 +144,32 @@
       "avatar": {
         "label": "Avatar",
         "placeholder": "Choose or drag and drop avatar here"
+      }
+    }
+  },
+  "group": {
+    "title": "Class",
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Code",
+        "placeholder": "Enter code"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter name"
+      },
+      "capacity": {
+        "label": "Capacity",
+        "placeholder": "Enter capacity"
+      },
+      "department": {
+        "label": "Department",
+        "placeholder": "Choose department"
+      },
+      "teacher": {
+        "label": "Teacher",
+        "placeholder": "Choose teacher"
       }
     }
   },
