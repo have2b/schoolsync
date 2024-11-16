@@ -7,11 +7,6 @@ interface UpdateCourseReq {
   name?: string;
   credit?: number;
   lesson?: number;
-  semester?: number;
-  year?: number;
-  startedAt?: string;
-  endedAt?: string;
-  teacherId?: number;
 }
 
 interface UpdateRes {
@@ -23,7 +18,7 @@ export const updateCourse = async (
   req: UpdateCourseReq
 ): Promise<PipelineResult<UpdateRes | unknown>> => {
   try {
-    const { code, name, credit, lesson, semester, year, startedAt, endedAt, teacherId } = req;
+    const { code, name, credit, lesson } = req;
 
     // Check if the course exists
     const existingCourse = await prisma.course.findFirst({
@@ -68,11 +63,6 @@ export const updateCourse = async (
         name: name ?? existingCourse.name,
         credit: credit ?? existingCourse.credit,
         lesson: lesson ?? existingCourse.lesson,
-        semester: semester ?? existingCourse.semester,
-        year: year ?? existingCourse.year,
-        startedAt: startedAt ? new Date(startedAt) : existingCourse.startedAt,
-        endedAt: endedAt ? new Date(endedAt) : existingCourse.endedAt,
-        teacherId: teacherId ?? existingCourse.teacherId,
       },
     });
 

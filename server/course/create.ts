@@ -7,11 +7,6 @@ interface CreateCourseReq {
   name: string;
   credit: number;
   lesson: number;
-  semester: number;
-  year: number;
-  startedAt: string;
-  endedAt: string;
-  teacherId: number;
 }
 
 interface CreateCourseRes {
@@ -22,7 +17,7 @@ export const createCourse = async (
   req: CreateCourseReq
 ): Promise<PipelineResult<CreateCourseRes | unknown>> => {
   try {
-    const { code, name, credit, lesson, semester, year, startedAt, endedAt, teacherId } = req;
+    const { code, name, credit, lesson } = req;
 
     const existingCourse = await prisma.course.findFirst({
       where: {
@@ -44,11 +39,6 @@ export const createCourse = async (
         name,
         credit,
         lesson,
-        semester,
-        year,
-        startedAt: new Date(startedAt),
-        endedAt: new Date(endedAt),
-        teacherId,
       },
     });
 
