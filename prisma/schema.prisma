@@ -51,29 +51,23 @@ model Account {
 }
 
 model Student {
-  id           Int      @id @default(autoincrement())
-  code         String   @unique @map("MaSV")
-  name         String   @map("HoTen")
-  dob          DateTime @map("NgaySinh")
-  gender       Gender   @default(Male) @map("GioiTinh")
-  address      String   @map("DiaChi")
-  phone        String   @unique @map("SDT")
-  accountId    Int      @map("MaTK")
-  departmentId Int      @map("MaKhoa")
-  groupId      Int      @map("MaLopHC")
-  createdAt    DateTime @default(now()) @map("NgayTao")
-  updatedAt    DateTime @updatedAt @map("NgayCapNhat")
-  isActive     Boolean  @default(true) @map("DangHoatDong")
+  id        Int      @id @default(autoincrement())
+  code      String   @unique @map("MaSV")
+  name      String   @map("HoTen")
+  dob       DateTime @map("NgaySinh")
+  gender    Gender   @default(Male) @map("GioiTinh")
+  address   String   @map("DiaChi")
+  phone     String   @unique @map("SDT")
+  createdAt DateTime @default(now()) @map("NgayTao")
+  updatedAt DateTime @updatedAt @map("NgayCapNhat")
+  isActive  Boolean  @default(true) @map("DangHoatDong")
 
-  account        Account         @relation(fields: [accountId], references: [id], onDelete: Cascade)
-  department     Department      @relation(fields: [departmentId], references: [id])
-  group          Group           @relation(fields: [groupId], references: [id])
-  studentCourses StudentCourse[]
+  accountId Int     @map("MaTK")
+  groupId   Int     @map("MaLopHC")
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  group     Group   @relation(fields: [groupId], references: [id])
+  grades    Grade[]
 
-  @@index([accountId])
-  @@index([departmentId])
-  @@index([groupId])
-  @@index([name])
   @@map("SINHVIEN")
 }
 
@@ -86,7 +80,6 @@ model Department {
   updatedAt DateTime @updatedAt @map("NgayCapNhat")
   isActive  Boolean  @default(true) @map("DangHoatDong")
 
-  students Student[]
   groups   Group[]
   teachers Teacher[]
 
@@ -94,22 +87,20 @@ model Department {
 }
 
 model Group {
-  id           Int      @id @default(autoincrement())
-  code         String   @unique @map("MaLopHC")
-  name         String   @unique @map("TenLopHC")
-  capacity     Int      @map("SoLuong")
-  departmentId Int      @map("MaKhoa")
-  teacherId    Int      @map("MaGV")
-  createdAt    DateTime @default(now()) @map("NgayTao")
-  updatedAt    DateTime @updatedAt @map("NgayCapNhat")
-  isActive     Boolean  @default(true) @map("DangHoatDong")
+  id        Int      @id @default(autoincrement())
+  code      String   @unique @map("MaLopHC")
+  name      String   @unique @map("TenLopHC")
+  capacity  Int      @map("SoLuong")
+  createdAt DateTime @default(now()) @map("NgayTao")
+  updatedAt DateTime @updatedAt @map("NgayCapNhat")
+  isActive  Boolean  @default(true) @map("DangHoatDong")
 
-  department Department @relation(fields: [departmentId], references: [id])
-  teacher    Teacher    @relation(fields: [teacherId], references: [id])
-  students   Student[]
+  departmentId Int        @map("MaKhoa")
+  teacherId    Int        @map("MaGV")
+  department   Department @relation(fields: [departmentId], references: [id])
+  teacher      Teacher    @relation(fields: [teacherId], references: [id])
+  students     Student[]
 
-  @@index([departmentId])
-  @@index([teacherId])
   @@map("LOPHC")
 }
 
@@ -119,60 +110,72 @@ model Course {
   name      String   @unique @map("TenHP")
   credit    Int      @map("SoTC")
   lesson    Int      @map("SoTiet")
-  semester  Int      @map("HocKy")
-  year      Int      @map("NamHoc")
-  startedAt DateTime @map("NgayBatDau")
-  endedAt   DateTime @map("NgayKetThuc")
-  teacherId Int      @map("MaGV")
   createdAt DateTime @default(now()) @map("NgayTao")
   updatedAt DateTime @updatedAt @map("NgayCapNhat")
   isActive  Boolean  @default(true) @map("DangHoatDong")
 
-  teacher        Teacher         @relation(fields: [teacherId], references: [id])
-  studentCourses StudentCourse[]
+  rosters Roster[]
 
-  @@index([teacherId])
   @@map("HOCPHAN")
 }
 
+model Roster {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique @map("MaLHP")
+  name      String   @map("TenLHP")
+  capacity  Int      @map("SoLuong")
+  semester  Int      @map("HocKy")
+  year      Int      @map("NamHoc")
+  startDate DateTime @map("NgayBatDau")
+  endDate   DateTime @map("NgayKetThuc")
+  createdAt DateTime @default(now()) @map("NgayTao")
+  updatedAt DateTime @updatedAt @map("NgayCapNhat")
+  isActive  Boolean  @default(true) @map("DangHoatDong")
+
+  courseId  Int     @map("MaHP")
+  teacherId Int     @map("MaGV")
+  course    Course  @relation(fields: [courseId], references: [id])
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+  Grades    Grade[]
+
+  @@map("LOPHOCPHAN")
+}
+
 model Teacher {
-  id           Int      @id @default(autoincrement())
-  code         String   @unique @map("MaGV")
-  name         String   @map("HoTen")
-  degree       Degree   @default(Bachelor) @map("HocVi")
-  major        String   @map("ChuyenNganh")
-  accountId    Int      @map("MaTK")
-  departmentId Int      @map("MaKhoa")
-  createdAt    DateTime @default(now()) @map("NgayTao")
-  updatedAt    DateTime @updatedAt @map("NgayCapNhat")
-  isActive     Boolean  @default(true) @map("DangHoatDong")
+  id        Int      @id @default(autoincrement())
+  code      String   @unique @map("MaGV")
+  name      String   @map("HoTen")
+  degree    Degree   @default(Bachelor) @map("HocVi")
+  major     String   @map("ChuyenNganh")
+  createdAt DateTime @default(now()) @map("NgayTao")
+  updatedAt DateTime @updatedAt @map("NgayCapNhat")
+  isActive  Boolean  @default(true) @map("DangHoatDong")
 
-  account    Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)
-  department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  groups     Group[]
-  courses    Course[]
+  accountId    Int        @map("MaTK")
+  departmentId Int        @map("MaKhoa")
+  account      Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  groups       Group[]
+  rosters      Roster[]
 
-  @@index([accountId])
-  @@index([name]) // Add index for name searches
   @@map("GIANGVIEN")
 }
 
-model StudentCourse {
+model Grade {
   attendancePoint Decimal  @map("DiemCC")
   midTermPoint    Decimal  @map("DiemKT1")
   finalPoint      Decimal  @map("DiemKT2")
   finalGrade      Decimal  @map("DiemTL")
   examPoint       Decimal  @map("DiemThi")
-  studentCode     String   @map("MaSV")
-  courseCode      String   @map("MaHP")
   createdAt       DateTime @default(now()) @map("NgayTao")
   updatedAt       DateTime @updatedAt @map("NgayCapNhat")
+  isActive        Boolean  @default(true) @map("DangHoatDong")
 
-  student Student @relation(fields: [studentCode], references: [code])
-  course  Course  @relation(fields: [courseCode], references: [code])
+  studentCode String  @map("MaSV")
+  rosterCode  String  @map("MaLHP")
+  student     Student @relation(fields: [studentCode], references: [code])
+  roster      Roster  @relation(fields: [rosterCode], references: [code])
 
-  @@id([studentCode, courseCode])
-  @@index([studentCode])
-  @@index([courseCode])
+  @@id([studentCode, rosterCode])
   @@map("DIEM")
 }
