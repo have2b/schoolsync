@@ -149,7 +149,7 @@ export default function AdminAddRoster() {
             name="startDate"
             render={({ field }) => (
               <FormItem className="flex flex-col justify-end">
-                <FormLabel required>{t('roster.fields.endDate.label')}</FormLabel>
+                <FormLabel required>{t('roster.fields.startDate.label')}</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
@@ -163,7 +163,7 @@ export default function AdminAddRoster() {
                         {field.value ? (
                           format(field.value, 'dd/MM/yyyy')
                         ) : (
-                          <span>{t('roster.fields.endDate.placeholder')}</span>
+                          <span>{t('roster.fields.startDate.placeholder')}</span>
                         )}
                         <CalendarIcon className="ml-auto size-4 opacity-50" />
                       </Button>
@@ -187,7 +187,7 @@ export default function AdminAddRoster() {
             name="endDate"
             render={({ field }) => (
               <FormItem className="flex flex-col justify-end">
-                <FormLabel required>{t('roster.fields.startDate.label')}</FormLabel>
+                <FormLabel required>{t('roster.fields.endDate.label')}</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
@@ -201,7 +201,7 @@ export default function AdminAddRoster() {
                         {field.value ? (
                           format(field.value, 'dd/MM/yyyy')
                         ) : (
-                          <span>{t('roster.fields.startDate.placeholder')}</span>
+                          <span>{t('roster.fields.endDate.placeholder')}</span>
                         )}
                         <CalendarIcon className="ml-auto size-4 opacity-50" />
                       </Button>

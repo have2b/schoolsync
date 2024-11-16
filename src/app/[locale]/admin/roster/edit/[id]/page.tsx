@@ -3,6 +3,7 @@
 import { fetchListData } from '@/action';
 import {
   Button,
+  Calendar,
   Form,
   FormControl,
   FormField,
@@ -10,6 +11,9 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   Select,
   SelectContent,
   SelectItem,
@@ -17,9 +21,12 @@ import {
   SelectValue,
 } from '@/components';
 import { useCrud } from '@/hooks/useCrud';
-import { updateGroupSchema } from '@/types';
+import { cn } from '@/lib/utils';
+import { updateRosterSchema } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Department, Teacher } from '@prisma/client';
+import { Course, Teacher } from '@prisma/client';
+import { format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -28,60 +35,70 @@ import { toast } from 'sonner';
 import * as z from 'zod';
 import LoadingForm from './loading';
 
-export default function AdminUpdateGroup() {
+export default function AdminUpdateRoster() {
   const t = useTranslations();
   const params = useParams();
   const router = useRouter();
   const id = (params.id as string) || '';
 
-  const { useGet, useUpdate } = useCrud({ modelName: 'group' });
-  const { data: group } = useGet(id);
-  const { mutate: updateGroup } = useUpdate();
+  const { useGet, useUpdate } = useCrud({ modelName: 'roster' });
+  const { data: roster } = useGet(id);
+  const { mutate: updateRoster } = useUpdate();
 
-  const [departments, setDepartments] = useState<Department[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
 
-  const form = useForm<z.infer<typeof updateGroupSchema>>({
-    resolver: zodResolver(updateGroupSchema),
+  const form = useForm<z.infer<typeof updateRosterSchema>>({
+    resolver: zodResolver(updateRosterSchema),
     defaultValues: {
       code: '',
       name: '',
       capacity: '0',
+      year: '',
+      semester: '',
+      startDate: '' as unknown as Date,
+      endDate: '' as unknown as Date,
       teacherId: '',
-      departmentId: '',
+      courseId: '',
     },
   });
 
   useEffect(() => {
-    if (group) {
+    if (roster) {
       form.reset({
-        code: group.code,
-        name: group.name,
-        capacity: group.capacity,
-        teacherId: group.teacherId.toString(),
-        departmentId: group.departmentId.toString(),
+        code: roster.code,
+        name: roster.name,
+        capacity: roster.capacity.toString(),
+        year: roster.year.toString(),
+        semester: roster.semester.toString(),
+        startDate: new Date(roster.startDate),
+        endDate: new Date(roster.endDate),
+        teacherId: roster.teacherId.toString(),
+        courseId: roster.courseId.toString(),
       });
     }
     async function fetchData() {
-      const [departmentsRes, teachersRes] = await Promise.all([
-        fetchListData('departments/get-list'),
+      const [coursesRes, teachersRes] = await Promise.all([
+        fetchListData('courses/get-list'),
         fetchListData('teachers/get-list'),
       ]);
-      setDepartments(departmentsRes.data);
+      setCourses(coursesRes.data);
       setTeachers(teachersRes.data);
     }
     fetchData();
-  }, [group, form]);
+  }, [roster, form]);
 
-  function onSubmit(values: z.infer<typeof updateGroupSchema>) {
+  function onSubmit(values: z.infer<typeof updateRosterSchema>) {
     try {
       const updatedValues = {
         ...values,
-        departmentId: Number(values.departmentId), // Convert to number
+        courseId: Number(values.courseId), // Convert to number
         teacherId: Number(values.teacherId),
         capacity: Number(values.capacity),
+        year: Number(values.year),
+        semester: Number(values.semester),
       };
-      updateGroup(
+      updateRoster(
         { id, data: updatedValues },
         {
           onSuccess: () => router.back(),
@@ -93,7 +110,7 @@ export default function AdminUpdateGroup() {
     }
   }
 
-  if (!group || departments.length === 0 || teachers.length === 0) return <LoadingForm />; // Or a loading indicator
+  if (!roster || courses.length === 0 || teachers.length === 0) return <LoadingForm />; // Or a loading indicator
 
   return (
     <Form {...form}>
@@ -102,7 +119,7 @@ export default function AdminUpdateGroup() {
         className="mt-10 w-full space-y-10 rounded-md bg-white p-10 shadow-xl"
       >
         <span className="text-2xl font-semibold">
-          {t('navigation.sections.edit') + ' ' + t('group.title').toLowerCase()}
+          {t('navigation.sections.edit') + ' ' + t('roster.title').toLowerCase()}
         </span>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <FormField
@@ -110,10 +127,10 @@ export default function AdminUpdateGroup() {
             name="code"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>{t('group.fields.code.label')}</FormLabel>
+                <FormLabel>{t('roster.fields.code.label')}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t('group.fields.code.placeholder')}
+                    placeholder={t('roster.fields.code.placeholder')}
                     type="text"
                     readOnly
                     disabled
@@ -130,9 +147,15 @@ export default function AdminUpdateGroup() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>{t('group.fields.name.label')}</FormLabel>
+                <FormLabel required>{t('roster.fields.name.label')}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t('group.fields.name.placeholder')} type="text" {...field} />
+                  <Input
+                    disabled
+                    readOnly
+                    placeholder={t('roster.fields.name.placeholder')}
+                    type="text"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -143,11 +166,11 @@ export default function AdminUpdateGroup() {
             name="capacity"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>{t('group.fields.capacity.label')}</FormLabel>
+                <FormLabel required>{t('roster.fields.capacity.label')}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t('group.fields.capacity.placeholder')}
-                    type="number"
+                    placeholder={t('roster.fields.capacity.placeholder')}
+                    type="text"
                     {...field}
                   />
                 </FormControl>
@@ -157,14 +180,120 @@ export default function AdminUpdateGroup() {
           />
           <FormField
             control={form.control}
+            name="year"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel required>{t('roster.fields.year.label')}</FormLabel>
+                <FormControl>
+                  <Input placeholder={t('roster.fields.year.placeholder')} type="text" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="semester"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel required>{t('roster.fields.semester.label')}</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={t('roster.fields.semester.placeholder')}
+                    type="text"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="startDate"
+            render={({ field }) => (
+              <FormItem className="flex flex-col justify-end">
+                <FormLabel required>{t('roster.fields.startDate.label')}</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={'outline'}
+                        className={cn(
+                          'w-full pl-3 text-left font-normal',
+                          !field.value && 'text-muted-foreground'
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, 'dd/MM/yyyy')
+                        ) : (
+                          <span>{t('roster.fields.startDate.placeholder')}</span>
+                        )}
+                        <CalendarIcon className="ml-auto size-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      captionLayout="dropdown"
+                      selected={field.value ? new Date(field.value) : undefined}
+                      onSelect={field.onChange}
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="endDate"
+            render={({ field }) => (
+              <FormItem className="flex flex-col justify-end">
+                <FormLabel required>{t('roster.fields.endDate.label')}</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={'outline'}
+                        className={cn(
+                          'w-full pl-3 text-left font-normal',
+                          !field.value && 'text-muted-foreground'
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, 'dd/MM/yyyy')
+                        ) : (
+                          <span>{t('roster.fields.endDate.placeholder')}</span>
+                        )}
+                        <CalendarIcon className="ml-auto size-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      captionLayout="dropdown"
+                      selected={field.value ? new Date(field.value) : undefined}
+                      onSelect={field.onChange}
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="teacherId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>{t('group.fields.teacher.label')}</FormLabel>
+                <FormLabel required>{t('roster.fields.teacher.label')}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder={t('group.fields.teacher.placeholder')} />
+                    <SelectTrigger disabled>
+                      <SelectValue placeholder={t('roster.fields.teacher.placeholder')} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -181,18 +310,18 @@ export default function AdminUpdateGroup() {
           />
           <FormField
             control={form.control}
-            name="departmentId"
+            name="courseId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>{t('group.fields.department.label')}</FormLabel>
+                <FormLabel required>{t('roster.fields.course.label')}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder={t('group.fields.department.placeholder')} />
+                    <SelectTrigger disabled>
+                      <SelectValue placeholder={t('roster.fields.course.placeholder')} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {departments?.map(({ id, name }: Department) => (
+                    {courses?.map(({ id, name }: Course) => (
                       <SelectItem key={id} value={id.toString()}>
                         {name}
                       </SelectItem>
