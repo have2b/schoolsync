@@ -28,7 +28,7 @@ import { useCrud } from '@/hooks/useCrud';
 import { cn } from '@/lib/utils';
 import { updateStudentSchema } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Department, Gender, Group } from '@prisma/client';
+import { Gender, Group } from '@prisma/client';
 import { format } from 'date-fns';
 import { CalendarIcon, CloudUploadIcon, PaperclipIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -50,7 +50,6 @@ export default function AdminUpdateStudent() {
   const { mutate: updateStudent } = useUpdate();
 
   const [files, setFiles] = useState<File[] | null>(null);
-  const [departments, setDepartments] = useState<Department[]>([]);
   const [groups, setGroups] = useState<Group[]>([]);
 
   const dropZoneConfig = {
@@ -69,7 +68,6 @@ export default function AdminUpdateStudent() {
       address: '',
       phone: '',
       groupId: '',
-      departmentId: '',
       avatar: '',
     },
   });
@@ -84,16 +82,12 @@ export default function AdminUpdateStudent() {
         address: student.address,
         phone: student.phone,
         groupId: student.groupId.toString(),
-        departmentId: student.departmentId.toString(),
         avatar: student.account.avatar,
       });
     }
     async function fetchData() {
-      const [departmentsRes, groupsRes] = await Promise.all([
-        fetchListData('departments/get-list'),
-        fetchListData('groups/get-list'),
-      ]);
-      setDepartments(departmentsRes.data);
+      const [groupsRes] = await Promise.all([fetchListData('groups/get-list')]);
+
       setGroups(groupsRes.data);
     }
     fetchData();
@@ -103,7 +97,6 @@ export default function AdminUpdateStudent() {
     try {
       const updatedValues = {
         ...values,
-        departmentId: Number(values.departmentId),
         groupId: Number(values.groupId),
       };
       updateStudent(
@@ -118,7 +111,7 @@ export default function AdminUpdateStudent() {
     }
   }
 
-  if (!student || departments.length === 0) return <LoadingForm />; // Or a loading indicator
+  if (!student || groups.length === 0) return <LoadingForm />; // Or a loading indicator
 
   return (
     <Form {...form}>
@@ -247,56 +240,31 @@ export default function AdminUpdateStudent() {
                 </FormItem>
               )}
             />
-            <div className="grid grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="departmentId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel required>{t('student.fields.department.label')}</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder={t('student.fields.department.placeholder')} />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {departments?.map(({ id, name }: Department) => (
-                          <SelectItem key={id} value={id.toString()}>
-                            {name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="groupId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel required>{t('student.fields.group.label')}</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder={t('student.fields.group.placeholder')} />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {groups?.map(({ id, name }: Group) => (
-                          <SelectItem key={id} value={id.toString()}>
-                            {name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+
+            <FormField
+              control={form.control}
+              name="groupId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel required>{t('student.fields.group.label')}</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder={t('student.fields.group.placeholder')} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {groups?.map(({ id, name }: Group) => (
+                        <SelectItem key={id} value={id.toString()}>
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
 
           <div className="col-span-1 h-full md:col-span-1">

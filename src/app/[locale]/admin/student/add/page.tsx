@@ -28,7 +28,7 @@ import { useCrud } from '@/hooks/useCrud';
 import { cn } from '@/lib/utils';
 import { createStudentSchema } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Department, Gender, Group } from '@prisma/client';
+import { Gender, Group } from '@prisma/client';
 import { format } from 'date-fns';
 import { CalendarIcon, CloudUploadIcon, PaperclipIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -59,23 +59,17 @@ export default function AdminAddStudent() {
       address: '',
       phone: '',
       groupId: '',
-      departmentId: '',
       avatar: '',
     },
   });
 
   const { useCreate } = useCrud({ modelName: 'student' });
   const { mutate: createStudent } = useCreate();
-  const [departments, setDepartments] = useState<Department[]>([]);
   const [groups, setGroups] = useState<Group[]>([]);
 
   useEffect(() => {
     async function fetchData() {
-      const [departmentsRes, groupsRes] = await Promise.all([
-        fetchListData('departments/get-list'),
-        fetchListData('groups/get-list'),
-      ]);
-      setDepartments(departmentsRes.data);
+      const [groupsRes] = await Promise.all([fetchListData('groups/get-list')]);
       setGroups(groupsRes.data);
     }
     fetchData();
@@ -85,7 +79,6 @@ export default function AdminAddStudent() {
     try {
       const updatedValues = {
         ...values,
-        departmentId: Number(values.departmentId),
         groupId: Number(values.groupId),
       };
       createStudent(updatedValues, {
@@ -224,56 +217,31 @@ export default function AdminAddStudent() {
                 </FormItem>
               )}
             />
-            <div className="grid grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="departmentId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel required>{t('student.fields.department.label')}</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder={t('student.fields.department.placeholder')} />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {departments?.map(({ id, name }: Department) => (
-                          <SelectItem key={id} value={id.toString()}>
-                            {name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="groupId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel required>{t('student.fields.group.label')}</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder={t('student.fields.group.placeholder')} />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {groups?.map(({ id, name }: Group) => (
-                          <SelectItem key={id} value={id.toString()}>
-                            {name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+
+            <FormField
+              control={form.control}
+              name="groupId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel required>{t('student.fields.group.label')}</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder={t('student.fields.group.placeholder')} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {groups?.map(({ id, name }: Group) => (
+                        <SelectItem key={id} value={id.toString()}>
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
 
           <div className="col-span-1 h-full md:col-span-1">
