@@ -22,9 +22,9 @@ export const deleteStudent = async (id: string): Promise<PipelineResult<DeleteRe
       };
     }
 
-    const deletedStudent = await prisma.student.update({
+    const deletedStudent = await prisma.account.update({
       where: {
-        id: Number(id),
+        id: existingStudent.accountId,
       },
       data: {
         isActive: false,

@@ -14,11 +14,11 @@ export type GetStudentByIdRes = Prisma.StudentGetPayload<{
     group: {
       select: {
         name: true;
-      };
-    };
-    department: {
-      select: {
-        name: true;
+        department: {
+          select: {
+            name: true;
+          };
+        };
       };
     };
   };
@@ -42,11 +42,11 @@ export const getStudentById = async (
         group: {
           select: {
             name: true,
-          },
-        },
-        department: {
-          select: {
-            name: true,
+            department: {
+              select: {
+                name: true,
+              },
+            },
           },
         },
       },

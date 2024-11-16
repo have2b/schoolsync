@@ -11,7 +11,6 @@ interface CreateStudentReq {
   gender: string;
   address: string;
   phone: string;
-  departmentId: number;
   groupId: number;
 }
 
@@ -29,7 +28,7 @@ const generateStudentCode = async (): Promise<string> => {
 
   // If no students exist, start with SV001
   if (!lastStudent) {
-    return 'SV001';
+    return 'SV00001';
   }
 
   // Extract the number from the last code and increment it
@@ -37,14 +36,14 @@ const generateStudentCode = async (): Promise<string> => {
   const nextNumber = lastNumber + 1;
 
   // Format the new code with leading zeros
-  return `SV${nextNumber.toString().padStart(3, '0')}`;
+  return `SV${nextNumber.toString().padStart(5, '0')}`;
 };
 
 export const createStudent = async (
   req: CreateStudentReq
 ): Promise<PipelineResult<CreateStudentRes | unknown>> => {
   try {
-    const { name, dob, gender, address, phone, departmentId, groupId } = req;
+    const { name, dob, gender, address, phone, groupId } = req;
 
     const existedPhone = await prisma.student.findFirst({
       where: { phone },
@@ -81,7 +80,6 @@ export const createStudent = async (
           address,
           phone,
           accountId: account.id,
-          departmentId,
           groupId,
         },
       });

@@ -9,7 +9,6 @@ interface UpdateStudentReq {
   gender?: string;
   address?: string;
   phone?: string;
-  departmentId?: number;
   groupId?: number;
 }
 
@@ -22,7 +21,7 @@ export const updateStudent = async (
   req: UpdateStudentReq
 ): Promise<PipelineResult<UpdateStudentRes | unknown>> => {
   try {
-    const { name, dob, gender, address, phone, groupId, departmentId } = req;
+    const { name, dob, gender, address, phone, groupId } = req;
 
     const existingStudent = await prisma.student.findFirst({
       where: {
@@ -67,7 +66,6 @@ export const updateStudent = async (
         address: address ?? existingStudent.address,
         phone: phone ?? existingStudent.phone,
         groupId: groupId ?? existingStudent.groupId,
-        departmentId: departmentId ?? existingStudent.departmentId,
       },
     });
 
