@@ -2,6 +2,7 @@
 
 import { ActionCell, Button, Input } from '@/components';
 import { GetListGroupRes } from '@/server/group';
+import { GetListRosterRes } from '@/server/roster';
 import { GetListStudentRes } from '@/server/student';
 import { Course, Department, Teacher } from '@prisma/client';
 import { Column, ColumnDef } from '@tanstack/react-table';
@@ -282,6 +283,56 @@ export const courseColumn: ColumnDef<Course>[] = [
     id: 'action',
     header: () => <HeaderCol column={{} as Column<unknown>} modelName="course" sortable={false} />,
     cell: ({ row }) => <ActionCell id={row.original.id} modelName="course" />,
+    enableSorting: false,
+    enableHiding: false,
+  },
+];
+
+export const rosterColumn: ColumnDef<GetListRosterRes>[] = [
+  {
+    id: 'code',
+    accessorKey: 'code',
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => (
+      <div className="flex items-center justify-center gap-2">
+        <Input
+          type="checkbox"
+          className="size-4"
+          checked={row.getIsSelected()}
+          onChange={(e) => row.toggleSelected(!!e.target.checked)}
+        />
+        <span>{row.getValue('code')}</span>
+      </div>
+    ),
+  },
+  {
+    id: 'name',
+    accessorKey: 'name',
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('name')}</div>,
+  },
+  {
+    id: 'capacity',
+    accessorKey: 'capacity',
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('capacity')}</div>,
+  },
+  {
+    id: 'semester',
+    accessorKey: 'semester',
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('semester')}</div>,
+  },
+  {
+    id: 'year',
+    accessorKey: 'year',
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('year')}</div>,
+  },
+  {
+    id: 'action',
+    header: () => <HeaderCol column={{} as Column<unknown>} modelName="roster" sortable={false} />,
+    cell: ({ row }) => <ActionCell id={row.original.id} modelName="roster" />,
     enableSorting: false,
     enableHiding: false,
   },

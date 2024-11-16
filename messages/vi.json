@@ -261,6 +261,48 @@
       }
     }
   },
+  "roster": {
+    "title": "Lớp Học Phần",
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Mã lớp HP",
+        "placeholder": "Điền mã lớp học phần"
+      },
+      "name": {
+        "label": "Tên lớp HP",
+        "placeholder": "Điền tên lớp học phần"
+      },
+      "capacity": {
+        "label": "Số lượng",
+        "placeholder": "Điền số lượng"
+      },
+      "startedDate": {
+        "label": "Ngày bắt đầu",
+        "placeholder": "Chọn ngày bắt đầu lớp học phần"
+      },
+      "endedDate": {
+        "label": "Ngày kết thúc",
+        "placeholder": "Chọn ngày kết thúc lớp học phần"
+      },
+      "year": {
+        "label": "Năm học",
+        "placeholder": "Điền năm học"
+      },
+      "semester": {
+        "label": "Học kỳ",
+        "placeholder": "Điền học kỳ"
+      },
+      "course": {
+        "label": "Học phần",
+        "placeholder": "Chọn học phần"
+      },
+      "teacher": {
+        "label": "Giảng viên",
+        "placeholder": "Chọn giảng viên"
+      }
+    }
+  },
   "table": {
     "actions": {
       "addNew": "Thêm mới",

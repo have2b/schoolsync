@@ -264,6 +264,44 @@
       }
     }
   },
+  "roster": {
+    "title": "Roster",
+    "fields": {
+      "id": "Id",
+      "code": {
+        "label": "Code",
+        "placeholder": "Enter code"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter name"
+      },
+      "startedDate": {
+        "label": "Start Date",
+        "placeholder": "Choose start date"
+      },
+      "endedDate": {
+        "label": "End Date",
+        "placeholder": "Choose end date"
+      },
+      "year": {
+        "label": "Year",
+        "placeholder": "Enter year"
+      },
+      "semester": {
+        "label": "Semester",
+        "placeholder": "Enter semester"
+      },
+      "course": {
+        "label": "Course",
+        "placeholder": "Choose course"
+      },
+      "teacher": {
+        "label": "Teacher",
+        "placeholder": "Choose teacher"
+      }
+    }
+  },
   "table": {
     "actions": {
       "addNew": "Add New",
