@@ -4,7 +4,9 @@ import { Prisma } from '@prisma/client';
 import { logger } from '../utils';
 
 export type GetListStudentRes = Prisma.StudentGetPayload<{
-  include: { group: { select: { name: true } }; department: { select: { name: true } } };
+  include: {
+    group: { select: { name: true; department: { select: { name: true } } } };
+  };
 }>;
 
 export const getStudents = async (): Promise<PipelineResult<GetListStudentRes[] | unknown>> => {
@@ -14,11 +16,11 @@ export const getStudents = async (): Promise<PipelineResult<GetListStudentRes[] 
         group: {
           select: {
             name: true,
-          },
-        },
-        department: {
-          select: {
-            name: true,
+            department: {
+              select: {
+                name: true,
+              },
+            },
           },
         },
       },
