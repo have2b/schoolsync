@@ -31,10 +31,10 @@ export const bulkDeleteTeacher = async (
     }
 
     // Perform bulk deletion
-    const deletedTeachers = await prisma.teacher.updateMany({
+    const deletedTeachers = await prisma.account.updateMany({
       where: {
         id: {
-          in: numericIds,
+          in: existingTeachers.map((teacher) => teacher.accountId),
         },
       },
       data: {

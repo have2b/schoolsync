@@ -22,9 +22,9 @@ export const deleteTeacher = async (id: string): Promise<PipelineResult<DeleteRe
       };
     }
 
-    const deletedTeacher = await prisma.teacher.update({
+    const deletedTeacher = await prisma.account.update({
       where: {
-        id: Number(id),
+        id: existingTeacher.accountId,
       },
       data: {
         isActive: false,
