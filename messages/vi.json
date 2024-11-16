@@ -239,14 +239,6 @@
         "label": "Số tiết",
         "placeholder": "Điền số tiết"
       },
-      "startedAt": {
-        "label": "Ngày bắt đầu",
-        "placeholder": "Chọn ngày bắt đầu học phần"
-      },
-      "endedAt": {
-        "label": "Ngày kết thúc",
-        "placeholder": "Chọn ngày kết thúc học phần"
-      },
       "year": {
         "label": "Năm học",
         "placeholder": "Điền năm học"
@@ -277,11 +269,11 @@
         "label": "Số lượng",
         "placeholder": "Điền số lượng"
       },
-      "startedDate": {
+      "startDate": {
         "label": "Ngày bắt đầu",
         "placeholder": "Chọn ngày bắt đầu lớp học phần"
       },
-      "endedDate": {
+      "endDate": {
         "label": "Ngày kết thúc",
         "placeholder": "Chọn ngày kết thúc lớp học phần"
       },

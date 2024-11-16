@@ -242,14 +242,6 @@
         "label": "Lesson",
         "placeholder": "Enter lesson"
       },
-      "startedAt": {
-        "label": "Start Date",
-        "placeholder": "Choose start date"
-      },
-      "endedAt": {
-        "label": "End Date",
-        "placeholder": "Choose end date"
-      },
       "year": {
         "label": "Year",
         "placeholder": "Enter year"
@@ -276,11 +268,11 @@
         "label": "Name",
         "placeholder": "Enter name"
       },
-      "startedDate": {
+      "startDate": {
         "label": "Start Date",
         "placeholder": "Choose start date"
       },
-      "endedDate": {
+      "endDate": {
         "label": "End Date",
         "placeholder": "Choose end date"
       },
