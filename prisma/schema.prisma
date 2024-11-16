@@ -35,17 +35,19 @@ enum Degree {
 }
 
 model Account {
-  id           Int       @id @default(autoincrement())
-  username     String    @unique @map("TenTK")
-  email        String    @unique @map("Email")
-  password     String    @map("MatKhau")
-  role         Role      @map("VaiTro")
-  avatar       String?   @map("AnhDaiDien")
-  isFirstLogin Boolean   @default(true) @map("LanDauDangNhap")
-  createdAt    DateTime  @default(now()) @map("NgayTao")
-  updatedAt    DateTime  @updatedAt @map("NgayCapNhat")
-  students     Student[]
-  teachers     Teacher[]
+  id           Int      @id @default(autoincrement())
+  username     String   @unique @map("TenTK")
+  email        String   @unique @map("Email")
+  password     String   @map("MatKhau")
+  role         Role     @map("VaiTro")
+  avatar       String?  @map("AnhDaiDien")
+  isFirstLogin Boolean  @default(true) @map("LanDauDangNhap")
+  createdAt    DateTime @default(now()) @map("NgayTao")
+  updatedAt    DateTime @updatedAt @map("NgayCapNhat")
+  isActive     Boolean  @default(true) @map("DangHoatDong")
+
+  students Student[]
+  teachers Teacher[]
 
   @@map("TAIKHOAN")
 }
@@ -60,7 +62,6 @@ model Student {
   phone     String   @unique @map("SDT")
   createdAt DateTime @default(now()) @map("NgayTao")
   updatedAt DateTime @updatedAt @map("NgayCapNhat")
-  isActive  Boolean  @default(true) @map("DangHoatDong")
 
   accountId Int     @map("MaTK")
   groupId   Int     @map("MaLopHC")
@@ -149,7 +150,6 @@ model Teacher {
   major     String   @map("ChuyenNganh")
   createdAt DateTime @default(now()) @map("NgayTao")
   updatedAt DateTime @updatedAt @map("NgayCapNhat")
-  isActive  Boolean  @default(true) @map("DangHoatDong")
 
   accountId    Int        @map("MaTK")
   departmentId Int        @map("MaKhoa")
