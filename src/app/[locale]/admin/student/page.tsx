@@ -16,10 +16,14 @@ const AdminStudent = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  // Ensure data exists before attempting to access data.data
+  const activeData =
+    data?.data?.filter((item: { account: { isActive: boolean } }) => item.account.isActive) ?? [];
+
   return (
     <DataTable
       columns={studentColumn}
-      data={data.data ?? []}
+      data={activeData}
       searchableColumns={['code', 'name', 'dob', 'group', 'department']}
       modelName="student"
     />

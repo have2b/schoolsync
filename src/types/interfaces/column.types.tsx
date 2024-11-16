@@ -1,10 +1,9 @@
 'use client';
 
 import { ActionCell, Button, Input } from '@/components';
-import { GetListCourseRes } from '@/server/course';
 import { GetListGroupRes } from '@/server/group';
 import { GetListStudentRes } from '@/server/student';
-import { Department, Teacher } from '@prisma/client';
+import { Course, Department, Teacher } from '@prisma/client';
 import { Column, ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
@@ -231,7 +230,7 @@ export const studentColumn: ColumnDef<GetListStudentRes>[] = [
   },
   {
     id: 'department',
-    accessorFn: (row) => row.department?.name,
+    accessorFn: (row) => row.group.department?.name,
     header: ({ column }) => <HeaderCol column={column} modelName="student" />,
     cell: ({ row }) => <div>{row.getValue('department')}</div>,
   },
@@ -244,7 +243,7 @@ export const studentColumn: ColumnDef<GetListStudentRes>[] = [
   },
 ];
 
-export const courseColumn: ColumnDef<GetListCourseRes>[] = [
+export const courseColumn: ColumnDef<Course>[] = [
   {
     id: 'code',
     accessorKey: 'code',
@@ -278,24 +277,6 @@ export const courseColumn: ColumnDef<GetListCourseRes>[] = [
     accessorKey: 'lesson',
     header: ({ column }) => <HeaderCol column={column} modelName="course" />,
     cell: ({ row }) => <div>{row.getValue('lesson')}</div>,
-  },
-  {
-    id: 'year',
-    accessorKey: 'year',
-    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
-    cell: ({ row }) => <div>{row.getValue('year')}</div>,
-  },
-  {
-    id: 'semester',
-    accessorKey: 'semester',
-    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
-    cell: ({ row }) => <div>{row.getValue('semester')}</div>,
-  },
-  {
-    id: 'teacher',
-    accessorFn: (row) => row.teacher?.name,
-    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
-    cell: ({ row }) => <div>{row.getValue('teacher')}</div>,
   },
   {
     id: 'action',

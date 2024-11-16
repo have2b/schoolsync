@@ -5,7 +5,15 @@ import { logger } from '../utils';
 
 export const getTeachers = async (): Promise<PipelineResult<Teacher[] | unknown>> => {
   try {
-    const data = await prisma.teacher.findMany({});
+    const data = await prisma.teacher.findMany({
+      include: {
+        account: {
+          select: {
+            isActive: true,
+          },
+        },
+      },
+    });
 
     // Return successful response
     return {

@@ -15,11 +15,13 @@ const AdminDepartment = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+  // Ensure data exists before attempting to access data.data
+  const activeData = data?.data?.filter((item: { isActive: boolean }) => item.isActive) ?? [];
 
   return (
     <DataTable
       columns={groupColumn}
-      data={data.data ?? []}
+      data={activeData ?? []}
       searchableColumns={['code', 'name', 'teacher', 'department']}
       modelName="group"
     />

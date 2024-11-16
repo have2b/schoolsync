@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import {
   AlertDialog,
@@ -132,13 +132,9 @@ export function DataTable<TData, TValue>({
   const [pageSize, setPageSize] = useState(10);
   const [columnSearches, setColumnSearches] = useState<Record<string, boolean>>({});
 
-  const activeData = useMemo(() => {
-    return data.filter((item) => (item as { isActive: boolean }).isActive);
-  }, [data]);
-
   const t = useTranslations();
   const table = useReactTable({
-    data: activeData,
+    data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),

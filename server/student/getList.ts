@@ -23,6 +23,11 @@ export const getStudents = async (): Promise<PipelineResult<GetListStudentRes[] 
             },
           },
         },
+        account: {
+          select: {
+            isActive: true,
+          },
+        },
       },
     });
 
