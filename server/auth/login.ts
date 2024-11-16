@@ -34,6 +34,14 @@ export const login = async (req: LoginReq): Promise<PipelineResult<Account | unk
       };
     }
 
+    if (!findAccount.isActive) {
+      return {
+        status: 401,
+        message: 'accountDisabled',
+        data: null,
+      };
+    }
+
     await createSession(findAccount.id, findAccount.role);
 
     return {
