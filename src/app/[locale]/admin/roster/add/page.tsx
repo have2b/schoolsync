@@ -75,6 +75,8 @@ export default function AdminAddRoster() {
         courseId: Number(values.courseId),
         teacherId: Number(values.teacherId),
         capacity: Number(values.capacity),
+        year: Number(values.year),
+        semester: Number(values.semester),
       };
       createRoster(updatedValues, {
         onSuccess: () => router.back(),
