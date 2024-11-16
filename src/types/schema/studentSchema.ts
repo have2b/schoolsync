@@ -9,7 +9,6 @@ const createStudentSchema = z.object({
   address: z.string().max(50),
   phone: z.string().max(50),
   groupId: z.string().max(50),
-  departmentId: z.string().max(50),
   avatar: z.string().max(50),
 });
 
@@ -21,7 +20,6 @@ const updateStudentSchema = z.object({
   address: z.string().max(50),
   phone: z.string().max(50),
   groupId: z.string().max(50),
-  departmentId: z.string().max(50),
   avatar: z.string().max(50),
 });
 
