@@ -1,4 +1,5 @@
 import {
+  BackpackIcon,
   BookCheckIcon,
   BookOpenIcon,
   GraduationCapIcon,
@@ -40,6 +41,12 @@ export const ADMIN_NAV_LINKS = [
   },
   {
     id: 6,
+    name: 'roster',
+    href: '/roster',
+    icon: <BackpackIcon />,
+  },
+  {
+    id: 7,
     name: 'grade',
     href: '/grade',
     icon: <NotebookPenIcon />,

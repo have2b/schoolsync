@@ -39,6 +39,7 @@
       "department": "Department Management",
       "group": "Class Management",
       "course": "Course Management",
+      "roster": "Roster Management",
       "grade": "Grade Management",
       "add": "Add",
       "edit": "Edit"
