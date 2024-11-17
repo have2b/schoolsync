@@ -102,7 +102,7 @@
       "female": "Female",
       "other": "Other"
     },
-    "rank": {
+    "result": {
       "pass": "Pass",
       "fail": "Not pass"
     }
@@ -335,8 +335,8 @@
       "gpa": {
         "label": "GPA"
       },
-      "rank": {
-        "label": "Rank"
+      "result": {
+        "label": "Result"
       },
       "studentId": {
         "label": "Student Id"

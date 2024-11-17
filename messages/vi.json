@@ -102,7 +102,7 @@
       "female": "Nữ",
       "other": "Khác"
     },
-    "rank": {
+    "result": {
       "pass": "Đạt",
       "fail": "Không đạt"
     }
@@ -336,8 +336,8 @@
       "gpa": {
         "label": "GPA"
       },
-      "rank": {
-        "label": "Xếp loại"
+      "result": {
+        "label": "Kết quả"
       },
       "studentId": {
         "label": "Id SV"

@@ -565,7 +565,7 @@ export const gradeItemColumn: ColumnDef<GetGradeRes>[] = [
   },
   // New Rank column
   {
-    id: 'rank',
+    id: 'result',
     accessorFn: (row) => {
       const totalPoint =
         Number(row.attendancePoint) * 0.1 +
@@ -579,8 +579,8 @@ export const gradeItemColumn: ColumnDef<GetGradeRes>[] = [
     header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
     cell: ({ row }) => (
       <CellTranslated
-        value={(row.getValue('rank') as string).toLowerCase()}
-        modelName="enum.rank"
+        value={(row.getValue('result') as string).toLowerCase()}
+        modelName="enum.result"
       />
     ),
   },
