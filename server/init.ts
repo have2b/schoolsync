@@ -234,8 +234,8 @@ const createRosters = async () => {
 const createGrades = async () => {
   const gradeCount = await prisma.grade.count();
   if (gradeCount === 0) {
-    const students = await prisma.student.findMany({ select: { code: true } });
-    const rosters = await prisma.roster.findMany({ select: { code: true } });
+    const students = await prisma.student.findMany({ select: { id: true } });
+    const rosters = await prisma.roster.findMany({ select: { id: true } });
 
     const grades = [];
     const studentRosterPairs = new Set();
@@ -246,7 +246,7 @@ const createGrades = async () => {
       const selectedRosters = faker.helpers.arrayElements(rosters, numberOfRosters);
 
       for (const roster of selectedRosters) {
-        const pairKey = `${student.code}-${roster.code}`;
+        const pairKey = `${student.id}-${roster.id}`;
         if (!studentRosterPairs.has(pairKey)) {
           studentRosterPairs.add(pairKey);
           grades.push({
@@ -255,8 +255,8 @@ const createGrades = async () => {
             finalPoint: faker.number.float({ min: 0, max: 10, multipleOf: 0.25 }),
             finalGrade: faker.number.float({ min: 0, max: 10, multipleOf: 0.25 }),
             examPoint: faker.number.float({ min: 0, max: 10, multipleOf: 0.25 }),
-            studentCode: student.code,
-            rosterCode: roster.code,
+            studentId: student.id,
+            rosterId: roster.id,
           });
         }
       }

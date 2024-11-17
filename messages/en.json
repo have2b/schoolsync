@@ -101,6 +101,13 @@
       "male": "Male",
       "female": "Female",
       "other": "Other"
+    },
+    "rank": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "normal": "Normal",
+      "pass": "Pass",
+      "weak": "Weak"
     }
   },
   "department": {
@@ -294,6 +301,45 @@
       "teacher": {
         "label": "Teacher",
         "placeholder": "Choose teacher"
+      }
+    }
+  },
+  "grade": {
+    "title": "Score board of class",
+    "fields": {
+      "id": "Id",
+      "studentCode": {
+        "label": "Student Code"
+      },
+      "studentName": {
+        "label": "Student Name"
+      },
+      "attendancePoint": {
+        "label": "Attendance Point"
+      },
+      "midTermPoint": {
+        "label": "Midterm Point"
+      },
+      "finalPoint": {
+        "label": "Final Point"
+      },
+      "finalGrade": {
+        "label": "Final Grade"
+      },
+      "examPoint": {
+        "label": "Exam Point"
+      },
+      "updatedAt": {
+        "label": "Last Updated At"
+      },
+      "totalGrade": {
+        "label": "Total Grade"
+      },
+      "gpa": {
+        "label": "GPA"
+      },
+      "rank": {
+        "label": "Rank"
       }
     }
   },

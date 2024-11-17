@@ -1,6 +1,7 @@
 'use client';
 
-import { ActionCell, Button, Input } from '@/components';
+import { ActionCell, Button, Input, TableMeta } from '@/components';
+import { GetGradeRes } from '@/server/grade';
 import { GetListGroupRes } from '@/server/group';
 import { GetListRosterRes } from '@/server/roster';
 import { GetListStudentRes } from '@/server/student';
@@ -38,6 +39,27 @@ function HeaderCol<T>({ column, modelName, sortable = true }: RenderHeaderProps<
 function CellTranslated({ value, modelName }: { value: string; modelName: string }) {
   const t = useTranslations(modelName);
   return <span>{t(value)}</span>;
+}
+interface EditableCellProps {
+  value: number;
+  onChange: (value: number) => void; // Changed to handle number instead of string
+  disabled?: boolean;
+}
+
+// Editable Cell Component
+function EditableCell({ value, onChange, disabled = false }: EditableCellProps) {
+  return (
+    <Input
+      type="number"
+      min={0}
+      max={10}
+      step={0.25}
+      value={value}
+      onChange={(e) => onChange(parseFloat(e.target.value))}
+      disabled={disabled}
+      className="text-center"
+    />
+  );
 }
 
 export const departmentColumn: ColumnDef<Department>[] = [
@@ -379,6 +401,186 @@ export const gradeColumn: ColumnDef<GetListRosterRes>[] = [
     id: 'action',
     header: () => <HeaderCol column={{} as Column<unknown>} modelName="roster" sortable={false} />,
     cell: ({ row }) => <ActionCell id={row.original.id} modelName="roster" showDelete={false} />,
+    enableSorting: false,
+    enableHiding: false,
+  },
+];
+
+export const gradeItemColumn: ColumnDef<GetGradeRes>[] = [
+  {
+    id: 'studentCode',
+    accessorFn: (row) => row.student?.code,
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => (
+      <div className="flex items-center justify-center gap-2">
+        <Input
+          type="checkbox"
+          className="size-4"
+          checked={row.getIsSelected()}
+          onChange={(e) => row.toggleSelected(!!e.target.checked)}
+        />
+        <span>{row.getValue('studentCode')}</span>
+      </div>
+    ),
+  },
+  {
+    id: 'studentName',
+    accessorFn: (row) => row.student?.name,
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => <div>{row.getValue('studentName')}</div>,
+  },
+  {
+    id: 'attendancePoint',
+    accessorKey: 'attendancePoint',
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row, getValue, table }) => (
+      <EditableCell
+        value={getValue() as number}
+        onChange={(newValue) => {
+          (table.options.meta as TableMeta<GetGradeRes>)?.updateData(
+            row.index,
+            'attendancePoint',
+            newValue
+          );
+        }}
+      />
+    ),
+  },
+  {
+    id: 'midTermPoint',
+    accessorKey: 'midTermPoint',
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row, getValue, table }) => (
+      <EditableCell
+        value={getValue() as number}
+        onChange={(newValue) => {
+          (table.options.meta as TableMeta<GetGradeRes>)?.updateData(
+            row.index,
+            'midTermPoint',
+            newValue
+          );
+        }}
+      />
+    ),
+  },
+  {
+    id: 'finalPoint',
+    accessorKey: 'finalPoint',
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row, getValue, table }) => (
+      <EditableCell
+        value={getValue() as number}
+        onChange={(newValue) => {
+          (table.options.meta as TableMeta<GetGradeRes>)?.updateData(
+            row.index,
+            'finalPoint',
+            newValue
+          );
+        }}
+      />
+    ),
+  },
+  {
+    id: 'finalGrade',
+    accessorKey: 'finalGrade',
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row, getValue, table }) => (
+      <EditableCell
+        value={getValue() as number}
+        onChange={(newValue) => {
+          (table.options.meta as TableMeta<GetGradeRes>)?.updateData(
+            row.index,
+            'finalGrade',
+            newValue
+          );
+        }}
+      />
+    ),
+  },
+  {
+    id: 'examPoint',
+    accessorKey: 'examPoint',
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row, getValue, table }) => (
+      <EditableCell
+        value={getValue() as number}
+        onChange={(newValue) => {
+          (table.options.meta as TableMeta<GetGradeRes>)?.updateData(
+            row.index,
+            'examPoint',
+            newValue
+          );
+        }}
+      />
+    ),
+  },
+  {
+    id: 'totalGrade',
+    accessorFn: (row) => {
+      const totalPoint =
+        Number(row.attendancePoint) +
+        Number(row.midTermPoint) +
+        Number(row.finalGrade) +
+        Number(row.finalPoint) +
+        (Number(row.examPoint) || 0);
+      const totalGrade = totalPoint / 5;
+      return totalGrade.toFixed(2);
+    },
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => <div>{row.getValue('totalGrade')}</div>,
+  },
+
+  // New GPA column (example calculation, may need customization)
+  {
+    id: 'gpa',
+    accessorFn: (row) => {
+      const attendanceWeight = 0.1;
+      const midtermWeight = 0.2;
+      const finalWeight = 0.2;
+      const examWeight = 0.3;
+      const finalGradeWeight = 0.2;
+
+      const weightedTotal =
+        Number(row.attendancePoint) * attendanceWeight +
+        Number(row.midTermPoint) * midtermWeight +
+        Number(row.finalPoint) * finalWeight +
+        Number(row.examPoint || 0) * examWeight +
+        Number(row.finalGrade) * finalGradeWeight;
+
+      // Convert to 4.0 scale
+      const gpa = (weightedTotal / 10) * 4;
+      return gpa.toFixed(2);
+    },
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => <div>{row.getValue('gpa')}</div>,
+  },
+
+  // New Rank column
+  {
+    id: 'rank',
+    accessorFn: (row) => {
+      const gpa = Number(row.finalGrade);
+
+      if (gpa >= 3.6) return 'excellent';
+      if (gpa >= 3.2) return 'good';
+      if (gpa >= 2.5) return 'normal';
+      if (gpa >= 2.0) return 'pass';
+      return 'weak';
+    },
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => (
+      <CellTranslated
+        value={(row.getValue('rank') as string).toLowerCase()}
+        modelName="enum.rank"
+      />
+    ),
+  },
+  {
+    id: 'action',
+    header: () => <HeaderCol column={{} as Column<unknown>} modelName="grade" sortable={false} />,
+    cell: ({ row }) => (
+      <ActionCell id={row.original.studentId} modelName="grade" showEdit={false} />
+    ),
     enableSorting: false,
     enableHiding: false,
   },

@@ -137,7 +137,7 @@ model Roster {
   teacherId Int     @map("MaGV")
   course    Course  @relation(fields: [courseId], references: [id])
   teacher   Teacher @relation(fields: [teacherId], references: [id])
-  Grades    Grade[]
+  grades    Grade[]
 
   @@map("LOPHOCPHAN")
 }
@@ -171,11 +171,11 @@ model Grade {
   updatedAt       DateTime @updatedAt @map("NgayCapNhat")
   isActive        Boolean  @default(true) @map("DangHoatDong")
 
-  studentCode String  @map("MaSV")
-  rosterCode  String  @map("MaLHP")
-  student     Student @relation(fields: [studentCode], references: [code])
-  roster      Roster  @relation(fields: [rosterCode], references: [code])
+  studentId Int     @map("MaSV")
+  rosterId  Int     @map("MaLHP")
+  student   Student @relation(fields: [studentId], references: [id])
+  roster    Roster  @relation(fields: [rosterId], references: [id])
 
-  @@id([studentCode, rosterCode])
+  @@id([studentId, rosterId])
   @@map("DIEM")
 }

@@ -101,6 +101,13 @@
       "male": "Nam",
       "female": "Nữ",
       "other": "Khác"
+    },
+    "rank": {
+      "excellent": "Xuất sắc",
+      "good": "Giỏi",
+      "normal": "Khá",
+      "pass": "Trung bình",
+      "weak": "Không đạt"
     }
   },
   "department": {
@@ -295,6 +302,45 @@
       },
       "updatedAt": {
         "label": "Lần chỉnh sửa cuối"
+      }
+    }
+  },
+  "grade": {
+    "title": "Bảng điểm lớp",
+    "fields": {
+      "id": "Id",
+      "studentCode": {
+        "label": "Mã SV"
+      },
+      "studentName": {
+        "label": "Tên SV"
+      },
+      "attendancePoint": {
+        "label": "Điểm CC"
+      },
+      "midTermPoint": {
+        "label": "Điểm KT1"
+      },
+      "finalPoint": {
+        "label": "Điểm KT2"
+      },
+      "finalGrade": {
+        "label": "Điểm TL"
+      },
+      "examPoint": {
+        "label": "Điểm Thi"
+      },
+      "updatedAt": {
+        "label": "Lần chỉnh sửa cuối"
+      },
+      "totalGrade": {
+        "label": "Tổng điểm"
+      },
+      "gpa": {
+        "label": "GPA"
+      },
+      "rank": {
+        "label": "Xếp loại"
       }
     }
   },
