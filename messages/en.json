@@ -253,6 +253,9 @@
       "teacher": {
         "label": "Teacher",
         "placeholder": "Choose teacher"
+      },
+      "updatedAt": {
+        "label": "Last Updated At"
       }
     }
   },

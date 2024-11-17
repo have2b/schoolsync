@@ -71,6 +71,8 @@ interface DataTableProps<TData, TValue> {
   searchableColumns?: string[];
   isLoading?: boolean;
   modelName: string;
+  showAddAndDelete?: boolean;
+  showImportExport?: boolean;
 }
 
 // Custom filter function for global search across multiple columns
@@ -121,6 +123,8 @@ export function DataTable<TData, TValue>({
   searchableColumns = [],
   isLoading = false,
   modelName,
+  showAddAndDelete = true,
+  showImportExport = true,
 }: DataTableProps<TData, TValue>) {
   const router = useRouter();
   const pathname = usePathname();
@@ -210,7 +214,11 @@ export function DataTable<TData, TValue>({
         <span className="text-3xl font-medium">
           {t('common.search.all').concat(' ', t(modelName.concat('.title')).toLowerCase())}
         </span>
-        <div className="flex items-center space-x-2 text-secondary-foreground">
+        <div
+          className={
+            showImportExport ? 'flex items-center space-x-2 text-secondary-foreground' : 'hidden'
+          }
+        >
           <Button
             className="hover:text-secondary"
             variant="outline"
@@ -346,7 +354,7 @@ export function DataTable<TData, TValue>({
             );
           })}
         </div>
-        <div className="flex items-center justify-between">
+        <div className={showAddAndDelete ? 'flex items-center justify-between' : 'hidden'}>
           <Button
             onClick={() => table.toggleAllPageRowsSelected(!table.getIsAllPageRowsSelected())}
           >

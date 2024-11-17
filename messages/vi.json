@@ -292,6 +292,9 @@
       "teacher": {
         "label": "Giảng viên",
         "placeholder": "Chọn giảng viên"
+      },
+      "updatedAt": {
+        "label": "Lần chỉnh sửa cuối"
       }
     }
   },

@@ -337,3 +337,49 @@ export const rosterColumn: ColumnDef<GetListRosterRes>[] = [
     enableHiding: false,
   },
 ];
+
+export const gradeColumn: ColumnDef<GetListRosterRes>[] = [
+  {
+    id: 'code',
+    accessorKey: 'code',
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <span>{row.getValue('code')}</span>,
+  },
+  {
+    id: 'name',
+    accessorKey: 'name',
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('name')}</div>,
+  },
+  {
+    id: 'semester',
+    accessorKey: 'semester',
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('semester')}</div>,
+  },
+  {
+    id: 'year',
+    accessorKey: 'year',
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('year')}</div>,
+  },
+  {
+    id: 'updatedAt',
+    accessorKey: 'updatedAt',
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => {
+      const updatedAt = row.getValue('updatedAt');
+      const formattedDate = updatedAt
+        ? format(new Date(updatedAt.toString()), 'dd/MM/yyyy HH:mm:ss')
+        : '';
+      return <div>{formattedDate}</div>;
+    },
+  },
+  {
+    id: 'action',
+    header: () => <HeaderCol column={{} as Column<unknown>} modelName="roster" sortable={false} />,
+    cell: ({ row }) => <ActionCell id={row.original.id} modelName="roster" showDelete={false} />,
+    enableSorting: false,
+    enableHiding: false,
+  },
+];
