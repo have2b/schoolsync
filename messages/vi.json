@@ -103,11 +103,8 @@
       "other": "Khác"
     },
     "rank": {
-      "excellent": "Xuất sắc",
-      "good": "Giỏi",
-      "normal": "Khá",
-      "pass": "Trung bình",
-      "weak": "Không đạt"
+      "pass": "Đạt",
+      "fail": "Không đạt"
     }
   },
   "department": {

@@ -103,11 +103,8 @@
       "other": "Other"
     },
     "rank": {
-      "excellent": "Excellent",
-      "good": "Good",
-      "normal": "Normal",
       "pass": "Pass",
-      "weak": "Weak"
+      "fail": "Not pass"
     }
   },
   "department": {

@@ -53,9 +53,9 @@ function EditableCell({ value, onChange, disabled = false }: EditableCellProps) 
       type="number"
       min={0}
       max={10}
-      step={0.25}
-      value={value}
-      onChange={(e) => onChange(parseFloat(e.target.value))}
+      step={0.5}
+      value={Number(value).toFixed(1)}
+      onChange={(e) => onChange(Number(parseFloat(e.target.value).toFixed(1)))}
       disabled={disabled}
       className="text-center"
     />
@@ -518,14 +518,13 @@ export const gradeItemColumn: ColumnDef<GetGradeRes>[] = [
     id: 'totalGrade',
     accessorFn: (row) => {
       const totalPoint =
-        Number(row.attendancePoint) +
-        Number(row.midTermPoint) +
-        Number(row.finalGrade) +
-        Number(row.finalPoint) +
-        (Number(row.examPoint) || 0);
-      const totalGrade = totalPoint / 5;
-      return totalGrade.toFixed(2);
+        Number(row.attendancePoint) * 0.1 +
+        (((Number(row.midTermPoint) + Number(row.finalPoint)) / 2 + Number(row.finalGrade)) / 2) *
+          0.3 +
+        Number(row.examPoint) * 0.6;
+      return totalPoint.toFixed(1);
     },
+
     header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
     cell: ({ row }) => <div>{row.getValue('totalGrade')}</div>,
   },
@@ -534,38 +533,48 @@ export const gradeItemColumn: ColumnDef<GetGradeRes>[] = [
   {
     id: 'gpa',
     accessorFn: (row) => {
-      const attendanceWeight = 0.1;
-      const midtermWeight = 0.2;
-      const finalWeight = 0.2;
-      const examWeight = 0.3;
-      const finalGradeWeight = 0.2;
+      const totalPoint =
+        Number(row.attendancePoint) * 0.1 +
+        (((Number(row.midTermPoint) + Number(row.finalPoint)) / 2 + Number(row.finalGrade)) / 2) *
+          0.3 +
+        Number(row.examPoint) * 0.6;
 
-      const weightedTotal =
-        Number(row.attendancePoint) * attendanceWeight +
-        Number(row.midTermPoint) * midtermWeight +
-        Number(row.finalPoint) * finalWeight +
-        Number(row.examPoint || 0) * examWeight +
-        Number(row.finalGrade) * finalGradeWeight;
+      let gpa;
+      if (totalPoint >= 8.5 && totalPoint <= 10) {
+        gpa = 4.0;
+      } else if (totalPoint >= 8.0 && totalPoint < 8.5) {
+        gpa = 3.5;
+      } else if (totalPoint >= 7.0 && totalPoint < 8.0) {
+        gpa = 3.0;
+      } else if (totalPoint >= 6.5 && totalPoint < 7.0) {
+        gpa = 2.5;
+      } else if (totalPoint >= 5.5 && totalPoint < 6.5) {
+        gpa = 2.0;
+      } else if (totalPoint >= 5.0 && totalPoint < 5.5) {
+        gpa = 1.5;
+      } else if (totalPoint >= 4.0 && totalPoint < 5.0) {
+        gpa = 1.0;
+      } else {
+        gpa = 0.0; // Default value, adjust as needed
+      }
 
-      // Convert to 4.0 scale
-      const gpa = (weightedTotal / 10) * 4;
-      return gpa.toFixed(2);
+      return gpa.toFixed(1);
     },
     header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
     cell: ({ row }) => <div>{row.getValue('gpa')}</div>,
   },
-
   // New Rank column
   {
     id: 'rank',
     accessorFn: (row) => {
-      const gpa = Number(row.finalGrade);
+      const totalPoint =
+        Number(row.attendancePoint) * 0.1 +
+        (((Number(row.midTermPoint) + Number(row.finalPoint)) / 2 + Number(row.finalGrade)) / 2) *
+          0.3 +
+        Number(row.examPoint) * 0.6;
 
-      if (gpa >= 3.6) return 'excellent';
-      if (gpa >= 3.2) return 'good';
-      if (gpa >= 2.5) return 'normal';
-      if (gpa >= 2.0) return 'pass';
-      return 'weak';
+      if (totalPoint >= 4.0) return 'pass';
+      return 'fail';
     },
     header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
     cell: ({ row }) => (
@@ -574,12 +583,6 @@ export const gradeItemColumn: ColumnDef<GetGradeRes>[] = [
         modelName="enum.rank"
       />
     ),
-  },
-  {
-    id: 'studentId',
-    accessorKey: 'studentId',
-    header: () => null,
-    cell: ({ row }) => <span className="hidden">{row.getValue('studentId')}</span>,
   },
   {
     id: 'action',
