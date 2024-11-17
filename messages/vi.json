@@ -341,12 +341,16 @@
       },
       "rank": {
         "label": "Xếp loại"
+      },
+      "studentId": {
+        "label": "Id SV"
       }
     }
   },
   "table": {
     "actions": {
       "addNew": "Thêm mới",
+      "save": "Lưu",
       "import": "Nhập dữ liệu",
       "export": "Xuất dữ liệu",
       "selectAll": "Chọn tất cả",

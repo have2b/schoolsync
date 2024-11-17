@@ -576,6 +576,12 @@ export const gradeItemColumn: ColumnDef<GetGradeRes>[] = [
     ),
   },
   {
+    id: 'studentId',
+    accessorKey: 'studentId',
+    header: () => null,
+    cell: ({ row }) => <span className="hidden">{row.getValue('studentId')}</span>,
+  },
+  {
     id: 'action',
     header: () => <HeaderCol column={{} as Column<unknown>} modelName="grade" sortable={false} />,
     cell: ({ row }) => (

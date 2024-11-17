@@ -1,5 +1,6 @@
 'use server';
 
+import { UpdateGradeReq } from '@/server/grade';
 import { cookies } from 'next/headers';
 import api from './lib/api';
 
@@ -12,6 +13,11 @@ export async function fetchListData(url: string) {
 
   return res.data.data;
 }
+
+export const updateGrades = async (grades: UpdateGradeReq[]) => {
+  const { data } = await api.put('/grades/update', grades);
+  return data;
+};
 
 export async function fetchData(url: string) {
   const res = await api.get(url);

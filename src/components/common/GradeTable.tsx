@@ -15,6 +15,7 @@ import {
 } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 
+import { updateGrades } from '@/action';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -47,11 +48,14 @@ import {
 } from '@/components';
 import { useCrud } from '@/hooks';
 import { cn } from '@/lib/utils';
+import { Grade } from '@prisma/client';
+import { useMutation } from '@tanstack/react-query';
 import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  CircleCheckBigIcon,
   CircleXIcon,
   DownloadIcon,
   PlusCircleIcon,
@@ -64,10 +68,12 @@ import {
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
+import { toast } from 'sonner';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface TableMeta<TData> {
   updateData: (rowIndex: number, columnId: string, value: number) => void;
+  editedRows: Set<number>;
 }
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -132,7 +138,12 @@ export function GradeTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const router = useRouter();
   const pathname = usePathname();
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [sorting, setSorting] = useState<SortingState>([
+    {
+      id: 'studentName',
+      desc: false,
+    },
+  ]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
@@ -140,7 +151,7 @@ export function GradeTable<TData, TValue>({
   const [pageSize, setPageSize] = useState(10);
   const [columnSearches, setColumnSearches] = useState<Record<string, boolean>>({});
   const [tableData, setTableData] = useState<TData[]>(data);
-
+  const [editedRows, setEditedRows] = useState<Set<number>>(new Set());
   useEffect(() => {
     setTableData(data);
   }, [data]);
@@ -167,11 +178,12 @@ export function GradeTable<TData, TValue>({
       globalFilter,
     },
     meta: {
+      editedRows,
       updateData: (rowIndex: number, columnId: string, value: number) => {
-        // Update your data here
         setTableData((old) =>
           old.map((row, index) => {
             if (index === rowIndex) {
+              setEditedRows((prev) => new Set(prev).add(rowIndex)); // Track edited row
               return {
                 ...row,
                 [columnId]: value,
@@ -232,6 +244,35 @@ export function GradeTable<TData, TValue>({
       </div>
     </div>
   );
+
+  const { mutate: updateGradesMutation } = useMutation({
+    mutationFn: updateGrades,
+    onSuccess: () => {
+      toast.success('Grades updated successfully');
+      setEditedRows(new Set()); // Clear edited rows after successful update
+    },
+    onError: (error) => {
+      toast.error('Failed to update grades');
+      console.error('Update error:', error);
+    },
+  });
+  const handleSaveChanges = () => {
+    const updatedRows = Array.from(editedRows).map((rowIndex) => {
+      const row = tableData[rowIndex] as Grade;
+
+      return {
+        studentId: row.studentId,
+        rosterId: row.rosterId,
+        attendancePoint: Number(row.attendancePoint),
+        midTermPoint: Number(row.midTermPoint),
+        finalPoint: Number(row.finalPoint),
+        finalGrade: Number(row.finalGrade),
+        examPoint: Number(row.examPoint),
+      };
+    });
+
+    updateGradesMutation(updatedRows);
+  };
 
   return (
     <div className="w-full space-y-5 rounded-md bg-white p-5">
@@ -415,6 +456,14 @@ export function GradeTable<TData, TValue>({
               <PlusCircleIcon className="size-4" />
               {t('table.actions.addNew')}
             </Button>
+            <Button
+              size="lg"
+              onClick={handleSaveChanges}
+              className="bg-secondary hover:bg-secondary-foreground"
+            >
+              <CircleCheckBigIcon className="size-4" />
+              {t('table.actions.save')}
+            </Button>
           </div>
         </div>
       </div>
@@ -449,7 +498,11 @@ export function GradeTable<TData, TValue>({
               </TableBody>
             ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                  className={editedRows.has(row.index) ? 'bg-yellow-100' : ''}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}

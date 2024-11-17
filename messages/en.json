@@ -340,12 +340,16 @@
       },
       "rank": {
         "label": "Rank"
+      },
+      "studentId": {
+        "label": "Student Id"
       }
     }
   },
   "table": {
     "actions": {
       "addNew": "Add New",
+      "save": "Save",
       "import": "Import",
       "export": "Export",
       "selectAll": "Select All",
