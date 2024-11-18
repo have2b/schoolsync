@@ -4,6 +4,7 @@ import {
   ColumnDef,
   ColumnFiltersState,
   FilterFn,
+  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -83,6 +84,7 @@ interface DataTableProps<TData, TValue> {
   rosterName: string;
   showAddAndDelete?: boolean;
   showImportExport?: boolean;
+  exportToExcel?: (rows: Row<TData>[]) => void;
 }
 
 // Custom filter function for global search across multiple columns
@@ -135,6 +137,7 @@ export function GradeTable<TData, TValue>({
   rosterName,
   showAddAndDelete = true,
   showImportExport = true,
+  exportToExcel,
 }: DataTableProps<TData, TValue>) {
   const router = useRouter();
   const pathname = usePathname();
@@ -294,7 +297,7 @@ export function GradeTable<TData, TValue>({
           <Button
             className="hover:text-secondary"
             variant="outline"
-            onClick={() => table.nextPage()}
+            onClick={() => exportToExcel?.(table.getRowModel().rows)}
           >
             <span className="font-semibold">{t('table.actions.export')}</span>
             <UploadIcon className="size-6" />
