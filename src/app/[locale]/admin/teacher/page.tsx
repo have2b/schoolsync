@@ -41,7 +41,7 @@ const AdminDepartment = () => {
 
     // Generate filename with date
     const date = format(new Date(), 'yyyy-MM-dd');
-    XLSX.writeFile(workbook, `student-${date}.xlsx`);
+    XLSX.writeFile(workbook, `teacher-${date}.xlsx`);
   };
 
   const { useList } = useCrud({ modelName: 'teacher' });
