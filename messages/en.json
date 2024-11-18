@@ -208,6 +208,9 @@
         "label": "Date of Birth",
         "placeholder": "Choose date of birth"
       },
+      "email": {
+        "label": "Email"
+      },
       "gender": {
         "label": "Gender",
         "placeholder": "Choose gender"

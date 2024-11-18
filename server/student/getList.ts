@@ -6,6 +6,12 @@ import { logger } from '../utils';
 export type GetListStudentRes = Prisma.StudentGetPayload<{
   include: {
     group: { select: { name: true; department: { select: { name: true } } } };
+    account: {
+      select: {
+        isActive: true;
+        email: true;
+      };
+    };
   };
 }>;
 
@@ -26,6 +32,7 @@ export const getStudents = async (): Promise<PipelineResult<GetListStudentRes[] 
         account: {
           select: {
             isActive: true,
+            email: true,
           },
         },
       },

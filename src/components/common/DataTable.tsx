@@ -4,6 +4,7 @@ import {
   ColumnDef,
   ColumnFiltersState,
   FilterFn,
+  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -73,6 +74,7 @@ interface DataTableProps<TData, TValue> {
   modelName: string;
   showAddAndDelete?: boolean;
   showImportExport?: boolean;
+  exportToExcel?: (rows: Row<TData>[]) => void;
 }
 
 // Custom filter function for global search across multiple columns
@@ -125,6 +127,7 @@ export function DataTable<TData, TValue>({
   modelName,
   showAddAndDelete = true,
   showImportExport = true,
+  exportToExcel,
 }: DataTableProps<TData, TValue>) {
   const router = useRouter();
   const pathname = usePathname();
@@ -219,18 +222,14 @@ export function DataTable<TData, TValue>({
             showImportExport ? 'flex items-center space-x-2 text-secondary-foreground' : 'hidden'
           }
         >
-          <Button
-            className="hover:text-secondary"
-            variant="outline"
-            onClick={() => table.previousPage()}
-          >
+          <Button className="hover:text-secondary" variant="outline" onClick={() => {}}>
             <DownloadIcon className="size-6" />
             <span className="font-semibold">{t('table.actions.import')}</span>
           </Button>
           <Button
             className="hover:text-secondary"
             variant="outline"
-            onClick={() => table.nextPage()}
+            onClick={() => exportToExcel?.(table.getRowModel().rows)}
           >
             <span className="font-semibold">{t('table.actions.export')}</span>
             <UploadIcon className="size-6" />

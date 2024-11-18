@@ -205,6 +205,9 @@
         "label": "Ngày sinh",
         "placeholder": "Chọn ngày sinh sinh viên"
       },
+      "email": {
+        "label": "Email"
+      },
       "gender": {
         "label": "Giới tính",
         "placeholder": "Chọn giới tính sinh viên"
