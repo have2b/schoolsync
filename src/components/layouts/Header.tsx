@@ -59,7 +59,7 @@ export const Header = () => {
             </div>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setIsChangePasswordOpen(true)}>
-            <div className="flex items-center justify-center gap-2 text-green-600">
+            <div className="flex items-center justify-center gap-2">
               <ShieldPlusIcon />
               <span className="font-semibold">{t('header.userMenu.changePass')}</span>
             </div>
