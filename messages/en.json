@@ -8,14 +8,21 @@
   "auth": {
     "actions": {
       "login": "Login",
-      "logout": "Logout"
+      "logout": "Logout",
+      "changePass": "Change password"
     },
     "status": {
       "loginSuccess": "Login Success",
       "incorrectPassword": "Incorrect Password",
       "notFound": "User Not Found",
       "logoutSuccess": "Logout Success",
-      "loggingIn": "Logging In..."
+      "loggingIn": "Logging In...",
+      "newPassNotMatch": "Confirm password doesn't match",
+      "incorrectOldPassword": "Wrong old password",
+      "changePassSuccess": "Change password success",
+      "oldPasswordPlaceholder": "Enter old password",
+      "newPasswordPlaceholder": "Enter new password",
+      "confirmPasswordPlaceholder": "Enter new password again"
     },
     "fields": {
       "username": {
@@ -48,7 +55,8 @@
   "header": {
     "userMenu": {
       "profile": "Profile",
-      "logout": "Logout"
+      "logout": "Logout",
+      "changePass": "Change password"
     }
   },
   "error": {

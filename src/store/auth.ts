@@ -1,4 +1,5 @@
 import { deleteSession } from '@/action';
+import api from '@/lib/api';
 import { Account } from '@prisma/client';
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { useEffect } from 'react';
@@ -61,5 +62,12 @@ export const useAuth = () => {
     return true;
   };
 
-  return { account, loading, login, logout, isAuthenticated };
+  const changePassword = async (username: string, oldPassword: string, newPassword: string) => {
+    const res = await api.post('auth/change-password', { username, oldPassword, newPassword });
+    console.log(res.data);
+
+    return res.data;
+  };
+
+  return { account, loading, login, logout, isAuthenticated, changePassword };
 };

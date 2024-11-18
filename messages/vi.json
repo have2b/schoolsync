@@ -8,14 +8,21 @@
   "auth": {
     "actions": {
       "login": "Đăng Nhập",
-      "logout": "Đăng Xuất"
+      "logout": "Đăng Xuất",
+      "changePass": "Đổi mật khẩu"
     },
     "status": {
       "loginSuccess": "Đăng Nhập Thành Công",
       "incorrectPassword": "Mật Khẩu Không Đúng",
       "notFound": "Tài Khoản Không Tồn Tại",
       "logoutSuccess": "Đăng Xuất Thành Công",
-      "loggingIn": "Đang Đăng Nhập..."
+      "loggingIn": "Đang Đăng Nhập...",
+      "newPassNotMatch": "Mật khẩu mới không khớp",
+      "incorrectOldPassword": "Mật khẩu cũ không đúng",
+      "changePassSuccess": "Đổi mật khẩu thành công",
+      "oldPasswordPlaceholder": "Nhập mật khẩu cũ",
+      "newPasswordPlaceholder": "Nhập mật khẩu mới",
+      "confirmPasswordPlaceholder": "Nhập lại mật khẩu mới"
     },
     "fields": {
       "username": {
@@ -47,8 +54,9 @@
   },
   "header": {
     "userMenu": {
-      "profile": "Tài Khoản",
-      "logout": "Đăng Xuất"
+      "profile": "Thông tin cá nhân",
+      "logout": "Đăng xuất",
+      "changePass": "Đổi mật khẩu"
     }
   },
   "error": {

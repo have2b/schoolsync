@@ -11,15 +11,17 @@ import {
   LangSwitch,
 } from '@/components';
 import { useAuth } from '@/store/auth';
-import { ChevronDownIcon, DoorOpenIcon, UserIcon } from 'lucide-react';
+import { ChevronDownIcon, LogOutIcon, ShieldPlusIcon, SquareUserRoundIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { toast } from 'sonner';
+import ChangePasswordDialog from '../common/ChangePasswordDialog';
 
 export const Header = () => {
   const t = useTranslations();
   const memoizedTranslations = useMemo(() => t('auth.status.logoutSuccess'), [t]);
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
 
   const router = useRouter();
   const { account, logout } = useAuth();
@@ -52,18 +54,29 @@ export const Header = () => {
         <DropdownMenuContent>
           <DropdownMenuItem>
             <div className="flex items-center justify-center gap-2">
-              <UserIcon />
-              <span className="font-medium">{t('header.userMenu.profile')}</span>
+              <SquareUserRoundIcon />
+              <span className="font-semibold">{t('header.userMenu.profile')}</span>
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsChangePasswordOpen(true)}>
+            <div className="flex items-center justify-center gap-2 text-green-600">
+              <ShieldPlusIcon />
+              <span className="font-semibold">{t('header.userMenu.changePass')}</span>
             </div>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={handleLogout}>
             <div className="flex items-center justify-center gap-2 text-red-600">
-              <DoorOpenIcon />
-              <span className="font-medium">{t('header.userMenu.logout')}</span>
+              <LogOutIcon />
+              <span className="font-semibold">{t('header.userMenu.logout')}</span>
             </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <ChangePasswordDialog
+        username={account?.username || ''}
+        isOpen={isChangePasswordOpen}
+        onOpenChange={setIsChangePasswordOpen}
+      />
     </header>
   );
 };
