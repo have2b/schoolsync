@@ -409,7 +409,8 @@
     "confirmation": {
       "title": "Bạn có chắc?",
       "accept": "Xác nhận",
-      "deleteWarning": "Hành động này không thể hoàn tác. Bạn có thực sự muốn xóa {row, plural, =1 {} other {#}} đối tượng này?"
+      "deleteWarning": "Hành động này không thể hoàn tác. Bạn có thực sự muốn xóa {row, plural, =1 {} other {#}} đối tượng này?",
+      "logoutWarning": "Bạn có thực sự muốn thoát khỏi ứng dụng?"
     }
   }
 }
