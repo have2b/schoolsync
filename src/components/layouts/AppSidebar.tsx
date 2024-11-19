@@ -7,6 +7,7 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -15,6 +16,7 @@ import {
 } from '@/components';
 import { getNavLinks } from '@/lib/utils';
 import { useAuth } from '@/store/auth';
+import { UserSquare2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -59,6 +61,30 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
+          {account?.role !== 'Admin' && (
+            <>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={isActiveLink('profile')}
+                    tooltip={t('profile')}
+                  >
+                    <LocaleLink
+                      href={'/'.concat(account?.role.toLowerCase().concat('/profile') ?? '/vi')}
+                      className="h-full py-3"
+                    >
+                      <UserSquare2Icon className="size-4" />
+                      <span>{t('profile')}</span>
+                    </LocaleLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+              <SidebarGroupLabel className="text-base font-semibold text-white">
+                {t('researchInfo')}
+              </SidebarGroupLabel>
+            </>
+          )}
           <SidebarGroupContent>
             <SidebarMenu>
               {navLinks.map((link) => (
@@ -66,14 +92,22 @@ export function AppSidebar() {
                   <SidebarMenuButton
                     asChild
                     isActive={isActiveLink(link.href)}
-                    tooltip={t(link.name)}
+                    tooltip={
+                      account?.role === 'Student'
+                        ? t(account.role.toLowerCase().concat('Role.', link.name))
+                        : t(link.name)
+                    }
                   >
                     <LocaleLink
                       href={'/'.concat(account?.role.toLowerCase().concat(link.href) ?? '/vi')}
                       className="h-full py-3"
                     >
                       {link.icon}
-                      <span>{t(link.name)}</span>
+                      {account?.role === 'Student' ? (
+                        <span>{t(account.role.toLowerCase().concat('Role.', link.name))}</span>
+                      ) : (
+                        <span>{t(link.name)}</span>
+                      )}
                     </LocaleLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

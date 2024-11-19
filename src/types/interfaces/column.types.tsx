@@ -3,7 +3,7 @@
 import { ActionCell, Button, Input, TableMeta } from '@/components';
 import { GetGradeRes } from '@/server/grade';
 import { GetListGroupRes } from '@/server/group';
-import { GetListRosterRes } from '@/server/roster';
+import { GetListRosterByStudentRes, GetListRosterRes } from '@/server/roster';
 import { GetListStudentRes } from '@/server/student';
 import { Course, Department, Teacher } from '@prisma/client';
 import { Column, ColumnDef } from '@tanstack/react-table';
@@ -598,5 +598,50 @@ export const gradeItemColumn: ColumnDef<GetGradeRes>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
+  },
+];
+
+export const rosterStudentColumn: ColumnDef<GetListRosterByStudentRes>[] = [
+  {
+    id: 'courseCode',
+    accessorFn: (row) => row.roster.course.code,
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <span>{row.getValue('courseCode')}</span>,
+  },
+  {
+    id: 'courseName',
+    accessorFn: (row) => row.roster.course.name,
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('courseName')}</div>,
+  },
+  {
+    id: 'credit',
+    accessorFn: (row) => row.roster.course.credit,
+    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
+    cell: ({ row }) => <div>{row.getValue('credit')}</div>,
+  },
+  {
+    id: 'lesson',
+    accessorFn: (row) => row.roster.course.lesson,
+    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
+    cell: ({ row }) => <div>{row.getValue('lesson')}</div>,
+  },
+  {
+    id: 'semester',
+    accessorFn: (row) => row.roster.semester,
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('semester')}</div>,
+  },
+  {
+    id: 'year',
+    accessorFn: (row) => row.roster.year,
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('year')}</div>,
+  },
+  {
+    id: 'teacher',
+    accessorFn: (row) => row.roster.teacher.name,
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('teacher')}</div>,
   },
 ];

@@ -49,7 +49,13 @@
       "roster": "Quản Lý Lớp Học Phần",
       "grade": "Quản Lý Điểm",
       "add": "Thêm mới",
-      "edit": "Chỉnh sửa thông tin"
+      "edit": "Chỉnh sửa thông tin",
+      "researchInfo": "Tra cứu thông tin",
+      "profile": "Thông tin cá nhân",
+      "studentRole": {
+        "result": "Kết quả học tập",
+        "roster": "Lớp học phần"
+      }
     }
   },
   "header": {
@@ -276,9 +282,21 @@
         "label": "Mã lớp HP",
         "placeholder": "Điền mã lớp học phần"
       },
+      "courseCode": {
+        "label": "Mã học phần"
+      },
       "name": {
         "label": "Tên lớp HP",
         "placeholder": "Điền tên lớp học phần"
+      },
+      "courseName": {
+        "label": "Học phần"
+      },
+      "credit": {
+        "label": "Số tín chỉ"
+      },
+      "lesson": {
+        "label": "Số tiết"
       },
       "capacity": {
         "label": "Số lượng",

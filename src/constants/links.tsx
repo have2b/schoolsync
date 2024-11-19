@@ -77,14 +77,14 @@ export const TEACHER_NAV_LINKS = [
 export const STUDENT_NAV_LINKS = [
   {
     id: 1,
-    name: 'grade',
-    href: '/grade',
+    name: 'result',
+    href: '/result',
     icon: <NotebookPenIcon />,
   },
   {
     id: 2,
-    name: 'course',
-    href: '/course',
+    name: 'roster',
+    href: '/roster',
     icon: <BookCheckIcon />,
   },
 ];

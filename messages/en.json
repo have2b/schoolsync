@@ -49,7 +49,13 @@
       "roster": "Roster Management",
       "grade": "Grade Management",
       "add": "Add",
-      "edit": "Edit"
+      "edit": "Edit",
+      "researchInfo": "Research info",
+      "profile": "My profile",
+      "studentRole": {
+        "result": "Result",
+        "roster": "Roster"
+      }
     }
   },
   "header": {
@@ -282,9 +288,21 @@
         "label": "Code",
         "placeholder": "Enter code"
       },
+      "courseCode": {
+        "label": "Course code"
+      },
       "name": {
         "label": "Name",
         "placeholder": "Enter name"
+      },
+      "courseName": {
+        "label": "Course name"
+      },
+      "credit": {
+        "label": "Credit"
+      },
+      "lesson": {
+        "label": "Lesson"
       },
       "startDate": {
         "label": "Start Date",

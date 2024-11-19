@@ -12,10 +12,22 @@ import { useBreadcrumbs } from '@/hooks';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
-export const CustomBreadcrumb: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface BreadcrumbProps {
+  children: React.ReactNode;
+  isHidden?: boolean;
+}
+
+export const CustomBreadcrumb: React.FC<{ children: React.ReactNode; isHidden?: boolean }> = ({
+  children,
+  isHidden = false,
+}: BreadcrumbProps) => {
   const { breadcrumbs, contentTitle } = useBreadcrumbs();
 
   const t = useTranslations('navigation');
+
+  if (isHidden) {
+    return <>{children}</>;
+  }
 
   return (
     <div className="flex w-full flex-col gap-10 p-10">
