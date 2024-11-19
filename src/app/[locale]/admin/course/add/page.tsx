@@ -27,8 +27,8 @@ export default function AdminAddCourse() {
     defaultValues: {
       code: '',
       name: '',
-      credit: '',
-      lesson: '',
+      credit: 0,
+      lesson: 0,
     },
   });
 
@@ -109,7 +109,7 @@ export default function AdminAddCourse() {
                 <FormControl>
                   <Input
                     placeholder={t('course.fields.credit.placeholder')}
-                    type="text"
+                    type="number"
                     required
                     className="w-full"
                     {...field}
@@ -128,7 +128,7 @@ export default function AdminAddCourse() {
                 <FormControl>
                   <Input
                     placeholder={t('course.fields.lesson.placeholder')}
-                    type="text"
+                    type="number"
                     required
                     className="w-full"
                     {...field}

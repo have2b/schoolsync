@@ -36,8 +36,8 @@ export default function AdminUpdateCourse() {
     defaultValues: {
       code: '',
       name: '',
-      credit: '',
-      lesson: '',
+      credit: 0,
+      lesson: 0,
     },
   });
 
@@ -46,8 +46,8 @@ export default function AdminUpdateCourse() {
       form.reset({
         code: course.code,
         name: course.name,
-        credit: course.credit.toString(),
-        lesson: course.lesson.toString(),
+        credit: course.credit,
+        lesson: course.lesson,
       });
     }
   }, [course, form]);
@@ -131,7 +131,7 @@ export default function AdminUpdateCourse() {
                 <FormControl>
                   <Input
                     placeholder={t('course.fields.credit.placeholder')}
-                    type="text"
+                    type="number"
                     required
                     className="w-full"
                     {...field}
@@ -150,7 +150,7 @@ export default function AdminUpdateCourse() {
                 <FormControl>
                   <Input
                     placeholder={t('course.fields.lesson.placeholder')}
-                    type="text"
+                    type="number"
                     required
                     className="w-full"
                     {...field}
