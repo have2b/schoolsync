@@ -98,10 +98,10 @@ export default function AdminUpdateDepartment() {
             name="name"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel required>{t('department.fields.detail.label')}</FormLabel>
+                <FormLabel required>{t('department.fields.name.label')}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t('department.fields.detail.placeholder')}
+                    placeholder={t('department.fields.name.placeholder')}
                     type="text"
                     required
                     className="w-full"

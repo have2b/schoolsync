@@ -225,6 +225,12 @@ export const studentColumn: ColumnDef<GetListStudentRes>[] = [
     cell: ({ row }) => <div>{row.getValue('name')}</div>,
   },
   {
+    id: 'email',
+    accessorFn: (row) => row.account?.email,
+    header: ({ column }) => <HeaderCol column={column} modelName="student" />,
+    cell: ({ row }) => <div>{row.getValue('email')}</div>,
+  },
+  {
     id: 'dob',
     accessorKey: 'dob',
     header: ({ column }) => <HeaderCol column={column} modelName="student" />,
