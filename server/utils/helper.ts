@@ -20,14 +20,14 @@ const formatNameForEmail = (fullName: string): string => {
 };
 
 const generateAccountEmail = async (name: string): Promise<string> => {
-  const baseEmail = `${formatNameForEmail(name)}@uni.vn`;
+  const baseEmail = `${formatNameForEmail(name)}@tmu.edu.vn`;
 
   // Check if email exists
   const existingAccounts = await prisma.account.findMany({
     where: {
       email: {
         startsWith: formatNameForEmail(name),
-        endsWith: '@uni.vn',
+        endsWith: '@tmu.edu.vn',
       },
     },
   });
@@ -37,7 +37,7 @@ const generateAccountEmail = async (name: string): Promise<string> => {
   }
 
   // If email exists, add number suffix
-  return `${formatNameForEmail(name)}${existingAccounts.length + 1}@uni.vn`;
+  return `${formatNameForEmail(name)}${existingAccounts.length + 1}@tmu.edu.vn`;
 };
 
 const generatePassword = (name: string, code: string): string => {

@@ -250,7 +250,7 @@ export function GradeTable<TData, TValue>({
   const { mutate: updateGradesMutation } = useMutation({
     mutationFn: updateGrades,
     onSuccess: () => {
-      toast.success('Grades updated successfully');
+      toast.success(t('common.status.updated'));
       setEditedRows(new Set()); // Clear edited rows after successful update
     },
     onError: (error) => {

@@ -128,6 +128,8 @@ export default function AdminUpdateTeacher() {
                       placeholder={t('teacher.fields.code.placeholder')}
                       type="text"
                       {...field}
+                      readOnly
+                      disabled
                     />
                   </FormControl>
                   <FormMessage />
@@ -162,6 +164,8 @@ export default function AdminUpdateTeacher() {
                       placeholder={t('teacher.fields.email.placeholder')}
                       type="text"
                       {...field}
+                      readOnly
+                      disabled
                     />
                   </FormControl>
                   <FormMessage />

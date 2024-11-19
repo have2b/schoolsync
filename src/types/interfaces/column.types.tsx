@@ -5,7 +5,8 @@ import { GetGradeByStudentRes, GetGradeRes } from '@/server/grade';
 import { GetListGroupRes } from '@/server/group';
 import { GetListRosterByStudentRes, GetListRosterRes } from '@/server/roster';
 import { GetListStudentRes } from '@/server/student';
-import { Course, Department, Teacher } from '@prisma/client';
+import { GetTeacherListRes } from '@/server/teacher';
+import { Course, Department } from '@prisma/client';
 import { Column, ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
@@ -102,7 +103,7 @@ export const departmentColumn: ColumnDef<Department>[] = [
   },
 ];
 
-export const teacherColumn: ColumnDef<Teacher>[] = [
+export const teacherColumn: ColumnDef<GetTeacherListRes>[] = [
   {
     id: 'code',
     accessorKey: 'code',
@@ -124,6 +125,12 @@ export const teacherColumn: ColumnDef<Teacher>[] = [
     accessorKey: 'name',
     header: ({ column }) => <HeaderCol column={column} modelName="teacher" />,
     cell: ({ row }) => <div>{row.getValue('name')}</div>,
+  },
+  {
+    id: 'email',
+    accessorFn: (row) => row.account?.email,
+    header: ({ column }) => <HeaderCol column={column} modelName="student" />,
+    cell: ({ row }) => <div>{row.getValue('email')}</div>,
   },
   {
     id: 'degree',

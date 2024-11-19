@@ -1,15 +1,20 @@
 import prisma from '@/prisma';
 import { PipelineResult } from '@/types';
-import { Teacher } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { logger } from '../utils';
 
-export const getTeachers = async (): Promise<PipelineResult<Teacher[] | unknown>> => {
+export type GetTeacherListRes = Prisma.TeacherGetPayload<{
+  include: { account: { select: { isActive: true; email: true } } };
+}>;
+
+export const getTeachers = async (): Promise<PipelineResult<GetTeacherListRes[] | unknown>> => {
   try {
     const data = await prisma.teacher.findMany({
       include: {
         account: {
           select: {
             isActive: true,
+            email: true,
           },
         },
       },
