@@ -105,9 +105,7 @@ const StudentProfile = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="mt-10 w-full space-y-10 rounded-md bg-white p-10 shadow-xl"
       >
-        <span className="text-2xl font-semibold">
-          {t('navigation.sections.edit') + ' ' + t('student.title').toLowerCase()}
-        </span>
+        <span className="text-2xl font-semibold">{student?.name}</span>
         <div className="grid grid-cols-2 gap-6">
           <div className="col-span-1 space-y-3">
             {/* Other form fields on the left */}

@@ -19,4 +19,13 @@ const updateStudentProfileSchema = z.object({
   department: z.string().max(50),
 });
 
-export { loginSchema, updateStudentProfileSchema };
+const updateTeacherProfileSchema = z.object({
+  code: z.string(),
+  name: z.string().min(2).max(50),
+  email: z.string().max(50),
+  major: z.string().max(50),
+  degree: z.string().max(50),
+  avatar: z.string().max(50),
+});
+
+export { loginSchema, updateStudentProfileSchema, updateTeacherProfileSchema };
