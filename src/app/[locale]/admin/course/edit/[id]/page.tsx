@@ -80,7 +80,7 @@ export default function AdminUpdateCourse() {
         className="mt-10 w-full space-y-10 rounded-md bg-white p-10 shadow-xl"
       >
         <span className="text-2xl font-semibold">
-          {t('navigation.sections.add') + ' ' + t('course.title').toLowerCase()}
+          {t('navigation.sections.edit') + ' ' + t('course.title').toLowerCase()}
         </span>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <FormField
