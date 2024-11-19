@@ -220,7 +220,7 @@ export default function AdminAddTeacher() {
         </div>
 
         <div className="flex items-center justify-end gap-3">
-          <Button type="button" variant={'destructive'}>
+          <Button type="button" variant={'destructive'} onClick={() => router.back()}>
             {t('common.actions.cancel')}
           </Button>
           <Button type="submit">{t('common.actions.submit')}</Button>
