@@ -40,15 +40,6 @@ export default function AdminAddRoster() {
 
   const form = useForm<z.infer<typeof createRosterSchema>>({
     resolver: zodResolver(createRosterSchema),
-    defaultValues: {
-      capacity: '0',
-      year: '',
-      semester: '',
-      startDate: '' as unknown as Date,
-      endDate: '' as unknown as Date,
-      teacherId: '',
-      courseId: '',
-    },
   });
 
   const { useCreate } = useCrud({ modelName: 'roster' });
@@ -99,6 +90,30 @@ export default function AdminAddRoster() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <FormField
             control={form.control}
+            name="courseId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel required>{t('roster.fields.course.label')}</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder={t('roster.fields.course.placeholder')} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {courses?.map(({ id, name }: Course) => (
+                      <SelectItem key={id} value={id.toString()}>
+                        {name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="capacity"
             render={({ field }) => (
               <FormItem>
@@ -106,7 +121,7 @@ export default function AdminAddRoster() {
                 <FormControl>
                   <Input
                     placeholder={t('roster.fields.capacity.placeholder')}
-                    type="text"
+                    type="number"
                     {...field}
                   />
                 </FormControl>
@@ -234,30 +249,6 @@ export default function AdminAddRoster() {
                   </FormControl>
                   <SelectContent>
                     {teachers?.map(({ id, name }: Teacher) => (
-                      <SelectItem key={id} value={id.toString()}>
-                        {name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="courseId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel required>{t('roster.fields.course.label')}</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder={t('roster.fields.course.placeholder')} />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {courses?.map(({ id, name }: Course) => (
                       <SelectItem key={id} value={id.toString()}>
                         {name}
                       </SelectItem>

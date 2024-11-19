@@ -68,7 +68,7 @@ export default function AdminUpdateRoster() {
       form.reset({
         code: roster.code,
         name: roster.name,
-        capacity: roster.capacity.toString(),
+        capacity: roster.capacity,
         year: roster.year.toString(),
         semester: roster.semester.toString(),
         startDate: new Date(roster.startDate),
@@ -170,7 +170,7 @@ export default function AdminUpdateRoster() {
                 <FormControl>
                   <Input
                     placeholder={t('roster.fields.capacity.placeholder')}
-                    type="text"
+                    type="number"
                     {...field}
                   />
                 </FormControl>
