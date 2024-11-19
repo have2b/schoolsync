@@ -22,7 +22,7 @@ const updateStudentSchema = z.object({
   phone: z.string().max(50),
   groupId: z.string().max(50),
   avatar: z.string().max(50),
-  department: z.string().max(50),
+  department: z.string().max(50).optional(),
 });
 
 export { createStudentSchema, updateStudentSchema };
