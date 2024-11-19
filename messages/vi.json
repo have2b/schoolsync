@@ -45,6 +45,7 @@
       "teacher": "Quản Lý Giảng Viên",
       "department": "Quản Lý Khoa",
       "group": "Quản Lý Lớp Hành Chính",
+      "result": "Kết quả học tập",
       "course": "Quản Lý Học Phần",
       "roster": "Quản Lý Lớp Học Phần",
       "grade": "Quản Lý Điểm",
@@ -340,6 +341,15 @@
       },
       "studentName": {
         "label": "Tên SV"
+      },
+      "courseName": {
+        "label": "Học phần"
+      },
+      "courseCode": {
+        "label": "Mã học phần"
+      },
+      "credit": {
+        "label": "Số tín chỉ"
       },
       "attendancePoint": {
         "label": "Điểm CC"

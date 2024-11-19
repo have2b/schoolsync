@@ -1,7 +1,7 @@
 'use client';
 
 import { ActionCell, Button, Input, TableMeta } from '@/components';
-import { GetGradeRes } from '@/server/grade';
+import { GetGradeByStudentRes, GetGradeRes } from '@/server/grade';
 import { GetListGroupRes } from '@/server/group';
 import { GetListRosterByStudentRes, GetListRosterRes } from '@/server/roster';
 import { GetListStudentRes } from '@/server/student';
@@ -604,44 +604,165 @@ export const gradeItemColumn: ColumnDef<GetGradeRes>[] = [
 export const rosterStudentColumn: ColumnDef<GetListRosterByStudentRes>[] = [
   {
     id: 'courseCode',
-    accessorFn: (row) => row.roster.course.code,
+    accessorFn: (row) => row.roster?.course?.code,
     header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
     cell: ({ row }) => <span>{row.getValue('courseCode')}</span>,
   },
   {
     id: 'courseName',
-    accessorFn: (row) => row.roster.course.name,
+    accessorFn: (row) => row.roster?.course?.name,
     header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
     cell: ({ row }) => <div>{row.getValue('courseName')}</div>,
   },
   {
     id: 'credit',
-    accessorFn: (row) => row.roster.course.credit,
+    accessorFn: (row) => row.roster?.course?.credit,
     header: ({ column }) => <HeaderCol column={column} modelName="course" />,
     cell: ({ row }) => <div>{row.getValue('credit')}</div>,
   },
   {
     id: 'lesson',
-    accessorFn: (row) => row.roster.course.lesson,
+    accessorFn: (row) => row.roster?.course?.lesson,
     header: ({ column }) => <HeaderCol column={column} modelName="course" />,
     cell: ({ row }) => <div>{row.getValue('lesson')}</div>,
   },
   {
     id: 'semester',
-    accessorFn: (row) => row.roster.semester,
+    accessorFn: (row) => row.roster?.semester,
     header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
     cell: ({ row }) => <div>{row.getValue('semester')}</div>,
   },
   {
     id: 'year',
-    accessorFn: (row) => row.roster.year,
+    accessorFn: (row) => row.roster?.year,
     header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
     cell: ({ row }) => <div>{row.getValue('year')}</div>,
   },
   {
     id: 'teacher',
-    accessorFn: (row) => row.roster.teacher.name,
+    accessorFn: (row) => row.roster?.teacher?.name,
     header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
     cell: ({ row }) => <div>{row.getValue('teacher')}</div>,
+  },
+];
+
+export const gradeStudentColumn: ColumnDef<GetGradeByStudentRes>[] = [
+  {
+    id: 'courseCode',
+    accessorFn: (row) => row.roster?.course?.code,
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <span>{row.getValue('courseCode')}</span>,
+  },
+  {
+    id: 'courseName',
+    accessorFn: (row) => row.roster?.course?.name,
+    header: ({ column }) => <HeaderCol column={column} modelName="roster" />,
+    cell: ({ row }) => <div>{row.getValue('courseName')}</div>,
+  },
+  {
+    id: 'credit',
+    accessorFn: (row) => row.roster?.course?.credit,
+    header: ({ column }) => <HeaderCol column={column} modelName="course" />,
+    cell: ({ row }) => <div>{row.getValue('credit')}</div>,
+  },
+  {
+    id: 'attendancePoint',
+    accessorKey: 'attendancePoint',
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => <div>{row.getValue('attendancePoint')}</div>,
+  },
+  {
+    id: 'midTermPoint',
+    accessorKey: 'midTermPoint',
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => <div>{row.getValue('midTermPoint')}</div>,
+  },
+  {
+    id: 'finalPoint',
+    accessorKey: 'finalPoint',
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => <div>{row.getValue('finalPoint')}</div>,
+  },
+  {
+    id: 'finalGrade',
+    accessorKey: 'finalGrade',
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => <div>{row.getValue('finalGrade')}</div>,
+  },
+  {
+    id: 'examPoint',
+    accessorKey: 'examPoint',
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => <div>{row.getValue('examPoint')}</div>,
+  },
+  {
+    id: 'totalGrade',
+    accessorFn: (row) => {
+      const totalPoint =
+        Number(row.attendancePoint) * 0.1 +
+        (((Number(row.midTermPoint) + Number(row.finalPoint)) / 2 + Number(row.finalGrade)) / 2) *
+          0.3 +
+        Number(row.examPoint) * 0.6;
+      return totalPoint.toFixed(1);
+    },
+
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => <div>{row.getValue('totalGrade')}</div>,
+  },
+
+  // New GPA column (example calculation, may need customization)
+  {
+    id: 'gpa',
+    accessorFn: (row) => {
+      const totalPoint =
+        Number(row.attendancePoint) * 0.1 +
+        (((Number(row.midTermPoint) + Number(row.finalPoint)) / 2 + Number(row.finalGrade)) / 2) *
+          0.3 +
+        Number(row.examPoint) * 0.6;
+
+      let gpa;
+      if (totalPoint >= 8.5 && totalPoint <= 10) {
+        gpa = 4.0;
+      } else if (totalPoint >= 8.0 && totalPoint < 8.5) {
+        gpa = 3.5;
+      } else if (totalPoint >= 7.0 && totalPoint < 8.0) {
+        gpa = 3.0;
+      } else if (totalPoint >= 6.5 && totalPoint < 7.0) {
+        gpa = 2.5;
+      } else if (totalPoint >= 5.5 && totalPoint < 6.5) {
+        gpa = 2.0;
+      } else if (totalPoint >= 5.0 && totalPoint < 5.5) {
+        gpa = 1.5;
+      } else if (totalPoint >= 4.0 && totalPoint < 5.0) {
+        gpa = 1.0;
+      } else {
+        gpa = 0.0; // Default value, adjust as needed
+      }
+
+      return gpa.toFixed(1);
+    },
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => <div>{row.getValue('gpa')}</div>,
+  },
+  // New Rank column
+  {
+    id: 'result',
+    accessorFn: (row) => {
+      const totalPoint =
+        Number(row.attendancePoint) * 0.1 +
+        (((Number(row.midTermPoint) + Number(row.finalPoint)) / 2 + Number(row.finalGrade)) / 2) *
+          0.3 +
+        Number(row.examPoint) * 0.6;
+
+      if (totalPoint >= 4.0) return 'pass';
+      return 'fail';
+    },
+    header: ({ column }) => <HeaderCol column={column} modelName="grade" />,
+    cell: ({ row }) => (
+      <CellTranslated
+        value={(row.getValue('result') as string).toLowerCase()}
+        modelName="enum.result"
+      />
+    ),
   },
 ];

@@ -18,7 +18,7 @@ export default function Home() {
           router.push(`/${locale}/admin/student`);
           break;
         case 'Student':
-          router.push(`/${locale}/student/grade`);
+          router.push(`/${locale}/student/result`);
           break;
         case 'Teacher':
           router.push(`/${locale}/teacher/course`);

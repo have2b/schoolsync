@@ -44,6 +44,7 @@
       "student": "Student Management",
       "teacher": "Teacher Management",
       "department": "Department Management",
+      "result": "Student result",
       "group": "Class Management",
       "course": "Course Management",
       "roster": "Roster Management",
@@ -339,6 +340,15 @@
       },
       "studentName": {
         "label": "Student Name"
+      },
+      "courseName": {
+        "label": "Course name"
+      },
+      "courseCode": {
+        "label": "Course code"
+      },
+      "credit": {
+        "label": "Credit"
       },
       "attendancePoint": {
         "label": "Attendance Point"
