@@ -413,17 +413,24 @@
       "updated": "Cập Nhật Thành Công",
       "deleted": "Xóa Thành Công",
       "error": "Lỗi",
-      "duplicatedName": "Tên Bị Trùng"
+      "duplicatedName": "Tên Bị Trùng",
+      "searching": "Đang tìm kiếm",
+      "searched": "Tìm thành công",
+      "studentAdded": "Thêm sinh viên thành công"
     },
     "actions": {
+      "search": "Tìm kiếm",
       "submit": "Lưu",
+      "add": "Thêm",
       "cancel": "Hủy"
     },
     "search": {
       "title": "Tìm kiếm theo",
       "all": "Tất cả",
       "placeholder": "Nhập gì đó...",
-      "noResult": "Không Tìm Thấy Kết Quả"
+      "noResult": "Không Tìm Thấy Kết Quả",
+      "studentNamePlaceholder": "Nhập tên sinh viên...",
+      "studentSearch": "Tìm kiếm sinh viên"
     },
     "filter": {
       "title": "Bộ lọc",

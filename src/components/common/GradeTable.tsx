@@ -67,9 +67,9 @@ import {
   X,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import { toast } from 'sonner';
+import { SearchStudent } from './SearchStudent';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface TableMeta<TData> {
@@ -139,8 +139,6 @@ export function GradeTable<TData, TValue>({
   showImportExport = true,
   exportToExcel,
 }: DataTableProps<TData, TValue>) {
-  const router = useRouter();
-  const pathname = usePathname();
   const [sorting, setSorting] = useState<SortingState>([
     {
       id: 'studentName',
@@ -155,6 +153,7 @@ export function GradeTable<TData, TValue>({
   const [columnSearches, setColumnSearches] = useState<Record<string, boolean>>({});
   const [tableData, setTableData] = useState<TData[]>(data);
   const [editedRows, setEditedRows] = useState<Set<number>>(new Set());
+  const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     setTableData(data);
   }, [data]);
@@ -455,7 +454,7 @@ export function GradeTable<TData, TValue>({
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-            <Button size="lg" onClick={() => router.push(`${pathname}/add`)}>
+            <Button size="lg" onClick={() => setIsOpen(true)}>
               <PlusCircleIcon className="size-4" />
               {t('table.actions.addNew')}
             </Button>
@@ -575,6 +574,8 @@ export function GradeTable<TData, TValue>({
           </PaginationButton>
         </div>
       </div>
+
+      <SearchStudent isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );
 }
