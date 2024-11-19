@@ -18,6 +18,9 @@ export type GetListStudentRes = Prisma.StudentGetPayload<{
 export const getStudents = async (): Promise<PipelineResult<GetListStudentRes[] | unknown>> => {
   try {
     const data = await prisma.student.findMany({
+      orderBy: {
+        code: 'asc',
+      },
       include: {
         group: {
           select: {
