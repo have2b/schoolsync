@@ -58,6 +58,7 @@ export default function AdminUpdateTeacher() {
     defaultValues: {
       code: '',
       name: '',
+      email: '',
       degree: '',
       major: '',
       departmentId: '',
@@ -70,6 +71,7 @@ export default function AdminUpdateTeacher() {
       form.reset({
         code: teacher.code,
         name: teacher.name,
+        email: teacher.account.email,
         degree: teacher.degree,
         major: teacher.major,
         departmentId: teacher.departmentId.toString(),
@@ -141,6 +143,23 @@ export default function AdminUpdateTeacher() {
                   <FormControl>
                     <Input
                       placeholder={t('teacher.fields.name.placeholder')}
+                      type="text"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel required>{t('teacher.fields.email.label')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t('teacher.fields.email.placeholder')}
                       type="text"
                       {...field}
                     />

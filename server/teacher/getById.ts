@@ -7,7 +7,8 @@ export const getTeacherById = async (
   id: string
 ): Promise<
   PipelineResult<
-    Prisma.TeacherGetPayload<{ include: { account: { select: { avatar: true } } } }> | unknown
+    | Prisma.TeacherGetPayload<{ include: { account: { select: { avatar: true; email: true } } } }>
+    | unknown
   >
 > => {
   try {
@@ -19,6 +20,7 @@ export const getTeacherById = async (
         account: {
           select: {
             avatar: true,
+            email: true,
           },
         },
       },

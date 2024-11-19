@@ -152,6 +152,10 @@
         "label": "Tên giảng viên",
         "placeholder": "Điền tên giảng viên"
       },
+      "email": {
+        "label": "Email",
+        "placeholder": "Điền email"
+      },
       "degree": {
         "label": "Học vị",
         "placeholder": "Chọn học vị giảng viên"

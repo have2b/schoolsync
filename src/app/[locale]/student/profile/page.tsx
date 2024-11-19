@@ -312,17 +312,15 @@ const StudentProfile = () => {
                         id="fileInput"
                         className="h-full outline-dashed outline-1 outline-slate-500"
                       >
-                        <div className="flex h-full w-full flex-col items-center justify-center gap-2 p-8">
-                          {student?.account.avatar && (
-                            <div className="relative size-24 h-full w-full overflow-hidden rounded-xl">
-                              <Image
-                                src={student.account.avatar}
-                                alt="avatar"
-                                fill
-                                objectFit="contain"
-                              />
-                            </div>
-                          )}
+                        <div className="flex h-full w-full flex-col items-center justify-center p-8">
+                          <div className="relative size-32">
+                            <Image
+                              src={student.account.avatar}
+                              alt="avatar"
+                              fill
+                              className="rounded-full object-contain"
+                            />
+                          </div>
                           <CloudUploadIcon className="size-10 text-gray-500" />
                           <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
                             <span>{t('student.fields.avatar.placeholder')}</span>

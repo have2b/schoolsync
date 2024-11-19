@@ -155,6 +155,10 @@
         "label": "Name",
         "placeholder": "Enter name"
       },
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter email"
+      },
       "degree": {
         "label": "Degree",
         "placeholder": "Choose degree"
