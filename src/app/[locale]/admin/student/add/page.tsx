@@ -52,15 +52,6 @@ export default function AdminAddStudent() {
 
   const form = useForm<z.infer<typeof createStudentSchema>>({
     resolver: zodResolver(createStudentSchema),
-    defaultValues: {
-      name: '',
-      dob: '' as unknown as Date,
-      gender: '',
-      address: '',
-      phone: '',
-      groupId: '',
-      avatar: '',
-    },
   });
 
   const { useCreate } = useCrud({ modelName: 'student' });
@@ -110,6 +101,7 @@ export default function AdminAddStudent() {
                   <FormLabel required>{t('student.fields.name.label')}</FormLabel>
                   <FormControl>
                     <Input
+                      required
                       placeholder={t('student.fields.name.placeholder')}
                       type="text"
                       {...field}
@@ -191,6 +183,7 @@ export default function AdminAddStudent() {
                   <FormLabel required>{t('student.fields.address.label')}</FormLabel>
                   <FormControl>
                     <Input
+                      required
                       placeholder={t('student.fields.address.placeholder')}
                       type="text"
                       {...field}
@@ -208,6 +201,7 @@ export default function AdminAddStudent() {
                   <FormLabel required>{t('student.fields.phone.label')}</FormLabel>
                   <FormControl>
                     <Input
+                      required
                       placeholder={t('student.fields.phone.placeholder')}
                       type="text"
                       {...field}

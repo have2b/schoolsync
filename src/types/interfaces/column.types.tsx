@@ -3,11 +3,8 @@
 import { ActionCell, Button, Input, TableMeta } from '@/components';
 import { GetGradeByStudentRes, GetGradeRes } from '@/server/grade';
 import { GetListGroupRes } from '@/server/group';
-import {
-  GetListRosterByStudentRes,
-  GetListRosterByTeacherRes,
-  GetListRosterRes,
-} from '@/server/roster';
+import { GetListRosterByStudentRes, GetListRosterRes } from '@/server/roster';
+import { GetListRosterByTeacherRes } from '@/server/roster/getListByTeacher';
 import { GetListStudentRes } from '@/server/student';
 import { GetTeacherListRes } from '@/server/teacher';
 import { Course, Department } from '@prisma/client';

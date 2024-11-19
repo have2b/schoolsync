@@ -46,13 +46,6 @@ export default function AdminAddTeacher() {
 
   const form = useForm<z.infer<typeof createTeacherSchema>>({
     resolver: zodResolver(createTeacherSchema),
-    defaultValues: {
-      name: '',
-      degree: '',
-      major: '',
-      departmentId: '',
-      avatar: '',
-    },
   });
 
   const { useCreate } = useCrud({ modelName: 'teacher' });
@@ -98,6 +91,7 @@ export default function AdminAddTeacher() {
                   <FormLabel required>{t('teacher.fields.name.label')}</FormLabel>
                   <FormControl>
                     <Input
+                      required
                       placeholder={t('teacher.fields.name.placeholder')}
                       type="text"
                       {...field}
@@ -139,6 +133,7 @@ export default function AdminAddTeacher() {
                   <FormLabel required>{t('teacher.fields.major.label')}</FormLabel>
                   <FormControl>
                     <Input
+                      required
                       placeholder={t('teacher.fields.major.placeholder')}
                       type="text"
                       {...field}
