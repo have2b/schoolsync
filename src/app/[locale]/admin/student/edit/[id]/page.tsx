@@ -65,6 +65,7 @@ export default function AdminUpdateStudent() {
       name: '',
       dob: '' as unknown as Date,
       gender: '',
+      email: '',
       address: '',
       phone: '',
       groupId: '',
@@ -80,6 +81,7 @@ export default function AdminUpdateStudent() {
         dob: new Date(student.dob),
         gender: student.gender,
         address: student.address,
+        email: student.account.email,
         phone: student.phone,
         groupId: student.groupId.toString(),
         avatar: student.account.avatar,
@@ -125,6 +127,25 @@ export default function AdminUpdateStudent() {
         <div className="grid grid-cols-2 gap-6">
           <div className="col-span-1 space-y-3">
             {/* Other form fields on the left */}
+            <FormField
+              control={form.control}
+              name="code"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel required>{t('student.fields.code.label')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t('student.fields.code.placeholder')}
+                      type="text"
+                      {...field}
+                      disabled
+                      readOnly
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="name"
@@ -217,6 +238,25 @@ export default function AdminUpdateStudent() {
                       placeholder={t('student.fields.address.placeholder')}
                       type="text"
                       {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel required>{t('student.fields.email.label')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t('student.fields.email.placeholder')}
+                      type="text"
+                      {...field}
+                      disabled
+                      readOnly
                     />
                   </FormControl>
                   <FormMessage />

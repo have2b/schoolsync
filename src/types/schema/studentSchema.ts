@@ -18,6 +18,7 @@ const updateStudentSchema = z.object({
   dob: z.date(),
   gender: z.string().max(50),
   address: z.string().max(50),
+  email: z.string().max(50),
   phone: z.string().max(50),
   groupId: z.string().max(50),
   avatar: z.string().max(50),

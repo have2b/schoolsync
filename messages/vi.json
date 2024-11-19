@@ -213,7 +213,8 @@
         "placeholder": "Chọn ngày sinh sinh viên"
       },
       "email": {
-        "label": "Email"
+        "label": "Email",
+        "placeholder": "Điền email"
       },
       "gender": {
         "label": "Giới tính",
