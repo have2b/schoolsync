@@ -170,7 +170,7 @@ export const SearchStudent = ({ isOpen, onClose }: SearchStudentProps) => {
           >
             {t('common.actions.add')} ({selectedStudents.length})
           </Button>
-          <Button variant="secondary" onClick={onClose}>
+          <Button variant="secondary" className="text-white" onClick={onClose}>
             {t('common.actions.cancel')}
           </Button>
         </DialogFooter>
