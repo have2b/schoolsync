@@ -56,8 +56,8 @@ export const ADMIN_NAV_LINKS = [
 export const TEACHER_NAV_LINKS = [
   {
     id: 1,
-    name: 'course',
-    href: '/course',
+    name: 'roster',
+    href: '/roster',
     icon: <BookCheckIcon />,
   },
   {
