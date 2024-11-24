@@ -9,8 +9,8 @@ interface CreateStudentReq {
   name: string;
   dob: string;
   gender: string;
-  address: string;
-  phone: string;
+  address?: string;
+  phone?: string;
   groupId: number;
 }
 

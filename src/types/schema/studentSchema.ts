@@ -6,8 +6,8 @@ const createStudentSchema = z.object({
   name: z.string().min(2).max(50),
   dob: z.date(),
   gender: z.string().max(50),
-  address: z.string().max(50),
-  phone: z.string().max(50),
+  address: z.string().max(50).optional(),
+  phone: z.string().max(50).optional(),
   groupId: z.string().max(50),
   avatar: z.string().max(50),
 });

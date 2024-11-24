@@ -180,7 +180,7 @@ export default function AdminAddStudent() {
               name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel required>{t('student.fields.address.label')}</FormLabel>
+                  <FormLabel>{t('student.fields.address.label')}</FormLabel>
                   <FormControl>
                     <Input
                       required
@@ -198,7 +198,7 @@ export default function AdminAddStudent() {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel required>{t('student.fields.phone.label')}</FormLabel>
+                  <FormLabel>{t('student.fields.phone.label')}</FormLabel>
                   <FormControl>
                     <Input
                       required

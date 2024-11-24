@@ -58,8 +58,8 @@ model Student {
   name      String   @map("HoTen")
   dob       DateTime @map("NgaySinh")
   gender    Gender   @default(Male) @map("GioiTinh")
-  address   String   @map("DiaChi")
-  phone     String   @unique @map("SDT")
+  address   String?  @map("DiaChi")
+  phone     String?  @unique @map("SDT")
   createdAt DateTime @default(now()) @map("NgayTao")
   updatedAt DateTime @updatedAt @map("NgayCapNhat")
 
